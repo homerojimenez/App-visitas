@@ -59,9 +59,9 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-off
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 /* markers */
-.mk{width:30px;height:30px;border-radius:50%;background:var(--surface);color:var(--fg);border:2.5px solid var(--accent);display:grid;place-items:center;font-weight:800;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer;transition:transform .2s}
+.mk{width:30px;height:30px;border-radius:50%;background:var(--surface);color:var(--fg);border:2.5px solid var(--accent);display:grid;place-items:center;font-weight:800;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer;transition:background-color .2s,box-shadow .2s,width .2s,height .2s}
 .mk.done{background:var(--accent);color:var(--accent-ink)}
-.mk.cur{transform:scale(1.35);background:var(--accent);color:var(--accent-ink);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 25%,transparent),0 3px 10px rgba(0,0,0,.3)}
+.mk.cur{width:40px;height:40px;font-size:16px;background:var(--accent);color:var(--accent-ink);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 25%,transparent),0 3px 10px rgba(0,0,0,.3)}
 .mk.food{border-color:var(--t-mito)}
 .mk.food.cur,.mk.food.done{background:var(--t-mito);color:#fff}
 .mk.bus{border-color:var(--fg);background:var(--fg);color:var(--bg);border-radius:9px;width:28px;height:28px}
@@ -447,7 +447,7 @@ function sheetPadding(){
 /* ---------- SHEET ---------- */
 const sheet=$('#sheet'); let mode='peek';
 function sheetY(){ const h=sheet.offsetHeight; return mode==='full'? 0 : mode==='half'? h - innerHeight*.56 : h-230 }
-function setSheet(m){ mode=m; if(innerWidth>=760){sheet.style.transform='none';return} sheet.style.transform='translateY('+sheetY()+'px)'; $('#fabs').style.bottom = (m==='peek'?246:m==='half'?innerHeight*.56+16:innerHeight)+'px'; }
+function setSheet(m){ mode=m; if(innerWidth>=760){sheet.style.transform='none'; $('#body').style.paddingBottom=''; return} const y=sheetY(); sheet.style.transform='translateY('+y+'px)'; $('#body').style.paddingBottom='calc(env(safe-area-inset-bottom,0px) + '+(32+Math.max(0,y))+'px)'; $('#fabs').style.bottom = (m==='peek'?246:m==='half'?innerHeight*.56+16:innerHeight)+'px'; }
 (function drag(){
   let y0=0,t0=0,start=0,dragging=false;
   const down=e=>{ if(innerWidth>=760) return; dragging=true; y0=e.clientY; start=sheetY(); t0=Date.now(); sheet.classList.add('dragging'); e.target.setPointerCapture?.(e.pointerId) };
@@ -495,7 +495,7 @@ function wirePlayer(s){
     if(audio.paused){ audio.play().catch(()=>toast('Toca de nuevo para reproducir')); } else audio.pause(); };
   wave.onclick=e=>{ if(audioFor!==s.id) return btn.onclick(); const r=wave.getBoundingClientRect(); audio.currentTime=((e.clientX-r.left)/r.width)*(audio.duration||s.dur) };
   rateBtn.onclick=()=>{ const r=RATES[(RATES.indexOf(store.get('rate',1))+1)%RATES.length]; store.set('rate',r); audio.playbackRate=r; rateBtn.textContent=r+'×' };
-  audio.ontimeupdate=sync; audio.onplay=sync; audio.onpause=sync; audio.onended=()=>{sync(); toast('Audio terminado. Cuando queráis, siguiente parada')};
+  audio.ontimeupdate=sync; audio.onplay=sync; audio.onpause=sync; audio.onended=()=>{sync(); if(audioFor===s.id) toast('Audio terminado. Cuando queráis, siguiente parada')};
   sync();
 }
 
@@ -606,7 +606,7 @@ function render(){
 function syncTabs(){ $('#tabStop').classList.toggle('on',tab==='stop'); $('#tabPlan').classList.toggle('on',tab==='plan'); }
 $('#tabStop').onclick=()=>{tab='stop';syncTabs();render();$('#body').scrollTop=0};
 $('#tabPlan').onclick=()=>{tab='plan';syncTabs();render();$('#body').scrollTop=0; if(mode==='peek') setSheet('half')};
-function go(i,anim){ cur=Math.max(0,Math.min(S.length-1,i)); store.set('cur',cur); if(tab!=='stop'){tab='stop';syncTabs()} render(); $('#body').scrollTop=0; paintMarkers(); refreshRoute(); focusStop(anim); }
+function go(i,anim){ cur=Math.max(0,Math.min(S.length-1,i)); try{ if(!audio.paused && audioFor!==S[cur].id) audio.pause(); }catch(e){} store.set('cur',cur); if(tab!=='stop'){tab='stop';syncTabs()} render(); $('#body').scrollTop=0; paintMarkers(); refreshRoute(); focusStop(anim); }
 
 /* ---------- CLOCK ---------- */
 function tick(){
@@ -675,17 +675,19 @@ function onGeoErr(e){
   if(Date.now()-lastGeoErr<60000) return;       // no repetir el aviso más de una vez por minuto
   lastGeoErr=Date.now();
   geoDenied=true; $('#btnLocate').classList.remove('on');
+  if(e && e.code===1){ try{ navigator.geolocation.clearWatch(geoId) }catch(err){} geoId=null; follow=false; $('#btnLocate').classList.remove('follow'); }
   if(!IS_WEB) toast('Este visor no da GPS: abrid la versión web (Plan del día)');
   else if(e && e.code===1) toast('Ubicación denegada: actívala en Ajustes > Safari/Chrome > Ubicación');
   else toast('No llega la señal GPS, reintentando…');
 }
+let geoId=null;
 function startGeo(){
-  if(watching) return;
+  if(geoId!=null) return;
   if(!('geolocation' in navigator)){ onGeoErr(); return; }
-  try{ navigator.geolocation.watchPosition(onPos,onGeoErr,{enableHighAccuracy:true,maximumAge:3000,timeout:20000}); }catch(e){ onGeoErr(); }
+  try{ geoId=navigator.geolocation.watchPosition(onPos,onGeoErr,{enableHighAccuracy:true,maximumAge:3000,timeout:20000}); }catch(e){ onGeoErr(); }
 }
 function locate(){
-  startGeo();
+  lastGeoErr=0; startGeo();
   if(pos && map){ follow=!follow; $('#btnLocate').classList.toggle('follow',follow); if(follow){ map.easeTo({center:[pos.lon,pos.lat],zoom:Math.max(map.getZoom(),17),padding:sheetPadding()}); toast('Siguiendo vuestra posición'); } }
   else { follow=true; $('#btnLocate').classList.add('follow'); }
 }
@@ -742,5 +744,10 @@ if(IS_WEB){ startGeo(); loadWeather(); setInterval(loadWeather, 30*60*1000); }
     initMap(M);
   }catch(e){ $('#map').innerHTML='<div style="padding:120px 24px;color:var(--muted);text-align:center">No se pudo cargar el mapa. Usa «Cómo llegar» en cada parada.</div>'; }
 })();
-matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>location.reload());
+function retintMap(){
+  if(!map || !map.getLayer || !map.getLayer('route')) return; const p=palette();
+  [['bg','background-color',p.land],['lu-park','fill-color',p.park],['lc-forest','fill-color',p.forest],['lu-plaza','fill-color',p.plaza],['water-a','fill-color',p.water],['water-l','line-color',p.water],['bld','fill-color',p.bld],['bld','fill-outline-color',p.bldl],['rail','line-color',p.rail],['foot','line-color',p.foot],['minor-c','line-color',p.roadc],['minor','line-color',p.road],['major-c','line-color',p.majorc],['major','line-color',p.major],['route-done','line-color',p.done],['route-case','line-color',p.routec],['route','line-color',p.route],['road-lbl','text-color',p.label],['road-lbl','text-halo-color',p.halo]]
+    .forEach(([l,k,v])=>{ try{ map.setPaintProperty(l,k,v) }catch(e){} });
+}
+try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',retintMap); }catch(e){}
 </script>
