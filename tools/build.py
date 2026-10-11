@@ -204,7 +204,7 @@ css=open(SP+'map/package/dist/maplibre-gl.css').read()
 WEB='https://raw.githack.com/homerojimenez/App-visitas/HEAD/index.html'
 t=t.replace('/*__MLCSS__*/',css).replace('/*__DATA__*/null',json.dumps(tour,ensure_ascii=False)).replace('/*__WEBURL__*/',WEB)
 open(OUT+'artifact.html','w').write(t)
-head='<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1a6cf0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Segovia"><meta name="apple-mobile-web-app-status-bar-style" content="default"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>'
+head='<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1a6cf0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Segovia"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" type="image/png" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>'
 open(OUT+'index.html','w').write(head+t.replace('<meta charset="utf-8">\n','',1)+'</body></html>')
 os.makedirs(OUT+'fonts/NotoReg',exist_ok=True); shutil.copy(SP+'map/glyph0.pbf',OUT+'fonts/NotoReg/0-255.ttf')
 shutil.copy(SP+'map/map.json',OUT+'map.json')
