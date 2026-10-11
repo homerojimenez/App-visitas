@@ -207,7 +207,8 @@ for st in stops:
     if st.get('audio'): st['audio']=ver(st['audio'])
     for im in st.get('images',[]): im['src']=ver(im['src'])
     if st.get('ba'): st['ba']['before']=ver(st['ba']['before']); st['ba']['after']=ver(st['ba']['after'])
-tour=dict(stops=stops,legs=legs,meta=meta,planInfo=planInfo,credits=credits,intro=ver('audio/00.mp3'))
+GAMES=json.load(open(SP+'games.json')) if os.path.exists(SP+'games.json') else json.load(open(SP+'games_seed.json'))
+tour=dict(stops=stops,legs=legs,meta=meta,planInfo=planInfo,credits=credits,intro=ver('audio/00.mp3'),games=GAMES)
 t=open(SP+'template.html').read()
 css=open(SP+'map/package/dist/maplibre-gl.css').read()
 WEB='https://raw.githack.com/homerojimenez/App-visitas/HEAD/index.html'

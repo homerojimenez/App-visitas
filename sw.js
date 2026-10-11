@@ -2,7 +2,7 @@
 // Shell (page, map data, local MapLibre copy): precached at install, network-first with a 3 s timeout.
 // Media (audio, photos): cache-first in a fixed cache; URLs carry ?v=<hash> so changed files get new keys.
 // Range requests are answered from the cached file so audio plays offline on iOS Safari.
-const V = 'sgv-v9';
+const V = 'sgv-v10';
 const MEDIA = 'sgv-media';
 const SHELL = ['index.html', 'map.json', 'lib/maplibre-gl.js', 'fonts/NotoReg/0-255.ttf', 'manifest.webmanifest', 'icon-180.png'];
 
@@ -23,6 +23,8 @@ self.addEventListener('fetch', e => {
   const r = e.request;
   if (r.method !== 'GET') return;
   const u = new URL(r.url);
+  // Only handle our own files and the font/CDN hosts; live game traffic (ntfy.sh), weather and maps links pass through untouched.
+  if (u.origin !== location.origin && !/gstatic\.com|googleapis\.com|unpkg\.com/.test(u.host)) return;
   const range = r.headers.get('range');
 
   if (range) {

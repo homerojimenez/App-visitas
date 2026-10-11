@@ -1,0 +1,42 @@
+{"trivia":[
+{"id":"s01","stop":"acueducto","q":"¿Qué sujeta los bloques del acueducto?","opts":["Argamasa romana","Nada: solo su peso","Grapas de hierro","Cemento del siglo XIX"],"a":1,"why":"Unos 20.400 sillares sin argamasa: puro equilibrio."},
+{"id":"s02","stop":"acueducto","q":"¿Cuánto mide en su punto más alto, en el Azoguejo?","opts":["15 m","22 m","28 m","41 m"],"a":2,"why":"28,10 m según el folleto oficial: como un edificio de nueve plantas."},
+{"id":"s03","stop":"acueducto","q":"¿Hasta qué año pasaron coches bajo los arcos?","opts":["1955","1975","1992","2005"],"a":2,"why":"El tráfico se cortó en 1992, con la gran restauración."},
+{"id":"s04","stop":"picos","q":"¿Cuántos picos de granito se suelen contar en la Casa de los Picos?","opts":["167","365","617","1.024"],"a":2,"why":"617 puntas de diamante: la fachada más fotografiada."},
+{"id":"s05","stop":"sanmartin","q":"¿Dónde perdieron los comuneros en 1521?","opts":["Villalar","Toro","Medina del Campo","Pavía"],"a":0,"why":"Al día siguiente decapitaron a Bravo, Padilla y Maldonado."},
+{"id":"s06","stop":"machado","q":"¿Con qué nombre en clave escribía Machado a su amor secreto?","opts":["Leonor","Guiomar","Dulcinea","Laura"],"a":1,"why":"Pilar de Valderrama era Guiomar. Vuestra estación lleva su nombre."},
+{"id":"s07","stop":"plazamayor","q":"¿Quién estaba en Aragón cuando Isabel se proclamó reina aquí?","opts":["Enrique IV","Su marido Fernando","Juana la Beltraneja","Carlos I"],"a":1,"why":"Fernando se enteró después y no le hizo gracia."},
+{"id":"s08","stop":"catedral","q":"¿Qué tiene de especial el claustro de la catedral?","opts":["Es de mármol de Carrara","Viene piedra a piedra de la catedral vieja","Lo diseñó Gaudí","Nunca se terminó"],"a":1,"why":"Se desmontó junto al Alcázar y se volvió a montar aquí."},
+{"id":"s09","stop":"juderia","q":"¿Quiénes fueron los padrinos de bautizo del rabino Abraham Seneor?","opts":["Los Reyes Católicos","El papa y el obispo","Juan Bravo y su mujer","Nadie, fue en secreto"],"a":0,"why":"En 1492 se bautizó con 80 años y pasó a llamarse Fernán Pérez Coronel."},
+{"id":"s10","stop":"alcazar","q":"¿Con quién se casó Felipe II en Segovia en 1570?","opts":["Isabel de Valois","María Tudor","Ana de Austria, su sobrina","María Manuela de Portugal"],"a":2,"why":"Su cuarta esposa era hija de su hermana María."}],
+"vol":[
+{"id":"sv1","stop":"acueducto","s":"El diablo construyó el acueducto en una noche y le faltó una piedra.","truth":false,"why":"Leyenda preciosa. Lo hicieron los romanos hacia finales del siglo I."},
+{"id":"sv2","stop":"alcazar","s":"Disney se inspiró oficialmente en el Alcázar para el castillo de Blancanieves.","truth":false,"why":"No hay ningún documento que lo pruebe."},
+{"id":"sv3","stop":"alcazar","s":"En 1862 un incendio destruyó los tejados del Alcázar.","truth":true,"why":"Las agujas de pizarra son una reconstrucción posterior."},
+{"id":"sv4","stop":"corpus","s":"La iglesia del Corpus Christi fue antes una sinagoga.","truth":true,"why":"La Sinagoga Mayor, confiscada en 1410."},
+{"id":"sv5","stop":"acueducto","s":"Los agujeros de los bloques son las huellas del diablo.","truth":false,"why":"Son marcas de las tenazas de las grúas romanas."},
+{"id":"sv6","stop":"plazamayor","s":"El lema «tanto monta» era de Fernando, no un empate entre los reyes.","truth":true,"why":"Alude al nudo gordiano de Alejandro Magno."}],
+"year":[
+{"id":"sy1","stop":"plazamayor","q":"¿En qué año se proclamó reina Isabel la Católica en Segovia?","y":1474,"min":1400,"max":1550,"why":"El 13 de diciembre de 1474."},
+{"id":"sy2","stop":"alcazar","q":"¿En qué año ardió el Alcázar?","y":1862,"min":1700,"max":1950,"why":"El 6 de marzo de 1862."},
+{"id":"sy3","stop":"catedral","q":"¿Cuándo se puso la primera piedra de la catedral actual?","y":1525,"min":1400,"max":1700,"why":"El 8 de junio de 1525."},
+{"id":"sy4","stop":"machado","q":"¿En qué año conoció Machado a Guiomar?","y":1928,"min":1880,"max":1960,"why":"El 2 de junio de 1928, en el Hotel Comercio."}],
+"who":[
+{"id":"sw1","q":"¿Quién de los dos se proclamaría rey o reina sin avisar a la pareja?"},
+{"id":"sw2","q":"¿Quién escribiría cartas de amor con nombre en clave?"},
+{"id":"sw3","q":"¿Quién se pondría un cordón de penitencia tras soltar una fanfarronada?"},
+{"id":"sw4","q":"¿Quién se comería el ponche entero en el tren?"}],
+"dares":[
+{"id":"sd1","stop":"acueducto","d":"Beso bajo el arco más alto del acueducto. Sin prisas.","pts":50},
+{"id":"sd2","stop":"plazamayor","d":"Proclama a tu pareja rey o reina de Segovia en voz alta, con espada imaginaria.","pts":80},
+{"id":"sd3","stop":"machado","d":"Recítale a tu pareja dos versos inventados con la palabra «Guiomar».","pts":60},
+{"id":"sd4","stop":"picos","d":"Contad 20 picos de la fachada en voz alta sin equivocaros.","pts":40}],
+"hunt":[
+{"id":"sh1","stop":"acueducto","find":"La loba con Rómulo y Remo","hint":"Regalo de Roma de 1974, junto a los arcos"},
+{"id":"sh2","stop":"corpus","find":"Un capitel con piñas talladas","hint":"Dentro, en los arcos de herradura"},
+{"id":"sh3","stop":"juderia","find":"La placa de la calle de la Judería Vieja","hint":"Azulejo en una esquina"}],
+"poses":[
+{"id":"sp1","img":"img/acueducto-1838.webp","title":"Azoguejo, 1838","how":"Desde la plaza, encuadrad los arcos como en el grabado.","camera":"rear"},
+{"id":"sp2","img":"img/machado-sorolla.webp","title":"Posa como Machado","how":"Sentado, serio, chaqueta oscura y mirada de poeta. Tu pareja dispara.","camera":"front"},
+{"id":"sp3","img":"img/proclamacion-1847.webp","title":"Proclamación de Isabel","how":"Uno es la reina; el otro, el caballero con la espada en alto (vale un paraguas).","camera":"rear"},
+{"id":"sp4","img":"img/segovia-1975.webp","title":"Plaza Mayor, 1975","how":"Buscad el mismo ángulo hacia la catedral.","camera":"rear"}]}
