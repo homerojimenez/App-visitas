@@ -265,7 +265,8 @@ const store = {
 const S = TOUR.stops;
 let cur = Math.min(store.get('cur',0), S.length-1);
 let done = new Set(store.get('done',[]));
-let tab = 'stop';
+let tab = store.get('cur',null)==null ? 'plan' : 'stop';
+const INTRO = {id:'intro',audio:'audio/00.mp3',dur:53,short:'Bienvenida (escuchadla en el bus)'};
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const toMin = t => {const [h,m]=t.split(':').map(Number);return h*60+m};
 const fmt = m => {m=Math.round(m);const h=Math.floor(m/60),mm=((m%60)+60)%60;return String(h).padStart(2,'0')+':'+String(mm).padStart(2,'0')};
@@ -463,6 +464,7 @@ function planHTML(){
   const busDep=toMin(T.returnBus), leave=busDep - T.walkDown;
   const left=leave-n;
   let h = `<div class="status"><div><small>Salid del Alcázar como tarde</small><b>${fmt(leave)}</b></div><div><small>${left>0?'Os quedan':'Vais tarde'}</small><b>${left>0?Math.floor(left/60)+'h '+String(Math.floor(left%60)).padStart(2,'0')+'m':'¡ya!'}</b></div><div><small>Bus 11 al AVE</small><b>${T.returnBus}</b></div><div><small>Tren a Madrid</small><b>${T.train}</b></div></div>`;
+  h += playerHTML(INTRO);
   h += `<ul class="plan" id="plan">`;
   const items=[];
   items.push({t:T.arrive,k:'train',title:'Llegada a Segovia-Guiomar',sub:'Tren desde Madrid'});
@@ -484,7 +486,7 @@ function planHTML(){
 function render(){
   const b=$('#body');
   if(tab==='stop'){ b.innerHTML=stopHTML(S[cur],cur); wireStop(S[cur],cur); }
-  else { b.innerHTML=planHTML(); $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
+  else { b.innerHTML=planHTML(); wirePlayer(INTRO); $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
   $('#progress').innerHTML=S.map((s,i)=>`<i class="${done.has(s.id)?'done':''}${i===cur&&!done.has(s.id)?' cur':''}"></i>`).join('');
 }
 function syncTabs(){ $('#tabStop').classList.toggle('on',tab==='stop'); $('#tabPlan').classList.toggle('on',tab==='plan'); }
