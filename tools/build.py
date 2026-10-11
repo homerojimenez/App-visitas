@@ -19,7 +19,7 @@ stops=[
   timeline=[dict(y='s. I-II',e='Roma levanta el acueducto'),dict(y='1072',e='Los almorávides destruyen 36 arcos'),dict(y='1484',e='Los Reyes Católicos los reconstruyen'),dict(y='1985',e='Patrimonio de la Humanidad'),dict(y='1990s',e='Se corta el tráfico bajo los arcos')]),
  dict(id='mirador',n='2',short='Mirador',name='Mirador del Postigo del Consuelo',zone='Zona baja',time='13:22',stay=6,lat=40.94868,lon=-4.11902,gq='Postigo del Consuelo, Segovia',
   hook='Subid las escaleras pegadas al acueducto: aquí está la foto de pareja.',audio='audio/02.mp3',dur=58,
-  images=[img('acueducto-arcos','Las dos filas de arcos')],
+  images=[img('acueducto-08','El acueducto entero desde lo alto, con el Azoguejo abajo'),img('acueducto-arcos','Las dos filas de arcos')],
   look='El canal por donde corría el agua, en lo alto del acueducto, casi a la altura de vuestros ojos.',
   facts=[dict(tag='DATO',title='Un sudoku romano',text='La inscripción de bronce desapareció, pero Géza Alföldy reconstruyó el texto a partir de los agujeros de los clavos.'),
          dict(tag='CIFRA',title='Pendiente mínima',text='El agua bajaba por gravedad con una pendiente casi imperceptible a lo largo de unos 15 km.'),
@@ -35,7 +35,7 @@ stops=[
   numbers=[dict(v='617',l='picos de granito'),dict(v='s. XV',l='época de la fachada')]),
  dict(id='sanmartin',n='4',short='Juan Bravo',name='Plaza de San Martín y Juan Bravo',zone='Calle Real',time='13:40',stay=8,lat=40.94975,lon=-4.12236,gq='Plaza de Medina del Campo, Segovia',
   hook='El rebelde que plantó cara a Carlos I y perdió la cabeza por ello.',audio='audio/04.mp3',dur=60,
-  images=[img('azoguejo','La calle Real, el eje que une el Acueducto con la Plaza Mayor')],
+  images=[img('juanbravo','Juan Bravo de noche, con la Casa del Siglo XV detrás'),img('sanmartin','San Martín y su galería porticada románica')],
   look='La estatua de Juan Bravo con el estandarte, y detrás la galería porticada de San Martín.',
   facts=[dict(tag='SALSEO',title='El rey guiri',text='Carlos I llegó de Flandes casi sin hablar castellano y con consejeros flamencos que se repartían cargos. Castilla estalló en 1520.'),
          dict(tag='FECHA',title='23-24 de abril de 1521',text='Los comuneros pierden en Villalar y al día siguiente decapitan a Bravo, Padilla y Maldonado.'),
@@ -44,7 +44,7 @@ stops=[
   timeline=[dict(y='1520',e='Estalla la revuelta comunera'),dict(y='1521',e='Derrota en Villalar y ejecución'),dict(y='1921',e='Se inaugura la estatua en el IV centenario')]),
  dict(id='corpus',n='5',short='Corpus Christi',name='Corpus Christi (antigua sinagoga)',zone='Calle Real',time='13:50',stay=12,lat=40.94998,lon=-4.12392,gq='Iglesia del Corpus Christi, Segovia',alert='Cierra 14:15 · 1 €',
   hook='Una sinagoga que parece mezquita y acabó siendo iglesia por un "milagro" muy conveniente.',audio='audio/05.mp3',dur=58,
-  images=[],
+  images=[img('corpus','La entrada del Corpus Christi en la calle Real'),img('sinagoga','Capitel de piñas de la antigua sinagoga: buscadlo dentro')],
   look='Los arcos de herradura y las piñas talladas de los capiteles. Y el torno de las monjas, con dulces.',
   facts=[dict(tag='FECHA',title='1410',text='La comunidad judía pierde su Sinagoga Mayor tras una acusación de profanación de una hostia.'),
          dict(tag='MITO',title='La hostia voladora',text='Según el relato de la época, la hostia escapó volando. Los historiadores lo ven como una acusación inventada, típica de la Europa medieval.',legend='Relato de la época'),
@@ -53,7 +53,7 @@ stops=[
   numbers=[dict(v='1',u='€',l='entrada'),dict(v='1410',l='pasa de sinagoga a iglesia')]),
  dict(id='machado',n='6',short='Casa de Machado',name='Casa-Museo de Antonio Machado',zone='San Esteban',time='14:03',stay=25,lat=40.95180,lon=-4.12410,gq='Casa-Museo de Antonio Machado, Calle Desamparados 5, Segovia',alert='Última entrada 14:15',
   hook='La pensión del poeta y el romance secreto que da nombre a vuestra estación.',audio='audio/06.mp3',dur=66,
-  images=[],
+  images=[img('machado-casa','El patio de la antigua pensión de la calle Desamparados'),img('machado-sorolla','Antonio Machado retratado por Sorolla en 1917',year='1917')],
   look='La habitación: la cama de hierro, la mesa y la estufa de petróleo donde escribía de noche.',
   facts=[dict(tag='SALSEO',title='Guiomar',text='En 1928 Machado se enamora de Pilar de Valderrama, poeta y casada. Se ven a escondidas y él la llama Guiomar en sus versos.'),
          dict(tag='DATO',title='Vuestra estación',text='La estación de AVE Segovia-Guiomar lleva el nombre de la musa secreta del poeta.'),
@@ -63,7 +63,7 @@ stops=[
   timeline=[dict(y='1919',e='Machado llega a Segovia'),dict(y='1928',e='Conoce a Pilar de Valderrama'),dict(y='1932',e='Se traslada a Madrid'),dict(y='2007',e='Abre la estación Segovia-Guiomar')]),
  dict(id='comida',n='C',short='Comida',name='Comida: La Cueva de San Esteban',kind='food',zone='San Esteban',time='14:35',stay=75,lat=40.95196,lon=-4.12575,gq='La Cueva de San Esteban, Calle Valdeláguila 15, Segovia',alert='Reservad ya',
   hook='Bodega-cueva de piedra con cocina segoviana de verdad y precios de barrio.',
-  images=[],
+  images=[img('sanesteban','La torre de San Esteban, a dos pasos del restaurante, con la sierra nevada al fondo')],
   info=[dict(t='La Cueva de San Esteban',badge='PLAN A',bc='hot',p='Calle Valdeláguila 15, junto a la plaza de San Esteban. Tel. 921 460 982. Unos 22-32 € por persona. Solo 32 plazas: llamad para reservar a las 14:30.',ul=['Judiones de La Granja para compartir','Ración de cochinillo asado','Solomillo con salsa de grosellas','Leche frita de postre']),
         dict(t='El Sitio',badge='PLAN B · TAPAS',p='Calle Infanta Isabel 9, la calle de los bares que sale de la Plaza Mayor. Tel. 921 46 09 96. Unos 15-20 € tapeando. Abierto el domingo de 12:00 a 24:00, sin reserva en barra.',ul=['Caña o vino con su tapa','Timbal de berenjena','Cochinillo en el comedor de arriba']),
         dict(t='Mesón Don Jimeno',badge='PLAN C',p='Calle Daoíz 15, camino del Alcázar. Menú con cochinillo de segundo por unos 24 €. Pequeño: reservad.'),
@@ -71,7 +71,7 @@ stops=[
   look='La torre de San Esteban, a la vuelta de la esquina: la llaman la reina de las torres románicas.'),
  dict(id='plazamayor',n='7',short='Plaza Mayor',name='Plaza Mayor y San Miguel',zone='Plaza Mayor',time='15:55',stay=15,lat=40.95060,lon=-4.12500,gq='Plaza Mayor, Segovia',
   hook='Aquí Isabel se proclamó reina sin avisar a su marido.',audio='audio/07.mp3',dur=65,
-  images=[img('plaza-mayor','La Plaza Mayor hoy'),img('segovia-1975','La plaza en 1975',year='1975')],
+  images=[img('proclamacion-1847','La proclamación de Isabel en Segovia, grabado de 1847',year='1847'),img('plaza-mayor','La Plaza Mayor hoy'),img('sanmiguel','San Miguel, la iglesia reconstruida tras el derrumbe'),img('segovia-1975','La plaza en 1975',year='1975')],
   look='La iglesia de San Miguel, en un lateral de la plaza. La original, donde se proclamó Isabel, estaba un poco más adelante.',
   facts=[dict(tag='SALSEO',title='Reina sin el marido',text='13 de diciembre de 1474: Isabel se proclama reina de Castilla aquí. Fernando estaba en Aragón y se enteró después.'),
          dict(tag='SALSEO',title='La espada desnuda',text='Delante de ella desfiló un caballero con la espada desenvainada, símbolo de la justicia real. A Fernando no le hizo ninguna gracia.'),
@@ -81,7 +81,7 @@ stops=[
   timeline=[dict(y='1474',e='Isabel se proclama reina'),dict(y='1475',e='Concordia de Segovia'),dict(y='1532',e='Se hunde la iglesia vieja'),dict(y='1558',e='Nueva San Miguel')]),
  dict(id='catedral',n='8',short='Catedral',name='Catedral de Segovia',zone='Plaza Mayor',time='16:15',stay=40,lat=40.94990,lon=-4.12560,gq='Catedral de Segovia',alert='Domingo hasta 18:30',
   hook='La última gran catedral gótica de España: nació pasada de moda y le salió espectacular.',audio='audio/08.mp3',dur=62,
-  images=[img('catedral-torre','La catedral y la sierra de Guadarrama desde la torre del Alcázar')],
+  images=[img('catedral','La catedral iluminada de noche'),img('claustro','El claustro que viajó piedra a piedra desde la catedral vieja'),img('catedral-torre','La catedral y la sierra de Guadarrama desde la torre del Alcázar')],
   look='Dentro: el claustro, traído piedra a piedra desde la catedral vieja, y la tumba del infante don Pedro.',
   facts=[dict(tag='FECHA',title='1525',text='Se empieza la nueva catedral porque la vieja, junto al Alcázar, quedó destrozada en la guerra de los Comuneros.'),
          dict(tag='DATO',title='Claustro viajero',text='El claustro de la catedral vieja se desmontó y se volvió a montar aquí, pieza a pieza.'),
@@ -91,7 +91,7 @@ stops=[
   chart=dict(title='Torres que dan vértigo',max=100,rows=[dict(l='Catedral',v=88,t='88 m',hl=True),dict(l='Acueducto',v=28,t='28 m'),dict(l='Torre Juan II',v=80,t='~80 m s. río',)],note='La torre de Juan II del Alcázar, medida desde el valle del Eresma. Valores aproximados.')),
  dict(id='juderia',n='9',short='Judería',name='Judería y Puerta de San Andrés',zone='Judería',time='17:00',stay=20,lat=40.94830,lon=-4.12640,gq='Puerta de San Andrés, Segovia',
   hook='El rabino que se bautizó con los Reyes Católicos de padrinos.',audio='audio/09.mp3',dur=58,
-  images=[],
+  images=[img('sanandres-1865','La Puerta de San Andrés en un grabado de 1865',year='1865'),img('murallas-juderia','La muralla que cerraba la judería por el sur'),img('juderia-calle','Placa de la calle de la Judería Vieja'),img('cementerio-judio','El Pinarillo, el antiguo cementerio judío, al otro lado del valle')],
   look='Desde el mirador de la Puerta de San Andrés, al otro lado del valle: El Pinarillo, el antiguo cementerio judío.',
   facts=[dict(tag='SALSEO',title='Padrinos reales',text='Abraham Seneor, rabino mayor de Castilla y financiero de Isabel, se bautizó en 1492 con los Reyes Católicos como padrinos.'),
          dict(tag='DATO',title='Nuevo nombre',text='Pasó a llamarse Fernán Pérez Coronel y conservó su posición en la corte.'),
@@ -145,8 +145,11 @@ legs[-1]['note']='casi todo cuesta abajo'
 tour=dict(stops=stops,legs=legs,meta=meta,planInfo=planInfo,credits=credits)
 t=open(SP+'template.html').read()
 css=open(SP+'map/package/dist/maplibre-gl.css').read()
-t=t.replace('/*__MLCSS__*/',css).replace('/*__DATA__*/null',json.dumps(tour,ensure_ascii=False))
-open(OUT+'index.html','w').write(t)
+WEB='https://raw.githack.com/homerojimenez/App-visitas/HEAD/index.html'
+t=t.replace('/*__MLCSS__*/',css).replace('/*__DATA__*/null',json.dumps(tour,ensure_ascii=False)).replace('/*__WEBURL__*/',WEB)
+open(OUT+'artifact.html','w').write(t)
+head='<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1a6cf0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Segovia"><meta name="apple-mobile-web-app-status-bar-style" content="default"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>'
+open(OUT+'index.html','w').write(head+t.replace('<meta charset="utf-8">\n','',1)+'</body></html>')
 os.makedirs(OUT+'fonts/NotoReg',exist_ok=True); shutil.copy(SP+'map/glyph0.pbf',OUT+'fonts/NotoReg/0-255.ttf')
 shutil.copy(SP+'map/map.json',OUT+'map.json')
 os.makedirs(OUT+'img',exist_ok=True); os.makedirs(OUT+'audio',exist_ok=True)

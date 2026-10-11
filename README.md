@@ -2,7 +2,8 @@
 
 Guía de un día por Segovia (domingo 11 de octubre): mapa vectorial con la ruta a pie real, 12 audioguías narradas con ElevenLabs, fotos actuales e históricas con comparador antes/después, y plan del día con horarios de bus y tren.
 
-- `index.html`: la app (publicada como artifact de claude.ai).
+- `index.html`: la app web con GPS. Abrir en el móvil: https://raw.githack.com/homerojimenez/App-visitas/HEAD/index.html
+- `artifact.html`: la misma app para el artifact de claude.ai (sin GPS; enlaza a la versión web).
 - `map.json`: calles, edificios, agua y parques de Overture Maps (datos de OpenStreetMap).
 - `audio/`: pistas de la audioguía (`00` bienvenida, `01`-`11` paradas).
 - `img/`: fotos de Wikimedia Commons.

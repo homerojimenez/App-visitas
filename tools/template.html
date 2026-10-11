@@ -209,6 +209,21 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 .plan li.walkrow .dot{background:transparent;width:20px}
 .plan li.walkrow .dot svg{color:var(--muted)}
 .credits{font-size:11.5px;color:var(--muted);margin-top:24px}
+.dist{display:inline-flex;align-items:center;gap:6px;margin-top:6px;height:26px;padding:0 10px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:12.5px}
+.dist::before{content:"";width:8px;height:8px;border-radius:50%;background:#1a73e8;box-shadow:0 0 0 3px rgba(26,115,232,.25)}
+.dist.here{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.dist.here::before{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 30%,transparent)}
+.next .live{color:var(--accent);font-weight:700}
+.fab.on{color:#1a73e8}
+.fab.follow{background:#1a73e8;color:#fff}
+.near{position:absolute;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 78px);z-index:8;height:40px;padding:0 16px;border-radius:var(--r-pill);background:var(--ok);color:#fff;font-weight:700;font-size:13.5px;box-shadow:var(--shadow);white-space:nowrap}
+.gps{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--accent-ink);background:var(--accent);border-radius:var(--r-card);padding:14px 16px;margin:4px 0 12px}
+.gps>span{width:40px;height:40px;border-radius:50%;background:color-mix(in srgb,#fff 22%,transparent);display:grid;place-items:center;flex:none}
+.gps svg{width:20px;height:20px}
+.gps b{display:block;font-size:15.5px}
+.gps small{display:block;opacity:.85;font-size:12.5px;line-height:1.35}
+.play.pulse{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent)}50%{box-shadow:0 0 0 12px transparent}}
 .confetti{position:fixed;inset:0;pointer-events:none;z-index:20}
 @media (min-width:760px){.sheet{left:16px;right:auto;width:440px;margin:0;height:calc(100% - 96px);border-radius:26px;bottom:16px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -227,6 +242,7 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
     <button class="fab" id="btnFit" aria-label="Ver toda la ruta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg></button>
   </div>
   <div class="toast" id="toast"></div>
+  <button class="near" id="nearBanner" hidden></button>
   <section class="sheet" id="sheet" aria-label="Guía">
     <div class="grab" id="grab"><span></span></div>
     <div class="sheet-head" id="sheetHead">
@@ -244,6 +260,7 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script>
 const TOUR = /*__DATA__*/null;
+const WEB_URL = '/*__WEBURL__*/';
 const $ = s => document.querySelector(s);
 const ICON = {
   play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>',
@@ -317,6 +334,8 @@ function addLayers(p, M){
   map.addLayer({id:'minor',type:'line',source:'roads',filter:['in',['get','c'],['literal',roadsMinor]],paint:{'line-color':p.road,'line-width':w(.8,11)},layout:{'line-cap':'round','line-join':'round'}});
   map.addLayer({id:'major-c',type:'line',source:'roads',filter:['in',['get','c'],['literal',major]],paint:{'line-color':p.majorc,'line-width':w(2.4,17)},layout:{'line-cap':'round','line-join':'round'}});
   map.addLayer({id:'major',type:'line',source:'roads',filter:['in',['get','c'],['literal',major]],paint:{'line-color':p.major,'line-width':w(1.6,15)},layout:{'line-cap':'round','line-join':'round'}});
+  map.addSource('acc',{type:'geojson',data:{type:'FeatureCollection',features:[]}});
+  map.addLayer({id:'acc',type:'fill',source:'acc',paint:{'fill-color':'#1a73e8','fill-opacity':.12}});
   map.addSource('route',{type:'geojson',data:routeFC()});
   map.addLayer({id:'route-done',type:'line',source:'route',filter:['==',['get','st'],'done'],paint:{'line-color':p.done,'line-width':w(3,9),'line-opacity':.8},layout:{'line-cap':'round','line-join':'round'}});
   map.addLayer({id:'route-case',type:'line',source:'route',filter:['!=',['get','st'],'done'],paint:{'line-color':p.routec,'line-width':w(5,13)},layout:{'line-cap':'round','line-join':'round'}});
@@ -349,6 +368,8 @@ function initMap(M){
       markers.push(new maplibregl.Marker({element:el}).setLngLat([s.lon,s.lat]).addTo(map));
     });
     paintMarkers(); focusStop(false);
+    map.on('dragstart',()=>{ if(follow){ follow=false; $('#btnLocate').classList.remove('follow'); } });
+    if(pos) onPos({coords:{latitude:pos.lat,longitude:pos.lon,accuracy:pos.acc}});
   });
 }
 function paintMarkers(){
@@ -429,7 +450,7 @@ function stopHTML(s,i){
   const numCls = s.kind==='food'?'num food':s.kind==='bus'?'num bus':'num';
   const numIn = s.kind==='food'?ICON.food:s.kind==='bus'?ICON.bus:esc(s.n);
   let h = chipsHTML();
-  h += `<div class="sh"><div class="${numCls}">${numIn}</div><div class="sh-txt"><div class="kicker"><span class="t">${esc(s.time)}</span><span>${esc(s.zone)}</span>${s.stay?`<span>${s.stay} min</span>`:''}</div><h2>${esc(s.name)}</h2><p class="hook">${esc(s.hook)}</p></div></div>`;
+  h += `<div class="sh"><div class="${numCls}">${numIn}</div><div class="sh-txt"><div class="kicker"><span class="t">${esc(s.time)}</span><span>${esc(s.zone)}</span>${s.stay?`<span>${s.stay} min</span>`:''}</div><span class="dist" id="dist" hidden></span><h2>${esc(s.name)}</h2><p class="hook">${esc(s.hook)}</p></div></div>`;
   h += `<div class="row"><a class="btn primary" href="${gmaps(s)}" target="_blank" rel="noopener">${ICON.nav}Cómo llegar</a>${s.alert?`<span class="badge hot" style="align-self:center">${esc(s.alert)}</span>`:''}</div>`;
   h += playerHTML(s);
   if(s.images?.length) h += `<div class="gal">${s.images.map(im=>`<figure class="ph"><img loading="lazy" src="${esc(im.src)}" alt="${esc(im.cap)}">${im.year?`<span class="yr">${esc(im.year)}</span>`:''}<figcaption>${esc(im.cap)}<small>${esc(im.credit||'')}</small></figcaption></figure>`).join('')}</div>`;
@@ -441,7 +462,7 @@ function stopHTML(s,i){
   if(s.ba) h += `<h3>Antes y después</h3><div class="ba" id="ba" style="--x:50%"><img src="${esc(s.ba.after)}" alt="Hoy"><img class="top" src="${esc(s.ba.before)}" alt="Antes"><span class="lab l1">${esc(s.ba.by)}</span><span class="lab l2">${esc(s.ba.ay)}</span><div class="knob"></div><input type="range" min="0" max="100" value="50" aria-label="Comparar antes y después" id="baRange"></div><p class="cap">${esc(s.ba.cap)}</p>`;
   if(s.timeline?.length) h += `<h3>Cronología exprés</h3><ul class="tl">${s.timeline.map(t=>`<li><b>${esc(t.y)}</b>${esc(t.e)}</li>`).join('')}</ul>`;
   if(nx && leg){
-    h += `<div class="next"><div class="nl"><span class="walk">${leg.mode==='bus'?ICON.bus:ICON.walk}</span><div><span>Siguiente · ${leg.mode==='bus'?'en autobús':'a pie'}</span><br><b>${esc(nx.name)}</b><br><span>${leg.min} min · ${leg.m>=1000?(leg.m/1000).toFixed(1)+' km':leg.m+' m'}${leg.note?' · '+esc(leg.note):''}</span></div></div>
+    h += `<div class="next"><div class="nl"><span class="walk">${leg.mode==='bus'?ICON.bus:ICON.walk}</span><div><span>Siguiente · ${leg.mode==='bus'?'en autobús':'a pie'}</span><br><b>${esc(nx.name)}</b><br><span>${leg.min} min · ${leg.m>=1000?(leg.m/1000).toFixed(1)+' km':leg.m+' m'}${leg.note?' · '+esc(leg.note):''}</span><br><span class="live" id="nextLive" hidden></span></div></div>
     <div class="row" style="margin:0"><a class="btn dark sm" href="${gmaps(nx)}" target="_blank" rel="noopener">${ICON.nav}Abrir en Google Maps</a><button class="btn sm ghost" id="peekNext">Ver en el mapa</button></div></div>`;
   }
   h += `<button class="btn primary arrived" id="arrived">${ICON.check}${nx?(done.has(s.id)?'Hecho · ir a la siguiente':'¡Hecho! Siguiente parada'):'¡Ruta completada!'}</button>`;
@@ -464,6 +485,7 @@ function planHTML(){
   const busDep=toMin(T.returnBus), leave=busDep - T.walkDown;
   const left=leave-n;
   let h = `<div class="status"><div><small>Salid del Alcázar como tarde</small><b>${fmt(leave)}</b></div><div><small>${left>0?'Os quedan':'Vais tarde'}</small><b>${left>0?Math.floor(left/60)+'h '+String(Math.floor(left%60)).padStart(2,'0')+'m':'¡ya!'}</b></div><div><small>Bus 11 al AVE</small><b>${T.returnBus}</b></div><div><small>Tren a Madrid</small><b>${T.train}</b></div></div>`;
+  if(!IS_WEB) h += `<a class="gps" href="${WEB_URL}" target="_blank" rel="noopener"><span>${ICON.nav}</span><div><b>Abrir la versión con GPS</b><small>Se abre en Safari o Chrome con vuestra ubicación en directo. Guardadla en la pantalla de inicio.</small></div></a>`;
   h += playerHTML(INTRO);
   h += `<ul class="plan" id="plan">`;
   const items=[];
@@ -487,6 +509,7 @@ function render(){
   const b=$('#body');
   if(tab==='stop'){ b.innerHTML=stopHTML(S[cur],cur); wireStop(S[cur],cur); }
   else { b.innerHTML=planHTML(); wirePlayer(INTRO); $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
+  updateDist();
   $('#progress').innerHTML=S.map((s,i)=>`<i class="${done.has(s.id)?'done':''}${i===cur&&!done.has(s.id)?' cur':''}"></i>`).join('');
 }
 function syncTabs(){ $('#tabStop').classList.toggle('on',tab==='stop'); $('#tabPlan').classList.toggle('on',tab==='plan'); }
@@ -508,23 +531,60 @@ function tick(){
 tick._c=0; setInterval(tick,15000);
 
 /* ---------- GEO ---------- */
-let me=null, watching=false;
+const IS_WEB = (()=>{ try{ return window.top===window.self }catch(e){ return false } })();
+let me=null, meEl=null, watching=false, follow=false, pos=null, geoDenied=false, nearShown={};
 function hav(a,b,c,d){const R=6371e3,r=Math.PI/180,x=(c-a)*r,y=(d-b)*r;const h=Math.sin(x/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+function distTxt(m){ return m<1000? Math.round(m/10)*10+' m' : (m/1000).toFixed(1)+' km' }
+function walkMin(m){ return Math.max(1,Math.round(m*1.25/70)) }
+function updateDist(){
+  const el=$('#dist'); const nl=$('#nextLive');
+  if(!pos){ if(el) el.hidden=true; if(nl) nl.hidden=true; return; }
+  const s=S[cur]; const d=hav(pos.lat,pos.lon,s.lat,s.lon);
+  if(el){ el.hidden=false; el.textContent = d<40 ? 'Estáis aquí' : 'A '+distTxt(d)+' · '+walkMin(d)+' min'; el.classList.toggle('here',d<40); }
+  const nx=S[cur+1]; if(nl && nx){ const d2=hav(pos.lat,pos.lon,nx.lat,nx.lon); nl.hidden=false; nl.textContent='Desde donde estáis: '+distTxt(d2)+' · '+walkMin(d2)+' min'; }
+}
+function onPos(p){
+  pos={lat:p.coords.latitude,lon:p.coords.longitude,acc:p.coords.accuracy};
+  const ll=[pos.lon,pos.lat];
+  if(map){
+    if(!me){ meEl=document.createElement('div'); meEl.className='me'; me=new maplibregl.Marker({element:meEl}).setLngLat(ll).addTo(map); }
+    else me.setLngLat(ll);
+    if(map.getSource('acc')) map.getSource('acc').setData(accCircle(pos));
+    if(follow) map.easeTo({center:ll,padding:sheetPadding(),duration:600});
+  }
+  watching=true; $('#btnLocate').classList.add('on');
+  updateDist();
+  // llegada a la parada actual
+  const s=S[cur]; const d=hav(pos.lat,pos.lon,s.lat,s.lon);
+  if(d<40 && !nearShown[s.id]){ nearShown[s.id]=1; toast('¡Habéis llegado: '+s.short+'! Dale al play'); try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){} burst(); const pb=$('#playBtn'); if(pb) pb.classList.add('pulse'); }
+  // ¿estáis cerca de otra parada?
+  let best=-1,bd=1e9; S.forEach((t,i)=>{ if(i===cur) return; const dd=hav(pos.lat,pos.lon,t.lat,t.lon); if(dd<bd){bd=dd;best=i} });
+  const bn=$('#nearBanner');
+  if(best>=0 && bd<35 && hav(pos.lat,pos.lon,s.lat,s.lon)>60){ bn.hidden=false; bn.innerHTML='Estáis en <b>'+esc(S[best].short)+'</b> · Ver parada'; bn.onclick=()=>{ bn.hidden=true; go(best,true); }; }
+  else bn.hidden=true;
+}
+function accCircle(p){
+  const n=40, r=Math.min(p.acc||20,150), pts=[]; for(let i=0;i<=n;i++){ const a=i/n*2*Math.PI; pts.push([p.lon + (r*Math.cos(a))/(111320*Math.cos(p.lat*Math.PI/180)), p.lat + (r*Math.sin(a))/110540]); }
+  return {type:'FeatureCollection',features:[{type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:[pts]}}]};
+}
+function onGeoErr(e){
+  geoDenied=true; $('#btnLocate').classList.remove('on');
+  if(!IS_WEB) toast('Este visor no da GPS: abrid la versión web (Plan del día)');
+  else if(e && e.code===1) toast('Ubicación denegada: actívala en Ajustes > Safari/Chrome > Ubicación');
+  else toast('No llega la señal GPS, reintentando…');
+}
+function startGeo(){
+  if(watching) return;
+  if(!('geolocation' in navigator)){ onGeoErr(); return; }
+  try{ navigator.geolocation.watchPosition(onPos,onGeoErr,{enableHighAccuracy:true,maximumAge:3000,timeout:20000}); }catch(e){ onGeoErr(); }
+}
 function locate(){
-  if(!('geolocation' in navigator)){ toast('Este visor no da acceso al GPS: usa «Cómo llegar»'); return; }
-  if(watching && me){ map.easeTo({center:me.getLngLat(),zoom:17}); return; }
-  try{
-    navigator.geolocation.watchPosition(p=>{
-      const ll=[p.coords.longitude,p.coords.latitude];
-      if(!me){ const el=document.createElement('div'); el.className='me'; me=new maplibregl.Marker({element:el}).setLngLat(ll).addTo(map); map.easeTo({center:ll,zoom:17}); }
-      else me.setLngLat(ll);
-      watching=true;
-      const s=S[cur]; if(s && hav(p.coords.latitude,p.coords.longitude,s.lat,s.lon)<45 && !done.has(s.id) && !locate._near?.[s.id]){ (locate._near=locate._near||{})[s.id]=1; toast('¡Ya estáis en '+s.short+'! Dale al play'); burst(); }
-    },()=>toast('Sin GPS en este visor: usa «Cómo llegar» y marca «Hecho» al llegar'),{enableHighAccuracy:true,maximumAge:5000,timeout:15000});
-  }catch(e){ toast('Sin GPS en este visor: usa «Cómo llegar»'); }
+  startGeo();
+  if(pos && map){ follow=!follow; $('#btnLocate').classList.toggle('follow',follow); if(follow){ map.easeTo({center:[pos.lon,pos.lat],zoom:Math.max(map.getZoom(),17),padding:sheetPadding()}); toast('Siguiendo vuestra posición'); } }
+  else { follow=true; $('#btnLocate').classList.add('follow'); }
 }
 $('#btnLocate').onclick=locate;
-$('#btnFit').onclick=()=>{ setSheet('peek'); setTimeout(fitAll,50) };
+$('#btnFit').onclick=()=>{ follow=false; $('#btnLocate').classList.remove('follow'); setSheet('peek'); setTimeout(fitAll,50) };
 
 /* ---------- CONFETTI ---------- */
 function burst(){
@@ -537,6 +597,7 @@ function burst(){
 
 /* ---------- BOOT ---------- */
 syncTabs(); render(); tick(); setSheet('half');
+if(IS_WEB) startGeo();
 (async()=>{
   try{
     if(!window.maplibregl) throw new Error('nolib');
