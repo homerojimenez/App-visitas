@@ -332,9 +332,9 @@ const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 const toMin = t => {const [h,m]=t.split(':').map(Number);return h*60+m};
 const fmt = m => {m=Math.round(m);const h=Math.floor(m/60),mm=((m%60)+60)%60;return String(h).padStart(2,'0')+':'+String(mm).padStart(2,'0')};
 const nowMin = () => {const d=new Date();return d.getHours()*60+d.getMinutes()+d.getSeconds()/60};
-function gmaps(s){
+function gmaps(s,mode){
   const q = encodeURIComponent(s.gq || (s.name+', Segovia'));
-  return 'https://www.google.com/maps/dir/?api=1&destination='+q+'&travelmode=walking';
+  return 'https://www.google.com/maps/dir/?api=1&destination='+q+'&travelmode='+(mode==='bus'?'transit':'walking');
 }
 function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),2600)}
 
@@ -505,7 +505,7 @@ function stopHTML(s,i){
   const numIn = KIND_ICON(s);
   let h = chipsHTML();
   h += `<div class="sh"><div class="${numCls}">${numIn}</div><div class="sh-txt"><div class="kicker"><span class="t">${esc(s.time)}</span><span>${esc(s.zone)}</span>${s.stay?`<span>${s.stay} min</span>`:''}</div><span class="pace" id="pace" hidden></span><span class="dist" id="dist" hidden></span><h2>${esc(s.name)}</h2><p class="hook">${esc(s.hook)}</p></div></div>`;
-  h += `<div class="row"><a class="btn primary" href="${gmaps(s)}" target="_blank" rel="noopener">${ICON.nav}Cómo llegar</a>${s.alert?`<span class="badge hot" style="align-self:center">${esc(s.alert)}</span>`:''}</div>`;
+  h += `<div class="row"><a class="btn primary" href="${gmaps(s,TOUR.legs[i-1]?.mode)}" target="_blank" rel="noopener">${ICON.nav}Cómo llegar</a>${s.alert?`<span class="badge hot" style="align-self:center">${esc(s.alert)}</span>`:''}</div>`;
   if(s.deps) h += depsHTML(s);
   h += playerHTML(s);
   if(s.images?.length) h += `<div class="gal">${s.images.map(im=>`<figure class="ph"><img loading="lazy" src="${esc(im.src)}" alt="${esc(im.cap)}">${im.year?`<span class="yr">${esc(im.year)}</span>`:''}<figcaption>${esc(im.cap)}<small>${esc(im.credit||'')}</small></figcaption></figure>`).join('')}</div>`;
@@ -518,7 +518,7 @@ function stopHTML(s,i){
   if(s.timeline?.length) h += `<h3>Cronología exprés</h3><ul class="tl">${s.timeline.map(t=>`<li><b>${esc(t.y)}</b>${esc(t.e)}</li>`).join('')}</ul>`;
   if(nx && leg){
     h += `<div class="next"><div class="nl"><span class="walk">${leg.mode==='bus'?ICON.bus:ICON.walk}</span><div><span>Siguiente · ${leg.mode==='bus'?'en autobús':'a pie'}</span><br><b>${esc(nx.name)}</b><br><span>${leg.min} min · ${leg.m>=1000?(leg.m/1000).toFixed(1)+' km':leg.m+' m'}${leg.note?' · '+esc(leg.note):''}</span><br><span class="live" id="nextLive" hidden></span></div></div>
-    <div class="row" style="margin:0"><a class="btn dark sm" href="${gmaps(nx)}" target="_blank" rel="noopener">${ICON.nav}Abrir en Google Maps</a><button class="btn sm ghost" id="peekNext">Ver en el mapa</button></div></div>`;
+    <div class="row" style="margin:0"><a class="btn dark sm" href="${gmaps(nx,leg.mode)}" target="_blank" rel="noopener">${ICON.nav}Abrir en Google Maps</a><button class="btn sm ghost" id="peekNext">Ver en el mapa</button></div></div>`;
   }
   h += `<button class="btn primary arrived" id="arrived">${ICON.check}${nx?(done.has(s.id)?'Hecho · ir a la siguiente':'¡Hecho! Siguiente parada'):'¡Ruta completada!'}</button>`;
   if(i===S.length-1) h += `<p class="credits">${esc(TOUR.credits)}</p>`;
