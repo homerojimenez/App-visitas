@@ -534,7 +534,7 @@ function wireStop(s,i){
   wirePlayer(s);
   const r=$('#baRange'); if(r) r.oninput=()=>$('#ba').style.setProperty('--x',r.value+'%');
   const pn=$('#peekNext'); if(pn) pn.onclick=()=>{ setSheet('peek'); const lg=TOUR.legs[i]; if(lg && map){ const b=lg.coords.reduce((b,c)=>b.extend(c), new maplibregl.LngLatBounds(lg.coords[0],lg.coords[0])); map.fitBounds(b,{padding:sheetPadding(),maxZoom:17.2,duration:900}); } };
-  $('#arrived').onclick=()=>{ if(!done.has(s.id)){ done.add(s.id); store.set('done',[...done]); burst(); }
+  $('#arrived').onclick=()=>{ store.set('leftAt',{i,t:nowMin()}); if(!done.has(s.id)){ done.add(s.id); store.set('done',[...done]); burst(); }
     if(i<S.length-1){ go(i+1,true); toast('+1 parada · '+done.size+'/'+S.length+' desbloqueadas'); } else { burst(); toast('¡Segovia completada! Buen viaje de vuelta'); } };
 }
 
@@ -555,11 +555,15 @@ function paceInfo(){
   const st=toMin(s.time), nx=S[cur+1], stEnd = nx? toMin(nx.time) - (TOUR.legs[cur]?.min||0) : st+(s.stay||0);
   const dH = pos ? hav(pos.lat,pos.lon,s.lat,s.lon) : null;
   const busIn = TOUR.legs[cur-1]?.mode==='bus', busOut = TOUR.legs[cur]?.mode==='bus';
-  if(busOut && n>stEnd && dH!=null && dH>300 && S[cur+1]) return {k:'ok',t:'En el bus · llegada hacia las '+S[cur+1].time};
-  const eta = arrivedCur() ? 0 : (dH==null ? (n<st ? (TOUR.legs[cur-1]?.min||0) : 0) : (dH<60 ? 0 : (busIn ? Math.max(2,Math.round(dH/400)) : walkMin(dH))));
+  if(busOut && n>stEnd && S[cur+1] && (dH==null ? n<=toMin(S[cur+1].time)+5 : dH>300)) return {k:'ok',t:'En el bus · llegada hacia las '+S[cur+1].time};
+  if(busIn && !arrivedCur() && dH==null && n>=st-20 && n<=st+5) return {k:'ok',t:'En el bus · llegada hacia las '+s.time};
+  const left = store.get('leftAt',null), legMin = TOUR.legs[cur-1]?.min||0;
+  const noGpsEta = (left && left.i===cur-1) ? Math.max(0, legMin-(n-left.t)) : (n<st ? legMin : 0);
+  const eta = arrivedCur() ? 0 : (dH==null ? noGpsEta : (dH<60 ? 0 : (busIn ? Math.max(2,Math.round(dH/400)) : walkMin(dH))));
   if(busIn && !arrivedCur() && dH!=null && dH>300 && n>=st-20 && n<=st+10) return {k:'ok',t:'En el bus · llegada hacia las '+s.time};
   const a = n + eta;
   if(a<st-1) return {k:'ok',t:'Vais '+Math.round(st-a)+' min adelantados'};
+  if(s.deadline && a>st+3 && a<=toMin(s.deadline)) return {k:'late',t:s.deadlineMsg||'Llegáis justos: sin paradas'};
   if(n<st) return a<=st+3 ? {k:'ok',t:'Justos: llegad a las '+s.time} : {k:'late',t:'Llegaréis '+Math.round(a-st)+' min tarde'+(s.skip?' · '+s.skip:'')};
   const grace = (s.kind==='bus'||s.kind==='train') ? 0 : 3;
   if(n<=stEnd+grace) return {k:'ok',t:'Vais a tiempo · quedan '+Math.max(0,Math.round(stEnd-n))+' min aquí'};

@@ -135,7 +135,7 @@ stops=[
   numbers=[dict(v='152',l='escalones de la torre de Juan II'),dict(v='1862',l='año del gran incendio'),dict(v='~10',u='€',l='entrada completa')],
   ba=dict(before='img/alcazar-despues.webp',after='img/alcazar-otono.webp',by='Tras 1862',ay='Hoy',cap='Grabado del Alcázar tras el incendio de 1862, sin sus tejados, y el Alcázar hoy con las agujas reconstruidas.'),
   timeline=[dict(y='s. XII',e='Primer alcázar documentado'),dict(y='1474',e='Isabel sale de aquí a proclamarse reina'),dict(y='1570',e='Boda de Felipe II y Ana de Austria'),dict(y='1764',e='Real Colegio de Artillería'),dict(y='1862',e='Incendio'),dict(y='fin s. XIX',e='Reconstrucción de las cubiertas')]),
- dict(id='vuelta',n='B',short='Bus 19:40',name='Bajada al Acueducto y bus 11',kind='bus',zone='Vuelta',time='19:25',stay=15,lat=40.94715,lon=-4.11705,gq='Plaza de Artillería, Segovia',alert='Salid del Alcázar 19:00 · en la parada 19:25',skip='taxi en la Plaza Mayor o el Azoguejo',
+ dict(id='vuelta',n='B',short='Bus 19:40',name='Bajada al Acueducto y bus 11',kind='bus',zone='Vuelta',time='19:25',stay=15,deadline='19:38',deadlineMsg='Llegáis justos al bus de las 19:40: bajad sin paradas',lat=40.94715,lon=-4.11705,gq='Plaza de Artillería, Segovia',alert='Salid del Alcázar 19:00 · en la parada 19:25',skip='taxi en la Plaza Mayor o el Azoguejo',
   hook='Veinticinco minutos cuesta abajo por la calle Real con la puesta de sol, y el bus 11 de las 19:40 a Guiomar.',audio='audio/11.mp3',dur=59,
   deps=dict(title='Bus 11 · Acueducto → Guiomar',note=BUS_NOTE_BACK,list=BUS_BACK),
   images=[img('acueducto-noche','El acueducto iluminado al anochecer')],
