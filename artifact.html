@@ -468,6 +468,16 @@ function playerHTML(s){
   <div class="wave" id="wave">${bars(s.id).map(v=>`<i style="height:${v}%"></i>`).join('')}</div></div>
   <button class="rate" id="rateBtn">${(store.get('rate',1))}×</button></div>`;
 }
+function setMedia(s){
+  try{ if(!('mediaSession' in navigator)) return;
+    const art=(s.images&&s.images[0])?[{src:new URL(s.images[0].src,location.href).href,sizes:'1024x768',type:'image/webp'}]:[];
+    navigator.mediaSession.metadata=new MediaMetadata({title:s.short||s.name,artist:'Segovia a pie · audioguía',album:s.name,artwork:art});
+    navigator.mediaSession.setActionHandler('play',()=>audio.play());
+    navigator.mediaSession.setActionHandler('pause',()=>audio.pause());
+    navigator.mediaSession.setActionHandler('seekbackward',()=>{audio.currentTime=Math.max(0,audio.currentTime-10)});
+    navigator.mediaSession.setActionHandler('seekforward',()=>{audio.currentTime=Math.min(audio.duration||0,audio.currentTime+10)});
+  }catch(e){}
+}
 function fmtS(x){x=Math.max(0,Math.round(x||0));return Math.floor(x/60)+':'+String(x%60).padStart(2,'0')}
 function wirePlayer(s){
   if(!s.audio) return;
@@ -475,7 +485,7 @@ function wirePlayer(s){
   const sync=()=>{ const playing = audioFor===s.id && !audio.paused; btn.innerHTML=playing?ICON.pause:ICON.play;
     const d=audio.duration||s.dur, t=audioFor===s.id?audio.currentTime:0; $('#plTime').textContent=fmtS(t)+' / '+fmtS(d);
     const k=Math.round((t/d)*wave.children.length); [...wave.children].forEach((b,i)=>b.classList.toggle('on',i<k)); };
-  btn.onclick=()=>{ if(audioFor!==s.id){ audio.src=s.audio; audioFor=s.id; audio.playbackRate=store.get('rate',1); }
+  btn.onclick=()=>{ if(audioFor!==s.id){ audio.src=s.audio; audioFor=s.id; audio.playbackRate=store.get('rate',1); setMedia(s); }
     if(audio.paused){ audio.play().catch(()=>toast('Toca de nuevo para reproducir')); } else audio.pause(); };
   wave.onclick=e=>{ if(audioFor!==s.id) return btn.onclick(); const r=wave.getBoundingClientRect(); audio.currentTime=((e.clientX-r.left)/r.width)*(audio.duration||s.dur) };
   rateBtn.onclick=()=>{ const r=RATES[(RATES.indexOf(store.get('rate',1))+1)%RATES.length]; store.set('rate',r); audio.playbackRate=r; rateBtn.textContent=r+'×' };
