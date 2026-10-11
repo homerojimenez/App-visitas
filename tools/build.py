@@ -10,6 +10,7 @@ BUS_NOTE_BACK='Horario de domingo según Moovit. Parada Acueducto 3, en la plaza
 stops=[
  dict(id='guiomar',n='0',short='Estación',name='Llegada: estación Segovia-Guiomar',kind='train',zone='Llegada',time='12:30',stay=10,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',
   hook='Salid rápido del andén: el autobús 11 espera en la puerta y en el puente se llena.',audio='audio/00.mp3',dur=53,
+  images=[img('guiomar-b','Las vías de Segovia-Guiomar con la sierra de Guadarrama al fondo'),img('guiomar-a','El edificio de la estación')],
   deps=dict(title='Bus 11 · Guiomar → Acueducto',note=BUS_NOTE_OUT,list=BUS_OUT),
   look='Las dársenas de autobús están justo delante del edificio de la estación. Buscad el 11, con destino Acueducto.',
   info=[dict(t='Si se os escapa',p='El siguiente 11 no sale hasta las 13:50. Alternativas: la línea 12 (también va al centro, a la avenida del Acueducto) o taxi desde la parada de la estación: unos 11-12 € en domingo y 10-12 min.'),
@@ -145,6 +146,7 @@ stops=[
   look='El acueducto con la última luz: el sol se pone a las 19:43.'),
  dict(id='estacion',n='T',short='Tren 20:15',name='Estación Guiomar y tren a Madrid',kind='train',zone='Vuelta',time='19:25',stay=50,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',alert='Tren 20:15',
   hook='Llegad con margen: el AVE tiene control de equipajes y el acceso al andén cierra unos minutos antes.',
+  images=[img('guiomar-a','La estación de Segovia-Guiomar'),img('guiomar-b','Andenes con la sierra al fondo')],
   info=[dict(t='¿Vuestro tren sale a las 19:47?',badge='OJO',bc='hot',p='No hemos encontrado ningún tren que salga de Guiomar a las 20:15. El Alvia/Avant de las 19:47 llega a Chamartín a las 20:15. Con el bus de las 19:10 llegáis a tiempo a cualquiera de los dos.'),
         dict(t='En la estación',ul=['Pasad el control de equipaje nada más llegar','El acceso al tren cierra unos 2 minutos antes de la salida','Hay cafetería y máquinas si queréis algo para el viaje']),
         dict(t='Plan B si perdéis el bus',p='Taxi desde la Plaza Mayor o el Azoguejo: unos 11-12 € en domingo y 10-12 min. Pedidlo hacia las 19:15 si veis cola.')],
