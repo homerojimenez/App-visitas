@@ -2,7 +2,7 @@
 // Shell (page, map data, local MapLibre copy): precached at install, network-first with a 3 s timeout.
 // Media (audio, photos): cache-first in a fixed cache; URLs carry ?v=<hash> so changed files get new keys.
 // Range requests are answered from the cached file so audio plays offline on iOS Safari.
-const V = 'sgv-v10';
+const V = 'sgv-v11';
 const MEDIA = 'sgv-media';
 const SHELL = ['index.html', 'map.json', 'lib/maplibre-gl.js', 'fonts/NotoReg/0-255.ttf', 'manifest.webmanifest', 'icon-180.png'];
 

@@ -125,11 +125,11 @@ function paintGame(){
   if(reveal && !QT.revealAt) QT.revealAt = Date.now();
   let body='';
   const q = gm.g==='trivia'? it.q : gm.g==='vol'? it.s : it.q;
-  body += `<div class="gm-top"><button class="gm-x" id="gmClose" aria-label="Cerrar">${ICON.x}</button><span class="gm-k">${esc(GNAME[gm.g])} · ${i+1}/${gm.items.length}</span><span class="gm-sc">${ppl.map(p=>`<b class="${p===ME.id?'me':''}">${esc(nameOf(p).slice(0,10))} ${GS.scores[p]||0}</b>`).join('')}</span></div>`;
+  body += `<div class="gm-top"><button class="gm-x" id="gmClose" aria-label="Cerrar">${ICON.x}</button><span class="gm-k">${esc(GNAME[gm.g])} · ${i+1}/${gm.items.length}</span><span class="gm-sc">${ppl.map(p=>`<b class="${p===ME.id?'mine':''}">${esc(nameOf(p).slice(0,10))} ${GS.scores[p]||0}</b>`).join('')}</span></div>`;
   body += `<div class="gm-bar"><i id="gmBar" style="width:${Math.max(0,100-el/lim*100)}%"></i></div>`;
   body += `<h3 class="gm-q">${esc(q)}</h3>`;
   if(gm.g==='trivia'){
-    body += `<div class="gm-opts">${it.opts.map((o,k)=>{ const c = reveal ? (k===it.a?' right':(mine&&mine.v===k?' wrong':'')) : (mine&&mine.v===k?' picked':''); const who = reveal? ppl.filter(p=>ans[p]&&ans[p].v===k).map(p=>`<em>${esc(nameOf(p).slice(0,8))}</em>`).join('') : ''; return `<button class="gm-o${c}" data-v="${k}" ${mine||reveal?'disabled':''}><span>${'ABCD'[k]}</span>${esc(o)}${who}</button>`; }).join('')}</div>`;
+    body += `<div class="gm-opts">${it.opts.map((o,k)=>{ const c = reveal ? (k===it.a?' right':(mine&&mine.v===k?' wrong':'')) : (mine&&mine.v===k?' picked':''); const who = reveal? ppl.filter(p=>ans[p]&&ans[p].v===k).map(p=>`<em>${esc(nameOf(p).slice(0,8))}</em>`).join('') : ''; return `<button class="gm-o${c}" data-v="${k}" ${mine||reveal?'disabled':''}><span>${'ABCD'[k]}</span><b class="gm-t">${esc(o)}</b>${who}</button>`; }).join('')}</div>`;
   } else if(gm.g==='vol'){
     const ok = it.truth?1:0;
     body += `<div class="gm-opts two">${['Leyenda','Verdad'].map((o,k)=>{ const c = reveal ? (k===ok?' right':(mine&&mine.v===k?' wrong':'')) : (mine&&mine.v===k?' picked':''); const who = reveal? ppl.filter(p=>ans[p]&&ans[p].v===k).map(p=>`<em>${esc(nameOf(p).slice(0,8))}</em>`).join('') : ''; return `<button class="gm-o big${c}" data-v="${k}" ${mine||reveal?'disabled':''}>${o}${who}</button>`; }).join('')}</div>`;
@@ -266,14 +266,14 @@ function gamesHTML(){
     return h+`<div class="g-hero"><h2>Juegos para dos</h2><p class="hook">Trivial, verdad o leyenda, adivinar años, retos y fotos recreando la Segovia de antes. Cada uno desde su móvil.</p>
       <label class="g-lab" for="gName">¿Cómo te llamas?</label><input class="g-in" id="gName" maxlength="14" autocomplete="given-name" placeholder="Tu nombre"><button class="btn primary arrived" id="gNameGo">Empezar</button></div>`;
   }
-  h += `<div class="g-score">${ppl.map(p=>`<div class="${p===ME.id?'me':''}"><small>${esc(p===ME.id?(ME.name||'Tú'):nameOf(p))}</small><b>${GS.scores[p]||0}</b></div>`).join(ppl.length<2?'':'<span>vs</span>')}${ppl.length<2?`<div class="ghost"><small>Tu pareja</small><b>—</b></div>`:''}</div>`;
+  h += `<div class="g-score">${ppl.map(p=>`<div class="${p===ME.id?'mine':''}"><small>${esc(p===ME.id?(ME.name||'Tú'):nameOf(p))}</small><b>${GS.scores[p]||0}</b></div>`).join(ppl.length<2?'':'<span>vs</span>')}${ppl.length<2?`<div class="ghost"><small>Tu pareja</small><b>—</b></div>`:''}</div>`;
   if(canNet()){
     if(!NET.code) h += `<div class="g-room"><div><b>Jugad en pareja</b><small>Crea una sala y pásale el código a tu pareja. Cada uno juega desde su móvil.</small></div><div class="row" style="margin:10px 0 0"><button class="btn primary" id="gCreate">Crear sala</button><input class="g-in code" id="gCode" maxlength="6" placeholder="Código" autocapitalize="characters"><button class="btn" id="gJoin">Unirme</button></div></div>`;
     else h += `<div class="g-room on"><div><b><span id="netDot" class="netdot ${NET.ok?'on':'off'}"></span>Sala ${esc(NET.code)}</b><small>${others().length?'Conectados: '+ppl.map(p=>esc(nameOf(p))).join(' y '):'Esperando a tu pareja: que abra Juegos y ponga este código'}</small></div><div class="row" style="margin:10px 0 0"><button class="btn sm" id="gShareCode">Compartir código</button><button class="btn sm ghost" id="gLeave">Salir</button></div></div>`;
   } else h += `<div class="g-room"><b>Modo en pareja</b><small>Para jugar cada uno desde su móvil, abrid la versión web. Aquí podéis jugar con un solo móvil.</small>${WEB_URL?`<a class="btn sm primary" style="margin-top:10px" href="${WEB_URL}" target="_blank" rel="noopener">Abrir versión web</a>`:''}</div>`;
   if(GS.rateAsk && GS.photos[GS.rateAsk] && !GS.photos[GS.rateAsk].rated){ const ph=GS.photos[GS.rateAsk]; h += `<div class="g-rate"><b>${esc(nameOf(ph.from))} ha recreado «${esc(ph.title)}»</b><small>Mirad su móvil y puntuad el parecido</small><div class="stars">${[1,2,3,4,5].map(n=>`<button data-star="${n}" aria-label="${n} estrellas">${ICON.star}</button>`).join('')}</div></div>`; }
   const cards = [
-    ['trivia','Trivial segoviano','10 preguntas sobre lo que habéis visto. Gana quien acierta y es más rápido.',10],
+    ['trivia','Trivial segoviano','10 preguntas, primero de lo que ya habéis visto. Gana quien acierta y más rápido.',10],
     ['vol','¿Verdad o leyenda?','8 frases en 12 segundos cada una. ¿Historia o cuento?',8],
     ['year','Adivina el año','Arrastra hasta el año. Quien más se acerque, gana.',6],
     ['who','¿Quién es más probable?','Preguntas de pareja con guiño histórico. Si coincidís, puntos para los dos.',6],

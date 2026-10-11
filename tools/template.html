@@ -2,7 +2,7 @@
 <title>Segovia a pie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" crossorigin="anonymous" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap">
+<link rel="stylesheet" crossorigin="anonymous" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap">
 <style>/*__MLCSS__*/</style>
 <style>
 /* Layout: full-bleed vector map + floating pills on top + draggable bottom sheet (peek / half / full) */
@@ -286,11 +286,13 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 .gm-opts.two{grid-template-columns:1fr 1fr}
 .gm-o{min-height:58px;border-radius:20px;background:var(--surface);border:2px solid var(--line);padding:12px 14px;text-align:left;font-weight:700;font-size:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:transform .12s,border-color .2s,background .2s}
 .gm-o:active{transform:scale(.98)}
+.gm-o .gm-t{flex:1;min-width:0;font-weight:inherit}
 .gm-o>span{width:30px;height:30px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font-size:13px;font-weight:800;flex:none}
 .gm-o.big{justify-content:center;text-align:center;min-height:96px;font-family:var(--f-display);font-size:22px}
 .gm-o.picked{border-color:var(--accent);background:var(--accent-soft)}
 .gm-o.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--surface))}
-.gm-o.wrong{border-color:var(--t-salseo);background:color-mix(in srgb,var(--t-salseo) 12%,var(--surface))}
+.gm-o.wrong{border-color:var(--muted);background:var(--surface-2);color:var(--muted)}
+.gm-o.wrong .gm-t{text-decoration:line-through;text-decoration-thickness:2px}
 .gm-o:disabled{cursor:default}
 .gm-o em{font-style:normal;font-size:11.5px;font-weight:800;padding:3px 8px;border-radius:var(--r-pill);background:var(--fg);color:var(--bg)}
 .gm-o.big em{font-family:var(--f-ui)}
@@ -356,10 +358,10 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 .g-card{display:flex;align-items:center;gap:14px;text-align:left;padding:14px;border-radius:var(--r-card);background:var(--surface-2);width:100%}
 .g-card:active{transform:scale(.99)}
 .g-ic{width:48px;height:48px;border-radius:16px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
-.g-card[data-game="vol"] .g-ic{background:var(--t-leyenda);color:#fff}
-.g-card[data-game="year"] .g-ic{background:var(--t-cifra);color:#fff}
-.g-card[data-game="who"] .g-ic{background:var(--t-salseo);color:#fff}
-#gDare .g-ic{background:var(--t-mito);color:#fff}
+.g-card[data-game="vol"] .g-ic{background:var(--t-leyenda);color:var(--tag-ink)}
+.g-card[data-game="year"] .g-ic{background:var(--t-cifra);color:var(--tag-ink)}
+.g-card[data-game="who"] .g-ic{background:var(--t-salseo);color:var(--tag-ink)}
+#gDare .g-ic{background:var(--t-mito);color:var(--tag-ink)}
 .g-ic svg{width:24px;height:24px}
 .g-tx{flex:1;min-width:0}
 .g-tx b{display:block;font-size:16px}
@@ -383,6 +385,142 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 .confetti{position:fixed;inset:0;pointer-events:none;z-index:20}
 @media (min-width:760px){.sheet{left:16px;right:auto;width:440px;margin:0;height:calc(100% - 96px);border-radius:26px;bottom:16px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<style>
+/* ==========================================================================
+   Segovia a pie: "Corazón" direction. Drop-in override for tools/template.html.
+   Paste as a NEW <style> block right AFTER the template's main <style> (before
+   <div id="app">). Keeps every class name. No JS needed, except the optional
+   route colour in patch-map.json (MAP_PALETTE) so the route matches the accent.
+   ========================================================================== */
+
+/* ---------- tokens: light ---------- */
+:root{
+  --bg:#FBF7F8; --surface:#FFFFFF; --surface-2:#F7EFF2; --fg:#22161B; --muted:#6F5B63; --line:#EEDDE3;
+  --accent:#D81F58; --accent-ink:#FFFFFF; --accent-soft:#FFE5ED; --accent-text:#B5124A;
+  --granite:#8A5A2E; --granite-soft:#F6ECE1;
+  --ok:#17824B; --warn:#B86E00;
+  --strong:#22161B; --strong-ink:#FFFFFF; --strong-accent:#FF9AB8;           /* train pill, dark buttons: fixed ink, never inverted */
+  --tag-ink:#FFFFFF;
+  /* fact tags collapse from 8 hues to 3 families: gossip = accent, knowledge = ink, myth = granite */
+  --t-salseo:#D81F58; --t-famosos:#D81F58;
+  --t-dato:#22161B; --t-cifra:#22161B; --t-fecha:#22161B; --t-tip:#22161B;
+  --t-mito:#8A5A2E; --t-leyenda:#8A5A2E;
+  --shadow:0 4px 18px rgba(60,20,35,.12),0 1px 2px rgba(60,20,35,.08);
+  --f-ui:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display:"Fredoka",ui-rounded,"SF Pro Rounded","Figtree",system-ui,sans-serif;
+  --r-pill:999px; --r-card:22px;
+}
+/* ---------- tokens: dark (warm plum-charcoal, designed, not inverted) ---------- */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141012; --surface:#1E191B; --surface-2:#2A2326; --fg:#F6EEF1; --muted:#B5A3AA; --line:#3A3034;
+  --accent:#FF6B94; --accent-ink:#2A0612; --accent-soft:#3A1A25; --accent-text:#FF8AAB;
+  --granite:#D9A574; --granite-soft:#2E241C;
+  --ok:#4CC98A; --warn:#F2A93B;
+  --strong:#2A2326; --strong-ink:#F6EEF1; --strong-accent:#FF8AAB;
+  --tag-ink:#1A1215;
+  --t-salseo:#FF6B94; --t-famosos:#FF6B94;
+  --t-dato:#F6EEF1; --t-cifra:#F6EEF1; --t-fecha:#F6EEF1; --t-tip:#F6EEF1;
+  --t-mito:#D9A574; --t-leyenda:#D9A574;
+  --shadow:0 6px 24px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.4); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141012; --surface:#1E191B; --surface-2:#2A2326; --fg:#F6EEF1; --muted:#B5A3AA; --line:#3A3034;
+  --accent:#FF6B94; --accent-ink:#2A0612; --accent-soft:#3A1A25; --accent-text:#FF8AAB;
+  --granite:#D9A574; --granite-soft:#2E241C;
+  --ok:#4CC98A; --warn:#F2A93B;
+  --strong:#2A2326; --strong-ink:#F6EEF1; --strong-accent:#FF8AAB;
+  --tag-ink:#1A1215;
+  --t-salseo:#FF6B94; --t-famosos:#FF6B94;
+  --t-dato:#F6EEF1; --t-cifra:#F6EEF1; --t-fecha:#F6EEF1; --t-tip:#F6EEF1;
+  --t-mito:#D9A574; --t-leyenda:#D9A574;
+  --shadow:0 6px 24px rgba(0,0,0,.5),0 1px 3px rgba(0,0,0,.4); color-scheme:dark;
+}
+
+/* ---------- top pills ---------- */
+.brand b{font-family:var(--f-display);font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand .sub{font-size:13px}
+.train{background:var(--strong);color:var(--strong-ink)}
+.train small{opacity:1;color:var(--strong-accent);font-weight:700}
+.progress i{height:5px;border-radius:5px}
+
+/* ---------- markers: ring, not glow ---------- */
+.mk{font-family:var(--f-display);font-weight:600}
+.mk.cur{box-shadow:0 0 0 4px var(--surface),0 4px 12px rgba(40,10,20,.35)}
+.mk.food{border-color:var(--granite)}
+.mk.food.cur,.mk.food.done{background:var(--granite);color:var(--surface)}
+
+/* ---------- sheet: full state stops below the pills (no collision) ---------- */
+.sheet{height:calc(100% - env(safe-area-inset-top,0px) - 64px);border-radius:28px 28px 0 0;box-shadow:0 -8px 30px rgba(40,10,20,.14)}
+@media (min-width:760px){.sheet{height:calc(100% - 96px);border-radius:28px}}
+.seg button{font-weight:600}
+.seg button.on{font-weight:700;box-shadow:0 1px 4px rgba(40,10,20,.14)}
+
+/* ---------- chips ---------- */
+.chip.on b{background:var(--surface);color:var(--accent-text)}
+.chip.done b{background:var(--fg);color:var(--surface)}
+
+/* ---------- stop header: one hero ---------- */
+.num{border-radius:50%;width:44px;height:44px;font-weight:600;font-size:21px}
+.num.food{background:var(--granite);color:var(--surface)}
+.kicker{font-size:13px;font-weight:600;letter-spacing:0;text-transform:none}
+.kicker .t{color:var(--accent-text);font-weight:700}
+h2{font-family:var(--f-display);font-weight:600;font-size:30px;line-height:1.04;letter-spacing:-.015em;margin:4px 0 6px}
+.hook{font-size:15px;opacity:1;color:var(--fg)}
+.btn{font-weight:700}
+.btn.dark{background:var(--strong);color:var(--strong-ink)}
+
+/* ---------- audio: a pink "radio" card, never a black slab ---------- */
+.player{background:var(--accent-soft);color:var(--fg);border-radius:24px}
+.pl-sub{opacity:1;color:var(--muted)}
+.wave i{background:color-mix(in srgb,var(--accent) 28%,transparent)}
+.wave i.on{background:var(--accent)}
+.rate{background:var(--surface);color:var(--accent-text)}
+
+/* ---------- gallery ---------- */
+.ph .yr{background:var(--accent);color:var(--accent-ink)}
+
+/* ---------- section titles ---------- */
+h3{font-family:var(--f-display);font-weight:600;font-size:21px;letter-spacing:-.01em;margin:28px 0 10px}
+.look b{font-size:13px;letter-spacing:0;text-transform:none;font-weight:700}
+
+/* ---------- "Lo que nadie te cuenta": sticker tags, no stripe ---------- */
+.fact::before{display:none}
+.tag{background:var(--tc);color:var(--tag-ink);border-radius:8px;transform:rotate(-3deg);letter-spacing:.08em;padding:4px 9px;margin:2px 0 2px 2px}
+.fact h4{font-size:17px;font-weight:700}
+.fact p{opacity:1}
+.fact .lg{color:var(--muted)}
+
+/* ---------- numbers & bars ---------- */
+.n b{font-family:var(--f-display);font-weight:600;color:var(--accent-text)}
+.bar .tr i.hl{background:var(--granite)}
+
+/* ---------- next leg & done ---------- */
+.next .live{color:var(--accent-text)}
+.arrived{font-size:16px;height:54px}
+
+/* ---------- plan ---------- */
+.status{background:var(--accent-soft);color:var(--fg)}
+.status small{opacity:1;color:var(--muted)}
+.status b{font-family:var(--f-display);font-weight:600;font-size:26px}
+.plan .dot{font-family:var(--f-display);font-weight:600}
+.plan .dot.food{background:var(--granite);color:var(--surface)}
+.plan li.now .tm{color:var(--accent-text)}
+.dist{background:var(--accent-soft);color:var(--accent-text)}
+.pass-h b{font-family:var(--f-display);font-weight:600;font-size:18px}
+.pass-h span{color:var(--accent-text)}
+.stamp.on{transform:rotate(-2deg)}
+.stamp.on:nth-child(even){transform:rotate(2deg)}
+.badge.hot{background:color-mix(in srgb,var(--granite) 18%,transparent);color:var(--granite)}
+.wx-h>b{font-family:var(--f-display);font-weight:600}
+.wx-r em{color:var(--muted)}
+.deps-h>span{background:var(--strong);color:var(--strong-ink)}
+
+/* ---------- phone width: the brand pill never truncates ("free tou…") ---------- */
+@media (max-width:430px){.brand .sub{display:none}}
+
+/* games and hunt pick up the display face and new tokens */
+.gm-q,.gm-o.big,.gm-hit,.gm-miss{font-weight:600}
 </style>
 
 <div id="app">
@@ -467,13 +605,8 @@ function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show')
 /* ---------- MAP ---------- */
 function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
 function isDark(){return matchMedia('(prefers-color-scheme: dark)').matches && document.documentElement.dataset.theme!=='light' || document.documentElement.dataset.theme==='dark'}
-function palette(){
-  return isDark()?{
-    land:'#1b1d21',park:'#1f3326',forest:'#203a2a',water:'#1d3a52',bld:'#2a2e35',bldl:'#33383f',road:'#3a3f47',roadc:'#2b2f35',major:'#56524a',majorc:'#3a362f',foot:'#4a4f57',label:'#c9ced6',halo:'#1b1d21',route:'#5b9bff',routec:'#0f2a55',done:'#6b7280',rail:'#4b5058',plaza:'#25282d'
-  }:{
-    land:'#f3f1ec',park:'#d3ecc8',forest:'#c3e2b4',water:'#a9d3f5',bld:'#e6e2da',bldl:'#d9d4ca',road:'#ffffff',roadc:'#dcd8cf',major:'#ffe9a8',majorc:'#e9c96d',foot:'#ffffff',label:'#5a5e66',halo:'#ffffff',route:'#1a6cf0',routec:'#0d47b0',done:'#9aa0a8',rail:'#bdbab3',plaza:'#ece9e2'
-  };
-}
+const MAP_PALETTE={"light":{"land":"#f3f1ec","park":"#d3ecc8","forest":"#c3e2b4","water":"#a9d3f5","bld":"#e6e2da","bldl":"#d9d4ca","road":"#ffffff","roadc":"#dcd8cf","major":"#ffe9a8","majorc":"#e9c96d","foot":"#ffffff","label":"#5a5e66","halo":"#ffffff","route":"#D81F58","routec":"#8E0E38","done":"#A8A0A4","rail":"#bdbab3","plaza":"#ece9e2"},"dark":{"land":"#1C1A1B","park":"#1f3326","forest":"#203a2a","water":"#1d3a52","bld":"#2B2729","bldl":"#353032","road":"#3D3739","roadc":"#2C2729","major":"#56524a","majorc":"#3a362f","foot":"#4D4649","label":"#CFC6CA","halo":"#1C1A1B","route":"#FF6B94","routec":"#4A0F22","done":"#6E6669","rail":"#4E484B","plaza":"#262223"}};
+function palette(){ return isDark()?MAP_PALETTE.dark:MAP_PALETTE.light; }
 let map, markers=[];
 function styleFor(p){
   const fontUrl = new URL('fonts/{fontstack}/{range}.ttf', location.href).href;
@@ -649,7 +782,7 @@ function stopHTML(s,i){
     h += `<div class="next"><div class="nl"><span class="walk">${leg.mode==='bus'?ICON.bus:ICON.walk}</span><div><span>Siguiente · ${leg.mode==='bus'?'en autobús':'a pie'}</span><br><b>${esc(nx.name)}</b><br><span>${leg.min} min · ${leg.m>=1000?(leg.m/1000).toFixed(1)+' km':leg.m+' m'}${leg.note?' · '+esc(leg.note):''}</span><br><span class="live" id="nextLive" hidden></span></div></div>
     <div class="row" style="margin:0"><a class="btn dark sm" href="${gmaps(nx,leg.mode)}" target="_blank" rel="noopener">${ICON.nav}Abrir en Google Maps</a><button class="btn sm ghost" id="peekNext">Ver en el mapa</button></div></div>`;
   }
-  h += `<button class="btn primary arrived" id="arrived">${ICON.check}${nx?(done.has(s.id)?'Hecho · ir a la siguiente':'¡Hecho! Siguiente parada'):'¡Ruta completada!'}</button>`;
+  h += `<button class="btn primary arrived" id="arrived">${ICON.check}${nx?(done.has(s.id)?'Hecho · ir a la siguiente':'Hecho · siguiente parada'):'¡Ruta completada!'}</button>`;
   if(i===S.length-1) h += `<p class="credits">${esc(TOUR.credits)}</p>`;
   return h;
 }
@@ -1001,7 +1134,7 @@ function paintGame(){
   body += `<div class="gm-bar"><i id="gmBar" style="width:${Math.max(0,100-el/lim*100)}%"></i></div>`;
   body += `<h3 class="gm-q">${esc(q)}</h3>`;
   if(gm.g==='trivia'){
-    body += `<div class="gm-opts">${it.opts.map((o,k)=>{ const c = reveal ? (k===it.a?' right':(mine&&mine.v===k?' wrong':'')) : (mine&&mine.v===k?' picked':''); const who = reveal? ppl.filter(p=>ans[p]&&ans[p].v===k).map(p=>`<em>${esc(nameOf(p).slice(0,8))}</em>`).join('') : ''; return `<button class="gm-o${c}" data-v="${k}" ${mine||reveal?'disabled':''}><span>${'ABCD'[k]}</span>${esc(o)}${who}</button>`; }).join('')}</div>`;
+    body += `<div class="gm-opts">${it.opts.map((o,k)=>{ const c = reveal ? (k===it.a?' right':(mine&&mine.v===k?' wrong':'')) : (mine&&mine.v===k?' picked':''); const who = reveal? ppl.filter(p=>ans[p]&&ans[p].v===k).map(p=>`<em>${esc(nameOf(p).slice(0,8))}</em>`).join('') : ''; return `<button class="gm-o${c}" data-v="${k}" ${mine||reveal?'disabled':''}><span>${'ABCD'[k]}</span><b class="gm-t">${esc(o)}</b>${who}</button>`; }).join('')}</div>`;
   } else if(gm.g==='vol'){
     const ok = it.truth?1:0;
     body += `<div class="gm-opts two">${['Leyenda','Verdad'].map((o,k)=>{ const c = reveal ? (k===ok?' right':(mine&&mine.v===k?' wrong':'')) : (mine&&mine.v===k?' picked':''); const who = reveal? ppl.filter(p=>ans[p]&&ans[p].v===k).map(p=>`<em>${esc(nameOf(p).slice(0,8))}</em>`).join('') : ''; return `<button class="gm-o big${c}" data-v="${k}" ${mine||reveal?'disabled':''}>${o}${who}</button>`; }).join('')}</div>`;
@@ -1145,7 +1278,7 @@ function gamesHTML(){
   } else h += `<div class="g-room"><b>Modo en pareja</b><small>Para jugar cada uno desde su móvil, abrid la versión web. Aquí podéis jugar con un solo móvil.</small>${WEB_URL?`<a class="btn sm primary" style="margin-top:10px" href="${WEB_URL}" target="_blank" rel="noopener">Abrir versión web</a>`:''}</div>`;
   if(GS.rateAsk && GS.photos[GS.rateAsk] && !GS.photos[GS.rateAsk].rated){ const ph=GS.photos[GS.rateAsk]; h += `<div class="g-rate"><b>${esc(nameOf(ph.from))} ha recreado «${esc(ph.title)}»</b><small>Mirad su móvil y puntuad el parecido</small><div class="stars">${[1,2,3,4,5].map(n=>`<button data-star="${n}" aria-label="${n} estrellas">${ICON.star}</button>`).join('')}</div></div>`; }
   const cards = [
-    ['trivia','Trivial segoviano','10 preguntas sobre lo que habéis visto. Gana quien acierta y es más rápido.',10],
+    ['trivia','Trivial segoviano','10 preguntas, primero de lo que ya habéis visto. Gana quien acierta y más rápido.',10],
     ['vol','¿Verdad o leyenda?','8 frases en 12 segundos cada una. ¿Historia o cuento?',8],
     ['year','Adivina el año','Arrastra hasta el año. Quien más se acerque, gana.',6],
     ['who','¿Quién es más probable?','Preguntas de pareja con guiño histórico. Si coincidís, puntos para los dos.',6],
