@@ -2,7 +2,7 @@
 <title>Segovia a pie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap">
+<link rel="stylesheet" crossorigin="anonymous" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap">
 <style>/*__MLCSS__*/</style>
 <style>
 /* Layout: full-bleed vector map + floating pills on top + draggable bottom sheet (peek / half / full) */
@@ -300,7 +300,7 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
   <canvas class="confetti" id="confetti"></canvas>
 </div>
 
-<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" crossorigin="anonymous"></script>
 <script>
 const TOUR = /*__DATA__*/null;
 const WEB_URL = '/*__WEBURL__*/';
@@ -329,7 +329,7 @@ const S = TOUR.stops;
 let cur = Math.min(store.get('cur',0), S.length-1);
 let done = new Set(store.get('done',[]));
 let tab = store.get('cur',null)==null ? 'plan' : 'stop';
-const INTRO = {id:'intro',audio:'audio/00.mp3',dur:53,short:'Bienvenida (escuchadla en el bus)'};
+const INTRO = {id:'intro',audio:TOUR.intro||'audio/00.mp3',dur:53,short:'Bienvenida (escuchadla en el bus)'};
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const toMin = t => {const [h,m]=t.split(':').map(Number);return h*60+m};
 const fmt = m => {m=Math.round(m);const h=Math.floor(m/60),mm=((m%60)+60)%60;return String(h).padStart(2,'0')+':'+String(mm).padStart(2,'0')};
@@ -554,11 +554,15 @@ function paceInfo(){
   if(n<arr-20 || n>end) return null;
   const st=toMin(s.time), nx=S[cur+1], stEnd = nx? toMin(nx.time) - (TOUR.legs[cur]?.min||0) : st+(s.stay||0);
   const dH = pos ? hav(pos.lat,pos.lon,s.lat,s.lon) : null;
-  const eta = arrivedCur() ? 0 : (dH==null ? (n<st ? (TOUR.legs[cur-1]?.min||0) : 0) : (dH<60 ? 0 : walkMin(dH)));
+  const busIn = TOUR.legs[cur-1]?.mode==='bus', busOut = TOUR.legs[cur]?.mode==='bus';
+  if(busOut && n>stEnd && dH!=null && dH>300 && S[cur+1]) return {k:'ok',t:'En el bus · llegada hacia las '+S[cur+1].time};
+  const eta = arrivedCur() ? 0 : (dH==null ? (n<st ? (TOUR.legs[cur-1]?.min||0) : 0) : (dH<60 ? 0 : (busIn ? Math.max(2,Math.round(dH/400)) : walkMin(dH))));
+  if(busIn && !arrivedCur() && dH!=null && dH>300 && n>=st-20 && n<=st+10) return {k:'ok',t:'En el bus · llegada hacia las '+s.time};
   const a = n + eta;
   if(a<st-1) return {k:'ok',t:'Vais '+Math.round(st-a)+' min adelantados'};
   if(n<st) return a<=st+3 ? {k:'ok',t:'Justos: llegad a las '+s.time} : {k:'late',t:'Llegaréis '+Math.round(a-st)+' min tarde'+(s.skip?' · '+s.skip:'')};
-  if(n<=stEnd+3) return {k:'ok',t:'Vais a tiempo · quedan '+Math.max(0,Math.round(stEnd-n))+' min aquí'};
+  const grace = (s.kind==='bus'||s.kind==='train') ? 0 : 3;
+  if(n<=stEnd+grace) return {k:'ok',t:'Vais a tiempo · quedan '+Math.max(0,Math.round(stEnd-n))+' min aquí'};
   return {k:'late',t:'Vais '+Math.round(n-stEnd)+' min tarde'+(s.skip?' · '+s.skip:'')};
 }
 function updatePace(){
@@ -576,7 +580,7 @@ function planHTML(){
   const pc=paceInfo(); if(pc) h += `<div class="pace big ${pc.k}">${esc(pc.t)} · ahora en «${esc(S[cur].short)}»</div>`;
   h += weatherHTML();
   h += `<div class="pass"><div class="pass-h"><b>Pasaporte segoviano</b><span>${S.filter(x=>done.has(x.id)).length}/${S.length}</span></div><div class="pass-g">${S.map((x,i)=>`<button class="stamp${done.has(x.id)?' on':''}" data-i="${i}"><span>${KIND_ICON(x)}</span><small>${esc(x.short)}</small></button>`).join('')}</div></div>`;
-  if(IS_WEB && 'caches' in window) h += `<button class="btn ghost offl" id="offline">${ICON.check}<span>Guardar todo para usar sin cobertura</span></button>`;
+  if(IS_WEB && 'caches' in window) h += `<button class="btn ghost offl${SAVE.done&&!SAVE.fail&&!SAVE.run?' done':''}" id="offline">${ICON.check}<span>${saveLabel()}</span></button>`;
   if(!IS_WEB) h += `<a class="gps" href="${WEB_URL}" target="_blank" rel="noopener"><span>${ICON.nav}</span><div><b>Abrir la versión con GPS</b><small>Se abre en Safari o Chrome con vuestra ubicación en directo. Guardadla en la pantalla de inicio.</small></div></a>`;
   h += playerHTML(INTRO);
   h += `<ul class="plan" id="plan">`;
@@ -599,7 +603,7 @@ function planHTML(){
 function render(){
   const b=$('#body');
   if(tab==='stop'){ b.innerHTML=stopHTML(S[cur],cur); wireStop(S[cur],cur); }
-  else { b.innerHTML=planHTML(); wirePlayer(INTRO); const rs=$('#reset'); if(rs) rs.onclick=()=>{ if(rs.dataset.armed){ store.set('done',[]); store.set('cur',0); location.reload(); } else { rs.dataset.armed='1'; rs.textContent='Toca otra vez para borrar el progreso'; } }; b.querySelectorAll('.stamp').forEach(el=>el.onclick=()=>{ tab='stop'; syncTabs(); go(+el.dataset.i,true); }); const of=$('#offline'); if(of) of.onclick=saveOffline; $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
+  else { b.innerHTML=planHTML(); wirePlayer(INTRO); paintSave(); const rs=$('#reset'); if(rs) rs.onclick=()=>{ if(rs.dataset.armed){ store.set('done',[]); store.set('cur',0); location.reload(); } else { rs.dataset.armed='1'; rs.textContent='Toca otra vez para borrar el progreso'; } }; b.querySelectorAll('.stamp').forEach(el=>el.onclick=()=>{ tab='stop'; syncTabs(); go(+el.dataset.i,true); }); const of=$('#offline'); if(of) of.onclick=saveOffline; $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
   updateDist(); updatePace(); nearCheck();
   $('#progress').innerHTML=S.map((s,i)=>`<i class="${done.has(s.id)?'done':''}${i===cur&&!done.has(s.id)?' cur':''}"></i>`).join('');
 }
@@ -617,7 +621,7 @@ function tick(){
   const fm = l => l>=60? Math.floor(l/60)+'h'+String(Math.floor(l%60)).padStart(2,'0') : Math.max(0,Math.round(l))+' min';
   const outB = nextDep('guiomar');
   if(n<toMin(T.arrive)-90 || n>toMin(T.train)) el.innerHTML='Tren <small>'+T.train+'</small>';
-  else if(n<toMin('12:50') && outB!=null && outB-n<=60){ el.innerHTML='Bus 11 <small>'+fmt(outB)+' · '+fm(outB-n)+'</small>'; }
+  else if(cur===0 && !done.has('guiomar') && outB!=null && outB-n<=90){ el.innerHTML='Bus 11 <small>'+fmt(outB)+' · '+fm(outB-n)+'</small>'; }
   else if(n>=leave && n<toMin('19:45')){ const b2=nextDep('vuelta'); el.innerHTML='Bus 11 <small>'+(b2!=null? fmt(b2)+' · '+fm(b2-n) : T.returnBus)+'</small>'; }
   else if(n<leave){ const l=leave-n; el.innerHTML='Salida <small>'+(l>=60?Math.floor(l/60)+'h'+String(Math.floor(l%60)).padStart(2,'0'):Math.floor(l)+' min')+'</small>'; }
   else if(n<bus){ el.innerHTML='Bus 11 <small>'+T.returnBus+'</small>'; }
@@ -639,7 +643,8 @@ function updateDist(){
   const el=$('#dist'); const nl=$('#nextLive');
   if(!pos){ if(el) el.hidden=true; if(nl) nl.hidden=true; return; }
   const s=S[cur]; const d=hav(pos.lat,pos.lon,s.lat,s.lon);
-  if(el){ el.hidden=false; el.textContent = d<40 ? 'Estáis aquí' : 'A '+distTxt(d)+' · '+walkMin(d)+' min'; el.classList.toggle('here',d<40); }
+  const busIn = TOUR.legs[cur-1]?.mode==='bus' && d>800;
+  if(el){ el.hidden=false; el.textContent = d<40 ? 'Estáis aquí' : 'A '+distTxt(d)+(busIn? ' · en bus' : ' · '+walkMin(d)+' min'); el.classList.toggle('here',d<40); }
   const nx=S[cur+1]; if(nl && nx){ const d2=hav(pos.lat,pos.lon,nx.lat,nx.lon); nl.hidden=false; nl.textContent='Desde donde estáis: '+distTxt(d2)+' · '+walkMin(d2)+' min'; }
 }
 function onPos(p){
@@ -713,17 +718,26 @@ async function loadWeather(){
 }
 
 /* ---------- OFFLINE ---------- */
-async function saveOffline(){
-  const btn=$('#offline'); const lab=btn.querySelector('span');
-  const urls=['./','index.html','map.json','fonts/NotoReg/0-255.ttf','https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js'];
-  S.concat([INTRO]).forEach(s=>{ if(s.audio) urls.push(s.audio); (s.images||[]).forEach(im=>urls.push(im.src)); if(s.ba){urls.push(s.ba.before,s.ba.after)} });
-  const uniq=[...new Set(urls)]; let ok=0;
-  try{ const c=await caches.open('sgv-media-v4');
-    for(const u of uniq){ try{ const r=await fetch(u,{cache:'reload'}); if(r.ok||r.type==='opaque'){ await c.put(u,r); ok++; } }catch(e){} lab.textContent='Guardando… '+ok+'/'+uniq.length; }
-    lab.textContent='Guardado: '+ok+'/'+uniq.length+' archivos. Funciona sin cobertura'; btn.classList.add('done');
-  }catch(e){ lab.textContent='No se pudo guardar en este navegador'; }
+const SAVE={run:false,ok:0,fail:0,total:0,done:false};
+function mediaUrls(){ const u=[]; S.concat([INTRO]).forEach(s=>{ if(s.audio) u.push(s.audio); (s.images||[]).forEach(im=>u.push(im.src)); if(s.ba){u.push(s.ba.before,s.ba.after)} }); return [...new Set(u)]; }
+function saveLabel(){
+  if(SAVE.run) return 'Guardando… '+SAVE.ok+'/'+SAVE.total;
+  if(SAVE.done) return SAVE.fail? 'Faltan '+SAVE.fail+' archivos · toca para reintentar' : 'Guardado: '+SAVE.ok+'/'+SAVE.total+' · funciona sin cobertura';
+  return 'Guardar audios y fotos para usar sin cobertura';
 }
-if(IS_WEB && 'serviceWorker' in navigator && location.protocol==='https:'){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+function paintSave(){ const b=$('#offline'); if(!b) return; const l=b.querySelector('span'); if(l) l.textContent=saveLabel(); b.classList.toggle('done',SAVE.done&&!SAVE.fail&&!SAVE.run); }
+const keyOf = u => { const x=new URL(u,location.href); return x.pathname+x.search; };
+async function checkSaved(){ try{ const c=await caches.open('sgv-media'); const ks=new Set((await c.keys()).map(r=>keyOf(r.url))); const all=mediaUrls(); const have=all.filter(u=>ks.has(keyOf(u))).length; if(have===all.length){ Object.assign(SAVE,{done:true,ok:have,total:all.length,fail:0}); paintSave(); } }catch(e){} }
+async function saveOffline(){
+  if(SAVE.run) return;
+  const all=mediaUrls(); Object.assign(SAVE,{run:true,ok:0,fail:0,total:all.length,done:false}); paintSave();
+  try{ const c=await caches.open('sgv-media');
+    for(const u of all){ try{ const hit=await c.match(u); if(hit){ SAVE.ok++; } else { const r=await fetch(u,{cache:'reload'}); if(r.ok){ await c.put(u,r); SAVE.ok++; } else SAVE.fail++; } }catch(e){ SAVE.fail++; } paintSave(); }
+  }catch(e){ SAVE.fail=SAVE.total-SAVE.ok; }
+  SAVE.run=false; SAVE.done=true; paintSave();
+}
+if(IS_WEB && 'caches' in window) setTimeout(checkSaved,1500);
+if(IS_WEB && 'serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 
 /* ---------- CONFETTI ---------- */
 function burst(){

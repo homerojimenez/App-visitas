@@ -1,18 +1,23 @@
-// Offline cache for the Segovia guide: network-first for the page and map data,
-// cache-first for media, with Range support so cached audio plays on iOS Safari.
-const V = 'sgv-v7';
-const MEDIA = 'sgv-media-v4';
+// Offline cache for the Segovia guide.
+// Shell (page, map data, local MapLibre copy): precached at install, network-first with a 3 s timeout.
+// Media (audio, photos): cache-first in a fixed cache; URLs carry ?v=<hash> so changed files get new keys.
+// Range requests are answered from the cached file so audio plays offline on iOS Safari.
+const V = 'sgv-v9';
+const MEDIA = 'sgv-media';
+const SHELL = ['index.html', 'map.json', 'lib/maplibre-gl.js', 'fonts/NotoReg/0-255.ttf', 'manifest.webmanifest', 'icon-180.png'];
 
-self.addEventListener('install', () => self.skipWaiting());
+self.addEventListener('install', e => {
+  self.skipWaiting();
+  e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).catch(() => {}));
+});
+
 self.addEventListener('activate', e => e.waitUntil((async () => {
   const keys = await caches.keys();
-  await Promise.all(keys.filter(k => k !== V && k !== MEDIA).map(k => caches.delete(k)));
+  await Promise.all(keys.filter(k => k.startsWith('sgv-') && k !== V && k !== MEDIA).map(k => caches.delete(k)));
   await self.clients.claim();
 })()));
 
-async function fromCache(req) {
-  return (await caches.match(req, { ignoreSearch: true })) || (await caches.match(req.url, { ignoreSearch: true }));
-}
+const isMedia = u => /\.(mp3|webp|png|jpg)$/.test(u.pathname) && u.origin === location.origin;
 
 self.addEventListener('fetch', e => {
   const r = e.request;
@@ -22,8 +27,12 @@ self.addEventListener('fetch', e => {
 
   if (range) {
     e.respondWith((async () => {
-      const m = await fromCache(r);
-      if (!m) return fetch(r);
+      const m = await caches.match(r.url);
+      if (!m) {
+        // Store the whole file in the background so the next play works offline.
+        e.waitUntil(fetch(r.url).then(res => res.ok && caches.open(MEDIA).then(c => c.put(r.url, res))).catch(() => {}));
+        return fetch(r);
+      }
       const buf = await m.arrayBuffer();
       const g = /bytes=(\d+)-(\d*)/.exec(range) || [];
       const start = +g[1] || 0, end = g[2] ? Math.min(+g[2], buf.byteLength - 1) : buf.byteLength - 1;
@@ -36,27 +45,32 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  const fresh = r.mode === 'navigate' || /\.(html|json)$/.test(u.pathname) || u.pathname.endsWith('/');
-  if (fresh) {
+  const shell = r.mode === 'navigate' || /\.(html|json|webmanifest)$/.test(u.pathname) || u.pathname.endsWith('/');
+  if (shell) {
     e.respondWith((async () => {
-      try {
-        const res = await fetch(r);
-        if (res.ok) (await caches.open(V)).put(r, res.clone());
+      const cached = (await caches.match(r, { cacheName: V, ignoreSearch: true })) ||
+                     (r.mode === 'navigate' ? await caches.match('index.html', { cacheName: V, ignoreSearch: true }) : null);
+      const net = fetch(r).then(res => {
+        if (res.ok) { const c = res.clone(); caches.open(V).then(x => x.put(r, c)); }
         return res;
-      } catch (err) {
-        return (await fromCache(r)) || (await caches.match('index.html', { ignoreSearch: true })) || Response.error();
-      }
+      });
+      e.waitUntil(net.catch(() => {}));
+      if (!cached) return net.catch(() => Response.error());
+      // map.json: serve the cached copy at once and refresh it in the background.
+      if (u.pathname.endsWith('map.json')) return cached;
+      return Promise.race([net, new Promise(ok => setTimeout(() => ok(cached), 3000))]).catch(() => cached);
     })());
     return;
   }
 
   e.respondWith((async () => {
-    const m = await fromCache(r);
+    const m = isMedia(u) ? await caches.match(r) : await caches.match(r, { ignoreSearch: true });
     if (m) return m;
     try {
       const res = await fetch(r);
-      if ((res.ok && u.origin === location.origin) || /unpkg\.com|gstatic\.com|googleapis\.com/.test(u.host)) {
-        (await caches.open(V)).put(r, res.clone());
+      if (res.ok && (u.origin === location.origin || /unpkg\.com|gstatic\.com|googleapis\.com/.test(u.host))) {
+        const c = res.clone();
+        caches.open(isMedia(u) ? MEDIA : V).then(x => x.put(r, c));
       }
       return res;
     } catch (err) {

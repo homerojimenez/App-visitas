@@ -8,7 +8,7 @@ BUS_BACK=[dict(t='18:50'),dict(t='19:10',label='sobrados'),dict(t='19:40',best=T
 BUS_NOTE_OUT='Horario de domingo según Moovit. Parada en la explanada de salida de la estación, rótulo «11 Acueducto». 2,25 € (billete AVE), en efectivo o con tarjeta o móvil sin contacto. Si veis antes el 12, también os deja en el centro.'
 BUS_NOTE_BACK='Horario de domingo según Moovit. Parada Acueducto 3, en la plaza de Artillería, a 2 min del Azoguejo. Rótulo «11 Estación AVE». Unos 15 min hasta Guiomar. El de las 19:40 llega hacia las 19:54: 24 min de margen para vuestro Avant de las 20:18. Va lleno: estad en la parada a las 19:25.'
 stops=[
- dict(id='guiomar',n='0',short='Estación',name='Llegada: estación Segovia-Guiomar',kind='train',zone='Llegada',time='12:32',alert='Avant 08129 · llega 12:32',stay=10,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',
+ dict(id='guiomar',n='0',short='Estación',name='Llegada: estación Segovia-Guiomar',kind='train',zone='Llegada',time='12:32',alert='Avant 08129 · llega 12:32',stay=8,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',
   hook='Salid rápido del andén: el autobús 11 espera en la puerta y en el puente se llena.',audio='audio/00.mp3',dur=53,
   images=[img('guiomar-b','Las vías de Segovia-Guiomar con la sierra de Guadarrama al fondo'),img('guiomar-a','El edificio de la estación')],
   deps=dict(title='Bus 11 · Guiomar → Acueducto',note=BUS_NOTE_OUT,list=BUS_OUT),
@@ -19,7 +19,7 @@ stops=[
   facts=[dict(tag='SALSEO',title='Una estación con nombre de amante',text='Guiomar era el nombre en clave con el que Machado escribía a Pilar de Valderrama, su amor secreto y casada. La estación se inauguró en 2007 con ese nombre.'),
          dict(tag='CIFRA',title='Bajo la sierra',text='Para llegar aquí el tren cruza el Guadarrama por un túnel de unos 28 km, el túnel ferroviario más largo de España.'),
          dict(tag='TIP',title='Primero, la foto del acueducto',text='El bus os deja a 2 minutos del Azoguejo. Dadle al play de la parada 1 cuando lo veáis aparecer.')]),
- dict(id='acueducto',n='1',short='Acueducto',name='Acueducto y Azoguejo',zone='Zona baja',time='13:00',stay=15,lat=40.94787,lon=-4.11815,gq='Plaza del Azoguejo, Segovia',
+ dict(id='acueducto',n='1',short='Acueducto',name='Acueducto y Azoguejo',zone='Zona baja',time='12:57',stay=18,lat=40.94787,lon=-4.11815,gq='Plaza del Azoguejo, Segovia',
   hook='Casi 2.000 años en pie, 20.000 bloques de granito y ni una gota de cemento.',audio='audio/01.mp3',dur=59,
   images=[img('acueducto-arcos','Los arcos desde abajo: puro equilibrio'),img('azoguejo','La vista desde la calle Real hacia el Azoguejo'),img('acueducto-noche','De noche se ilumina y el granito se vuelve dorado'),img('acueducto-antiguo','El acueducto en una fotografía del siglo XIX',year='s. XIX')],
   look='Los agujeritos en los bloques: ahí se enganchaban las tenazas para subirlos. Y arriba, las hornacinas con figuras.',
@@ -33,7 +33,7 @@ stops=[
   chart=dict(title='¿Cómo de alto es?',max=30,rows=[dict(l='Acueducto',v=28,t='28,1 m',hl=True),dict(l='Edificio 9 plantas',v=27,t='27 m'),dict(l='Árbol grande',v=15,t='15 m'),dict(l='Autobús',v=3.2,t='3 m')],note='Comparativa aproximada.'),
   ba=dict(before='img/acueducto-1838.webp',after='img/azoguejo.webp',by='1838',ay='Hoy',cap='En 1838 el Azoguejo era un mercado con casas pegadas a los pilares. Hoy la plaza está despejada y peatonal.'),
   timeline=[dict(y='s. I-II',e='Roma levanta el acueducto'),dict(y='1072',e='Las tropas de Al-Mamún de Toledo destruyen 36 arcos'),dict(y='desde 1484',e='Fray Juan de Escobedo los rehace para los Reyes Católicos'),dict(y='1985',e='Patrimonio de la Humanidad'),dict(y='1992',e='Se corta el tráfico y empieza la gran restauración')]),
- dict(id='mirador',n='2',short='Mirador',name='Mirador del Postigo del Consuelo',zone='Zona baja',time='13:18',stay=5,lat=40.94856,lon=-4.11833,gq='Postigo del Consuelo, Segovia',
+ dict(id='mirador',n='2',short='Mirador',name='Mirador del Postigo del Consuelo',zone='Zona baja',time='13:18',stay=4,lat=40.94856,lon=-4.11833,gq='Postigo del Consuelo, Segovia',
   hook='Subid las escaleras pegadas al acueducto: aquí está la foto de pareja.',audio='audio/02.mp3',dur=58,
   images=[img('acueducto-08','El acueducto entero desde lo alto, con el Azoguejo abajo'),img('acueducto-arcos','Las dos filas de arcos')],
   look='El canal por donde corría el agua, en lo alto del acueducto, casi a la altura de vuestros ojos.',
@@ -51,7 +51,7 @@ stops=[
          dict(tag='MITO',title='¿Por qué los picos?',text='Hay varias versiones: ostentación de una familia noble, defensa junto a la muralla o una forma de acallar habladurías. Ninguna está probada.',legend='Origen discutido'),
          dict(tag='DATO',title='Hoy, Escuela de Arte',text='Los alumnos de la Escuela de Arte y Superior de Diseño entran cada mañana bajo las seiscientas puntas.')],
   numbers=[dict(v='617',l='picos de granito'),dict(v='h. 1500',l='Juan de la Hoz le pone fachada nueva')]),
- dict(id='sanmartin',n='4',short='Juan Bravo',name='Plaza de San Martín y Juan Bravo',zone='Calle Real',time='13:31',stay=5,lat=40.94870,lon=-4.12157,gq='Plaza de Medina del Campo, Segovia',
+ dict(id='sanmartin',n='4',short='Juan Bravo',name='Plaza de San Martín y Juan Bravo',zone='Calle Real',time='13:31',stay=3,lat=40.94870,lon=-4.12157,gq='Plaza de Medina del Campo, Segovia',
   hook='El rebelde que plantó cara a Carlos I y perdió la cabeza por ello.',audio='audio/04.mp3',dur=60,
   images=[img('juanbravo','Juan Bravo de noche, con la Casa del Siglo XV detrás'),img('sanmartin','San Martín y su galería porticada románica')],
   look='La estatua de Juan Bravo con el estandarte, y detrás la galería porticada de San Martín.',
@@ -61,7 +61,7 @@ stops=[
          dict(tag='LEYENDA',title='Última frase',text='Cuando el pregonero lo llamó traidor, Bravo le gritó que mentía. Se cuenta así, aunque las versiones varían.',legend='Tradición'),
          dict(tag='DATO',title='Torres de presumir',text='El torreón de Lozoya, torre defensiva del siglo XIV, es de cuando los linajes segovianos se peleaban entre sí y cada familia quería su torre para atrincherarse.')],
   timeline=[dict(y='1520',e='Estalla la revuelta comunera'),dict(y='1521',e='Derrota en Villalar y ejecución'),dict(y='1921-22',e='Estatua de Aniceto Marinas por el IV centenario (inaugurada en 1922)')]),
- dict(id='corpus',skip='vedlo por fuera y id a Machado, que cierra a las 14:30',n='5',short='Corpus Christi',name='Corpus Christi (antigua sinagoga)',zone='Calle Real',time='13:38',stay=10,lat=40.94921,lon=-4.12404,gq='Iglesia del Corpus Christi, Segovia',alert='Cierra 14:15 · 1 € · rápido, Machado a las 14:00',
+ dict(id='corpus',skip='vedlo por fuera y id a Machado: última entrada 14:00',n='5',short='Corpus Christi',name='Corpus Christi (antigua sinagoga)',zone='Calle Real',time='13:38',stay=10,lat=40.94921,lon=-4.12404,gq='Iglesia del Corpus Christi, Segovia',alert='Cierra 14:15 · 1 € · rápido, Machado a las 14:00',
   hook='Una sinagoga que parece mezquita y acabó siendo iglesia por un "milagro" muy conveniente.',audio='audio/05.mp3',dur=58,
   images=[img('corpus','La entrada del Corpus Christi en la calle Real'),img('sinagoga','Capitel de piñas de la antigua sinagoga: buscadlo dentro')],
   look='Los arcos de herradura y las piñas talladas de los capiteles. Y el torno de las monjas, con dulces.',
@@ -71,7 +71,7 @@ stops=[
          dict(tag='DATO',title='Incendio de 1899',text='El fuego dejó el edificio casi destruido: buena parte de lo que veis es una reconstrucción posterior.'),
          dict(tag='TIP',title='Dulces de clausura',text='Las clarisas venden dulces caseros por el torno. Buen tentempié antes de comer.')],
   numbers=[dict(v='1',u='€',l='entrada'),dict(v='1410',l='acusación y confiscación (fecha tradicional)')]),
- dict(id='machado',skip='última entrada a las 14:15: id directos',n='6',short='Casa de Machado',name='Casa-Museo de Antonio Machado',zone='San Esteban',time='13:56',stay=25,lat=40.95160,lon=-4.12580,gq='Casa-Museo de Antonio Machado, Calle Desamparados 5, Segovia',alert='Última entrada 14:00',
+ dict(id='machado',skip='última entrada 14:00: si no llegáis, id directos a la Cueva de San Esteban, al lado',n='6',short='Casa de Machado',name='Casa-Museo de Antonio Machado',zone='San Esteban',time='13:56',stay=25,lat=40.95160,lon=-4.12580,gq='Casa-Museo de Antonio Machado, Calle Desamparados 5, Segovia',alert='Última entrada 14:00',
   hook='La pensión del poeta y el romance secreto que da nombre a vuestra estación.',audio='audio/06.mp3',dur=66,
   images=[img('machado-casa','El patio de la antigua pensión de la calle Desamparados'),img('machado-sorolla','Antonio Machado retratado por Sorolla en 1917',year='1917')],
   look='La habitación: la cama de hierro, la mesa y la estufa de petróleo donde escribía de noche.',
@@ -135,7 +135,7 @@ stops=[
   numbers=[dict(v='152',l='escalones de la torre de Juan II'),dict(v='1862',l='año del gran incendio'),dict(v='~10',u='€',l='entrada completa')],
   ba=dict(before='img/alcazar-despues.webp',after='img/alcazar-otono.webp',by='Tras 1862',ay='Hoy',cap='Grabado del Alcázar tras el incendio de 1862, sin sus tejados, y el Alcázar hoy con las agujas reconstruidas.'),
   timeline=[dict(y='s. XII',e='Primer alcázar documentado'),dict(y='1474',e='Isabel sale de aquí a proclamarse reina'),dict(y='1570',e='Boda de Felipe II y Ana de Austria'),dict(y='1764',e='Real Colegio de Artillería'),dict(y='1862',e='Incendio'),dict(y='fin s. XIX',e='Reconstrucción de las cubiertas')]),
- dict(id='vuelta',n='B',short='Bus 19:40',name='Bajada al Acueducto y bus 11',kind='bus',zone='Vuelta',time='19:40',stay=0,lat=40.94715,lon=-4.11705,gq='Plaza de Artillería, Segovia',alert='Salid del Alcázar 19:00 · en la parada 19:25',skip='taxi en la Plaza Mayor o el Azoguejo',
+ dict(id='vuelta',n='B',short='Bus 19:40',name='Bajada al Acueducto y bus 11',kind='bus',zone='Vuelta',time='19:25',stay=15,lat=40.94715,lon=-4.11705,gq='Plaza de Artillería, Segovia',alert='Salid del Alcázar 19:00 · en la parada 19:25',skip='taxi en la Plaza Mayor o el Azoguejo',
   hook='Veinticinco minutos cuesta abajo por la calle Real con la puesta de sol, y el bus 11 de las 19:40 a Guiomar.',audio='audio/11.mp3',dur=59,
   deps=dict(title='Bus 11 · Acueducto → Guiomar',note=BUS_NOTE_BACK,list=BUS_BACK),
   images=[img('acueducto-noche','El acueducto iluminado al anochecer')],
@@ -198,14 +198,24 @@ for a,b in zip(stops,stops[1:]):
     legs.append(dict(coords=coords,m=int(round(m/10)*10),min=mins,mode='walk'))
     print(a['id'],'->',b['id'],int(m),'m',mins,'min')
 legs[-2]['note']='casi todo cuesta abajo'
-tour=dict(stops=stops,legs=legs,meta=meta,planInfo=planInfo,credits=credits)
+import hashlib
+def ver(path):
+    src=SP+path if os.path.exists(SP+path) else OUT+path
+    try: return path+'?v='+hashlib.md5(open(src,'rb').read()).hexdigest()[:8]
+    except Exception: return path
+for st in stops:
+    if st.get('audio'): st['audio']=ver(st['audio'])
+    for im in st.get('images',[]): im['src']=ver(im['src'])
+    if st.get('ba'): st['ba']['before']=ver(st['ba']['before']); st['ba']['after']=ver(st['ba']['after'])
+tour=dict(stops=stops,legs=legs,meta=meta,planInfo=planInfo,credits=credits,intro=ver('audio/00.mp3'))
 t=open(SP+'template.html').read()
 css=open(SP+'map/package/dist/maplibre-gl.css').read()
 WEB='https://raw.githack.com/homerojimenez/App-visitas/HEAD/index.html'
 t=t.replace('/*__MLCSS__*/',css).replace('/*__DATA__*/null',json.dumps(tour,ensure_ascii=False)).replace('/*__WEBURL__*/',WEB)
 open(OUT+'artifact.html','w').write(t)
 head='<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1a6cf0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Segovia"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" type="image/png" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>'
-open(OUT+'index.html','w').write(head+t.replace('<meta charset="utf-8">\n','',1)+'</body></html>')
+web=t.replace('<meta charset="utf-8">\n','',1).replace('https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" crossorigin="anonymous"','lib/maplibre-gl.js"')
+open(OUT+'index.html','w').write(head+web+'</body></html>')
 os.makedirs(OUT+'fonts/NotoReg',exist_ok=True); shutil.copy(SP+'map/glyph0.pbf',OUT+'fonts/NotoReg/0-255.ttf')
 shutil.copy(SP+'map/map.json',OUT+'map.json')
 os.makedirs(OUT+'img',exist_ok=True); os.makedirs(OUT+'audio',exist_ok=True)
