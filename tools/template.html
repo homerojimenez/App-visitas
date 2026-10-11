@@ -399,7 +399,7 @@ function routeFC(){
 function refreshRoute(){ if(map && map.getSource('route')) map.getSource('route').setData(routeFC()); }
 function initMap(M){
   const p=palette();
-  map = new maplibregl.Map({container:'map',style:styleFor(p),center:[-4.1235,40.9505],zoom:15.3,attributionControl:false,pitchWithRotate:false,dragRotate:false,maxBounds:[[-4.22,40.870],[-4.02,41.000]],minZoom:11,maxZoom:19});
+  map = new maplibregl.Map({container:'map',style:styleFor(p),center:[-4.1235,40.9505],zoom:15.3,attributionControl:false,pitchWithRotate:false,dragRotate:false,minZoom:10,maxZoom:19});
   map.touchZoomRotate.disableRotation();
   map.addControl(new maplibregl.AttributionControl({compact:true,customAttribution:'© Overture Maps Foundation · © OpenStreetMap'}));
   map.on('load',()=>{
