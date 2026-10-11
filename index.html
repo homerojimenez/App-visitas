@@ -692,7 +692,7 @@ async function saveOffline(){
   const urls=['./','index.html','map.json','fonts/NotoReg/0-255.ttf','https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js'];
   S.concat([INTRO]).forEach(s=>{ if(s.audio) urls.push(s.audio); (s.images||[]).forEach(im=>urls.push(im.src)); if(s.ba){urls.push(s.ba.before,s.ba.after)} });
   const uniq=[...new Set(urls)]; let ok=0;
-  try{ const c=await caches.open('sgv-media-v1');
+  try{ const c=await caches.open('sgv-media-v2');
     for(const u of uniq){ try{ const r=await fetch(u,{cache:'reload'}); if(r.ok||r.type==='opaque'){ await c.put(u,r); ok++; } }catch(e){} lab.textContent='Guardando… '+ok+'/'+uniq.length; }
     lab.textContent='Guardado: '+ok+'/'+uniq.length+' archivos. Funciona sin cobertura'; btn.classList.add('done');
   }catch(e){ lab.textContent='No se pudo guardar en este navegador'; }
