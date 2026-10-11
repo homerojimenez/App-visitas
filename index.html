@@ -603,7 +603,12 @@ function tick(){
   const d=new Date(); $('#clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
   const T=TOUR.meta, n=nowMin(), bus=toMin(T.returnBus), leave=bus-T.walkDown;
   const el=$('#train');
+  const nextDep = st => { const x=S.find(q=>q.id===st); if(!x||!x.deps) return null; return x.deps.list.map(q=>typeof q==='string'?{t:q}:q).filter(q=>!q.bad).map(q=>toMin(q.t)).find(m=>m>=n-0.5); };
+  const fm = l => l>=60? Math.floor(l/60)+'h'+String(Math.floor(l%60)).padStart(2,'0') : Math.max(0,Math.round(l))+' min';
+  const outB = nextDep('guiomar');
   if(n<toMin(T.arrive)-90 || n>toMin(T.train)) el.innerHTML='Tren <small>'+T.train+'</small>';
+  else if(n<toMin('12:50') && outB!=null && outB-n<=60){ el.innerHTML='Bus 11 <small>'+fmt(outB)+' · '+fm(outB-n)+'</small>'; }
+  else if(n>=leave && n<toMin('19:45')){ const b2=nextDep('vuelta'); el.innerHTML='Bus 11 <small>'+(b2!=null? fmt(b2)+' · '+fm(b2-n) : T.returnBus)+'</small>'; }
   else if(n<leave){ const l=leave-n; el.innerHTML='Salida <small>'+(l>=60?Math.floor(l/60)+'h'+String(Math.floor(l%60)).padStart(2,'0'):Math.floor(l)+' min')+'</small>'; }
   else if(n<bus){ el.innerHTML='Bus 11 <small>'+T.returnBus+'</small>'; }
   else el.innerHTML='Tren <small>'+T.train+'</small>';
