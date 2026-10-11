@@ -1,7 +1,7 @@
 // Offline cache for the Segovia guide: network-first for the page and map data,
 // cache-first for media, with Range support so cached audio plays on iOS Safari.
-const V = 'sgv-v6';
-const MEDIA = 'sgv-media-v3';
+const V = 'sgv-v7';
+const MEDIA = 'sgv-media-v4';
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil((async () => {

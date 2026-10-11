@@ -4,11 +4,11 @@ OUT='/home/user/App-visitas/'
 W='Wikimedia Commons'
 def img(f,cap,credit=W,year=None): return {'src':'img/'+f+'.webp','cap':cap,'credit':credit,**({'year':year} if year else {})}
 BUS_OUT=[dict(t='12:40',best=True),dict(t='12:45'),dict(t='13:50',label='el siguiente: 1 h más')]
-BUS_BACK=[dict(t='18:50'),dict(t='19:10',best=True,label='recomendado'),dict(t='19:40',label='justo'),dict(t='20:00',bad=True,label='no llega')]
+BUS_BACK=[dict(t='18:50'),dict(t='19:10',label='sobrados'),dict(t='19:40',best=True,label='el vuestro'),dict(t='20:00',bad=True,label='llega 20:14: no')]
 BUS_NOTE_OUT='Horario de domingo según Moovit. Parada en la explanada de salida de la estación, rótulo «11 Acueducto». 2,25 € (billete AVE), en efectivo o con tarjeta o móvil sin contacto. Si veis antes el 12, también os deja en el centro.'
-BUS_NOTE_BACK='Horario de domingo según Moovit. Parada Acueducto 3, en la plaza de Artillería, a 2 min del Azoguejo. Rótulo «11 Estación AVE». Unos 15 min hasta Guiomar. El de las 19:40 llega hacia las 19:55: margen justo.'
+BUS_NOTE_BACK='Horario de domingo según Moovit. Parada Acueducto 3, en la plaza de Artillería, a 2 min del Azoguejo. Rótulo «11 Estación AVE». Unos 15 min hasta Guiomar. El de las 19:40 llega hacia las 19:54: 24 min de margen para vuestro Avant de las 20:18. Va lleno: estad en la parada a las 19:25.'
 stops=[
- dict(id='guiomar',n='0',short='Estación',name='Llegada: estación Segovia-Guiomar',kind='train',zone='Llegada',time='12:30',stay=10,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',
+ dict(id='guiomar',n='0',short='Estación',name='Llegada: estación Segovia-Guiomar',kind='train',zone='Llegada',time='12:32',alert='Avant 08129 · llega 12:32',stay=10,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',
   hook='Salid rápido del andén: el autobús 11 espera en la puerta y en el puente se llena.',audio='audio/00.mp3',dur=53,
   images=[img('guiomar-b','Las vías de Segovia-Guiomar con la sierra de Guadarrama al fondo'),img('guiomar-a','El edificio de la estación')],
   deps=dict(title='Bus 11 · Guiomar → Acueducto',note=BUS_NOTE_OUT,list=BUS_OUT),
@@ -135,27 +135,27 @@ stops=[
   numbers=[dict(v='152',l='escalones de la torre de Juan II'),dict(v='1862',l='año del gran incendio'),dict(v='~10',u='€',l='entrada completa')],
   ba=dict(before='img/alcazar-despues.webp',after='img/alcazar-otono.webp',by='Tras 1862',ay='Hoy',cap='Grabado del Alcázar tras el incendio de 1862, sin sus tejados, y el Alcázar hoy con las agujas reconstruidas.'),
   timeline=[dict(y='s. XII',e='Primer alcázar documentado'),dict(y='1474',e='Isabel sale de aquí a proclamarse reina'),dict(y='1570',e='Boda de Felipe II y Ana de Austria'),dict(y='1764',e='Real Colegio de Artillería'),dict(y='1862',e='Incendio'),dict(y='fin s. XIX',e='Reconstrucción de las cubiertas')]),
- dict(id='vuelta',n='B',short='Bus 19:10',name='Bajada al Acueducto y bus 11',kind='bus',zone='Vuelta',time='19:10',stay=0,lat=40.94715,lon=-4.11705,gq='Plaza de Artillería, Segovia',alert='Salid del Alcázar 18:45',skip='taxi en la Plaza Mayor o el Azoguejo',
-  hook='Veinticinco minutos cuesta abajo por la calle Real y el bus 11 de las 19:10 a Guiomar.',audio='audio/11.mp3',dur=54,
+ dict(id='vuelta',n='B',short='Bus 19:40',name='Bajada al Acueducto y bus 11',kind='bus',zone='Vuelta',time='19:40',stay=0,lat=40.94715,lon=-4.11705,gq='Plaza de Artillería, Segovia',alert='Salid del Alcázar 19:00 · en la parada 19:25',skip='taxi en la Plaza Mayor o el Azoguejo',
+  hook='Veinticinco minutos cuesta abajo por la calle Real con la puesta de sol, y el bus 11 de las 19:40 a Guiomar.',audio='audio/11.mp3',dur=59,
   deps=dict(title='Bus 11 · Acueducto → Guiomar',note=BUS_NOTE_BACK,list=BUS_BACK),
   images=[img('acueducto-noche','El acueducto iluminado al anochecer')],
-  info=[dict(t='Autobús línea 11 · Acueducto → Guiomar',badge='19:10',bc='ok',p='Cabecera Acueducto 3, en la plaza de Artillería, junto al acueducto. Unos 15 min. 2,25 € con tarjeta, móvil o efectivo. Plan B: el de las 19:40, que llega hacia las 19:55. El de las 20:00 ya no sirve para el tren de las 20:15.'),
+  info=[dict(t='Autobús línea 11 · Acueducto → Guiomar',badge='19:40',bc='ok',p='Cabecera Acueducto 3, en la plaza de Artillería, junto al acueducto. Llega a Guiomar hacia las 19:54, 24 min antes de vuestro Avant de las 20:18. Va lleno de gente que vuelve a Madrid: estad en la parada a las 19:25. Si queréis ir sobrados, el de las 19:10. El de las 20:00 ya no sirve.'),
+        dict(t='Plan B: taxi',badge='SI EL BUS VA LLENO',p='Parada de taxis en el Azoguejo, al lado. Unos 11-12 € en domingo y 10-12 min hasta Guiomar.'),
         dict(t='Comprobad la hora en directo',p='App «Urbanos de Segovia» (Avanza), Moovit o el panel de la parada. Atención al cliente de Avanza:',tel='900 925 303'),
-        dict(t='Plan B: taxi',p='Paradas en la Plaza Mayor y en el Azoguejo. Unos 11-12 € en domingo hasta Guiomar, 10-12 min. En el puente puede haber cola: mejor pedirlo hacia las 19:15.'),
         dict(t='No hay bus desde la zona alta',p='Ninguna línea va directa de la Plaza Mayor o el Alcázar a la estación. Lo más rápido es bajar andando (20-25 min) o taxi.')],
   look='El acueducto con la última luz: el sol se pone a las 19:43.'),
- dict(id='estacion',n='T',short='Tren 20:15',name='Estación Guiomar y tren a Madrid',kind='train',zone='Vuelta',time='19:25',stay=50,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',alert='Tren 20:15',
+ dict(id='estacion',n='T',short='Tren 20:18',name='Estación Guiomar · Avant 20:18',kind='train',zone='Vuelta',time='19:55',stay=23,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',alert='Avant 08198 · 20:18 · coche 6, asiento 66',
   hook='Llegad con margen: el AVE tiene control de equipajes y el acceso al andén cierra unos minutos antes.',
   images=[img('guiomar-a','La estación de Segovia-Guiomar'),img('guiomar-b','Andenes con la sierra al fondo')],
-  info=[dict(t='¿Vuestro tren sale a las 19:47?',badge='OJO',bc='hot',p='No hemos encontrado ningún tren que salga de Guiomar a las 20:15. El Alvia/Avant de las 19:47 llega a Chamartín a las 20:15. Con el bus de las 19:10 llegáis a tiempo a cualquiera de los dos.'),
+  info=[dict(t='Vuestro tren de vuelta',badge='20:18',bc='ok',p='Avant 08198 · Segovia-Guiomar 20:18 → Chamartín 20:46. Coche 006, asiento 066. El billete está en la Wallet.'),
         dict(t='En la estación',ul=['Pasad el control de equipaje nada más llegar','El acceso al tren cierra unos 2 minutos antes de la salida','Hay cafetería y máquinas si queréis algo para el viaje']),
-        dict(t='Plan B si perdéis el bus',p='Taxi desde la Plaza Mayor o el Azoguejo: unos 11-12 € en domingo y 10-12 min. Pedidlo hacia las 19:15 si veis cola.')],
+        dict(t='Plan B si perdéis el bus',p='Taxi desde la Plaza Mayor o el Azoguejo: unos 11-12 € en domingo y 10-12 min. Si a las 19:40 el bus va lleno, id directos a la parada de taxis del Azoguejo.')],
   facts=[dict(tag='TIP',title='Para el tren',text='Si comprasteis ponche segoviano, este es el momento: aguanta bien el viaje.')]),
 ]
-meta=dict(arrive='12:30',train='20:15',returnBus='19:10',walkDown=25)
-planInfo=[dict(t='Mirad la hora del billete de vuelta',badge='OJO',bc='hot',p='No aparece ningún tren que SALGA de Guiomar a las 20:15. Sí hay uno que sale a las 19:47 y LLEGA a Madrid a las 20:15. Si es el vuestro, el bus de las 19:10 es obligatorio (llegáis hacia las 19:24) y el de las 19:40 ya no sirve. El plan ya está hecho con el de las 19:10.'),
+meta=dict(arrive='12:32',train='20:18',returnBus='19:40',walkDown=40)
+planInfo=[dict(t='Vuestros trenes',ul=['Ida: Avant 08129 · Chamartín 12:05 → Guiomar 12:32 · coche 007, asiento 155','Vuelta: Avant 08198 · Guiomar 20:18 → Chamartín 20:46 · coche 006, asiento 066']),
  dict(t='Ida: bus 11 desde Guiomar',badge='12:40 · 12:45',bc='ok',p='Horario de domingo según Moovit. El siguiente no sale hasta las 13:50, así que salid rápido del andén. 15 min hasta el Acueducto. 2,25 € con tarjeta, móvil o efectivo. La línea 12 también os vale.'),
- dict(t='Vuelta: bus 11 desde el Acueducto',badge='19:10',bc='ok',p='Parada Acueducto 3 (plaza de Artillería). Llegáis a Guiomar hacia las 19:25, con margen de sobra. Plan B: el de las 19:40 (llega hacia las 19:55). El de las 20:00 ya no sirve.'),
+ dict(t='Vuelta: bus 11 desde el Acueducto',badge='19:40',bc='ok',p='Parada Acueducto 3 (plaza de Artillería). Estad allí a las 19:25 porque se llena. Llegáis a Guiomar hacia las 19:54, con 24 min para el Avant de las 20:18. Si queréis ir sobrados, el de las 19:10. El de las 20:00 ya no sirve. Plan B: taxi en el Azoguejo.'),
  dict(t='Horarios del domingo',ul=['Corpus Christi: hasta 14:15 (1 €)','Casa de Machado: hasta 14:30, última entrada 14:00','Catedral: 13:30-18:30 (unos 4 €)','Alcázar: desde las 10:00, cierre a las 19:00 o 20:00 según la fuente (confirmadlo) (unos 10 € con torre)','Centro de la Judería: cerrado por la tarde']),
  dict(t='Puesta de sol 19:43',p='Mediados de octubre: unos 18 °C de máxima, pero refresca mucho al caer el sol. Chaqueta y calzado cómodo: hay adoquines y unos 60 m de desnivel.'),
  dict(t='Reservad la comida ahora',badge='IMPORTANTE',bc='hot',p='Es puente del Pilar. La Cueva de San Esteban tiene 32 plazas: 921 460 982.')]
