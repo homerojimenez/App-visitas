@@ -238,6 +238,9 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 .dep{height:34px;padding:0 12px;border-radius:var(--r-pill);background:var(--surface-2);display:inline-flex;align-items:center;gap:6px;font-weight:800;font-variant-numeric:tabular-nums;font-size:14px}
 .dep.gone{opacity:.4;text-decoration:line-through}
 .dep.nx{background:var(--accent);color:var(--accent-ink)}
+.dep.best{box-shadow:inset 0 0 0 2px var(--accent)}
+.dep.bad{opacity:.55}
+.dep.bad em{color:var(--warn)}
 .dep em{font-style:normal;font-weight:700;font-size:12px;opacity:.9}
 .wx{margin-top:10px;border-radius:var(--r-card);border:1.5px solid var(--line);padding:14px}
 .wx-h{display:flex;gap:12px;align-items:center}
@@ -396,7 +399,7 @@ function routeFC(){
 function refreshRoute(){ if(map && map.getSource('route')) map.getSource('route').setData(routeFC()); }
 function initMap(M){
   const p=palette();
-  map = new maplibregl.Map({container:'map',style:styleFor(p),center:[-4.1235,40.9505],zoom:15.3,attributionControl:false,pitchWithRotate:false,dragRotate:false,maxBounds:[[-4.18,40.890],[-4.06,40.985]],minZoom:12.5,maxZoom:19});
+  map = new maplibregl.Map({container:'map',style:styleFor(p),center:[-4.1235,40.9505],zoom:15.3,attributionControl:false,pitchWithRotate:false,dragRotate:false,maxBounds:[[-4.22,40.870],[-4.02,41.000]],minZoom:11,maxZoom:19});
   map.touchZoomRotate.disableRotation();
   map.addControl(new maplibregl.AttributionControl({compact:true,customAttribution:'© Overture Maps Foundation · © OpenStreetMap'}));
   map.on('load',()=>{
@@ -536,10 +539,10 @@ function infoHTML(x){
   return `<div class="info"><h4>${esc(x.t)}${x.badge?` <span class="badge ${x.bc||''}">${esc(x.badge)}</span>`:''}</h4>${x.p?`<p>${esc(x.p)}</p>`:''}${x.ul?`<ul>${x.ul.map(li=>`<li>${esc(li)}</li>`).join('')}</ul>`:''}${x.tel?`<div class="row" style="margin:10px 0 0"><a class="btn sm primary" href="tel:+34${x.tel.replace(/\s/g,'')}">Llamar ${esc(x.tel)}</a><button class="btn sm ghost" data-copy="${esc(x.tel)}">Copiar</button></div>`:''}</div>`;
 }
 function depsHTML(s){
-  const n=nowMin(); const list=s.deps.list.map(t=>({t,m:toMin(t)}));
-  const nx=list.find(d=>d.m>=n-0.5);
+  const n=nowMin(); const list=s.deps.list.map(d=>typeof d==='string'?{t:d}:d).map(d=>({...d,m:toMin(d.t)}));
+  const nx=list.find(d=>d.m>=n-0.5 && !d.bad);
   return `<div class="deps"><div class="deps-h"><span>${ICON.bus}</span><div><b>${esc(s.deps.title)}</b><small>${esc(s.deps.note||'')}</small></div></div>
-  <div class="deps-row">${list.map(d=>`<span class="dep${d===nx?' nx':''}${d.m<n-0.5?' gone':''}">${esc(d.t)}${d===nx?`<em>en ${Math.max(0,Math.round(d.m-n))} min</em>`:''}</span>`).join('')}</div></div>`;
+  <div class="deps-row">${list.map(d=>`<span class="dep${d===nx?' nx':''}${d.m<n-0.5?' gone':''}${d.bad?' bad':''}${d.best?' best':''}">${esc(d.t)}${d===nx&&d.m-n<=90?`<em>en ${Math.max(0,Math.round(d.m-n))} min</em>`:(d.label?`<em>${esc(d.label)}</em>`:'')}</span>`).join('')}</div></div>`;
 }
 function paceInfo(){
   const n=nowMin(), s=S[cur]; if(!s.time) return null;

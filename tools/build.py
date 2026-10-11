@@ -3,16 +3,17 @@ SP='/tmp/claude-0/-home-user-App-visitas/337edbc6-130b-5668-97df-f033ed5dc189/sc
 OUT='/home/user/App-visitas/'
 W='Wikimedia Commons'
 def img(f,cap,credit=W,year=None): return {'src':'img/'+f+'.webp','cap':cap,'credit':credit,**({'year':year} if year else {})}
-BUS_OUT=['12:35','12:45','13:05','13:25','13:45']
-BUS_BACK=['18:45','19:00','19:15','19:30','19:45']
-BUS_NOTE_OUT='Sale de las dársenas frente a la estación y espera a los trenes. Unos 2 €, tarjeta o efectivo. Horas aproximadas: confirmadlas en la parada.'
-BUS_NOTE_BACK='Cabecera en la avenida Padre Claret, al pie del acueducto. Unos 15-20 min hasta Guiomar. Horas aproximadas.'
+BUS_OUT=[dict(t='12:40',best=True),dict(t='12:45'),dict(t='13:50',label='el siguiente: 1 h más')]
+BUS_BACK=[dict(t='18:50'),dict(t='19:10',best=True,label='recomendado'),dict(t='19:40',label='justo'),dict(t='20:00',bad=True,label='no llega')]
+BUS_NOTE_OUT='Horario de domingo según Moovit. Parada en la explanada de salida de la estación, rótulo «11 Acueducto». 2,25 € (billete AVE), en efectivo o con tarjeta o móvil sin contacto. Si veis antes el 12, también os deja en el centro.'
+BUS_NOTE_BACK='Horario de domingo según Moovit. Parada Acueducto 3, en la plaza de Artillería, a 2 min del Azoguejo. Rótulo «11 Estación AVE». Unos 15 min hasta Guiomar. El de las 19:40 llega hacia las 19:55: margen justo.'
 stops=[
  dict(id='guiomar',n='0',short='Estación',name='Llegada: estación Segovia-Guiomar',kind='train',zone='Llegada',time='12:30',stay=10,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',
   hook='Salid rápido del andén: el autobús 11 espera en la puerta y en el puente se llena.',audio='audio/00.mp3',dur=53,
   deps=dict(title='Bus 11 · Guiomar → Acueducto',note=BUS_NOTE_OUT,list=BUS_OUT),
   look='Las dársenas de autobús están justo delante del edificio de la estación. Buscad el 11, con destino Acueducto.',
-  info=[dict(t='Si el bus va lleno',p='Taxi desde la parada de la estación: unos 11-12 € en domingo, 10-12 min hasta el Acueducto.'),
+  info=[dict(t='Si se os escapa',p='El siguiente 11 no sale hasta las 13:50. Alternativas: la línea 12 (también va al centro, a la avenida del Acueducto) o taxi desde la parada de la estación: unos 11-12 € en domingo y 10-12 min.'),
+        dict(t='Horario en directo',p='App «Urbanos de Segovia» (Avanza) o Moovit. Atención al cliente de Avanza:',tel='900 925 303'),
         dict(t='Reservad la comida ahora',badge='IMPORTANTE',bc='hot',p='La Cueva de San Esteban solo tiene 32 plazas y es puente. Pedid mesa para las 14:30.',tel='921 460 982')],
   facts=[dict(tag='SALSEO',title='Una estación con nombre de amante',text='Guiomar era el nombre en clave con el que Machado escribía a Pilar de Valderrama, su amor secreto y casada. La estación se inauguró en 2007 con ese nombre.'),
          dict(tag='CIFRA',title='Bajo la sierra',text='Para llegar aquí el tren cruza el Guadarrama por un túnel de unos 28 km, el túnel ferroviario más largo de España.'),
@@ -122,22 +123,24 @@ stops=[
   numbers=[dict(v='152',l='escalones de la torre de Juan II'),dict(v='1862',l='año del gran incendio'),dict(v='~10',u='€',l='entrada completa')],
   ba=dict(before='img/alcazar-despues.webp',after='img/alcazar-otono.webp',by='Tras 1862',ay='Hoy',cap='Grabado del Alcázar tras el incendio de 1862, sin sus tejados, y el Alcázar hoy con las agujas reconstruidas.'),
   timeline=[dict(y='s. XII',e='Primer alcázar documentado'),dict(y='1474',e='Isabel sale de aquí a proclamarse reina'),dict(y='1570',e='Boda de Felipe II y Ana de Austria'),dict(y='1764',e='Real Colegio de Artillería'),dict(y='1862',e='Incendio'),dict(y='fin s. XIX',e='Reconstrucción de las cubiertas')]),
- dict(id='vuelta',skip='taxi en la Plaza Mayor o el Azoguejo',n='B',short='Vuelta',name='Bajada al Acueducto y bus 11',kind='bus',zone='Vuelta',time='19:15',stay=0,lat=40.94720,lon=-4.11620,gq='Avenida del Padre Claret, Segovia',alert='Salid del Alcázar 18:50',
-  hook='Veinte minutos cuesta abajo por la calle Real y autobús 11 a Guiomar.',audio='audio/11.mp3',dur=55,
+ dict(id='vuelta',n='B',short='Bus 19:10',name='Bajada al Acueducto y bus 11',kind='bus',zone='Vuelta',time='19:10',stay=0,lat=40.94760,lon=-4.11670,gq='Plaza de Artillería, Segovia',alert='Salid del Alcázar 18:45',skip='taxi en la Plaza Mayor o el Azoguejo',
+  hook='Veinticinco minutos cuesta abajo por la calle Real y el bus 11 de las 19:10 a Guiomar.',audio='audio/11.mp3',dur=54,
   deps=dict(title='Bus 11 · Acueducto → Guiomar',note=BUS_NOTE_BACK,list=BUS_BACK),
   images=[img('acueducto-noche','El acueducto iluminado al anochecer')],
-  info=[dict(t='Autobús línea 11 · Acueducto → Guiomar',badge='19:15-19:30',bc='ok',p='Sale de la cabecera en la avenida Padre Claret, al pie del acueducto. Unos 15-20 min. Unos 2 €, se puede pagar con tarjeta. Si va lleno, hay otro hacia las 19:40, pero va justo.'),
+  info=[dict(t='Autobús línea 11 · Acueducto → Guiomar',badge='19:10',bc='ok',p='Cabecera Acueducto 3, en la plaza de Artillería, junto al acueducto. Unos 15 min. 2,25 € con tarjeta, móvil o efectivo. Plan B: el de las 19:40, que llega hacia las 19:55. El de las 20:00 ya no sirve para el tren de las 20:15.'),
+        dict(t='Comprobad la hora en directo',p='App «Urbanos de Segovia» (Avanza), Moovit o el panel de la parada. Atención al cliente de Avanza:',tel='900 925 303'),
         dict(t='Plan B: taxi',p='Paradas en la Plaza Mayor y en el Azoguejo. Unos 11-12 € en domingo hasta Guiomar, 10-12 min. En el puente puede haber cola: mejor pedirlo hacia las 19:15.'),
         dict(t='No hay bus desde la zona alta',p='Ninguna línea va directa de la Plaza Mayor o el Alcázar a la estación. Lo más rápido es bajar andando (20-25 min) o taxi.')],
   look='El acueducto con la última luz: el sol se pone a las 19:43.'),
- dict(id='estacion',n='T',short='Tren 20:15',name='Estación Guiomar y tren a Madrid',kind='train',zone='Vuelta',time='19:35',stay=40,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',alert='Tren 20:15',
+ dict(id='estacion',n='T',short='Tren 20:15',name='Estación Guiomar y tren a Madrid',kind='train',zone='Vuelta',time='19:25',stay=50,lat=40.91010,lon=-4.09490,gq='Estación de Segovia-Guiomar',alert='Tren 20:15',
   hook='Llegad con margen: el AVE tiene control de equipajes y el acceso al andén cierra unos minutos antes.',
   info=[dict(t='En la estación',ul=['Pasad el control de equipaje nada más llegar','El acceso al tren cierra unos 2 minutos antes de la salida','Hay cafetería y máquinas si queréis algo para el viaje']),
         dict(t='Plan B si perdéis el bus',p='Taxi desde la Plaza Mayor o el Azoguejo: unos 11-12 € en domingo y 10-12 min. Pedidlo hacia las 19:15 si veis cola.')],
   facts=[dict(tag='TIP',title='Para el tren',text='Si comprasteis ponche segoviano, este es el momento: aguanta bien el viaje.')]),
 ]
-meta=dict(arrive='12:30',train='20:15',returnBus='19:15',walkDown=25)
-planInfo=[dict(t='Ida: bus 11 desde Guiomar',badge='12:35-12:45',bc='ok',p='Sale de las dársenas delante de la estación y espera a los trenes. 15 min hasta el Acueducto. Unos 2 €, tarjeta o efectivo. En el puente se llena: salid rápido del andén.'),
+meta=dict(arrive='12:30',train='20:15',returnBus='19:10',walkDown=25)
+planInfo=[dict(t='Ida: bus 11 desde Guiomar',badge='12:40 · 12:45',bc='ok',p='Horario de domingo según Moovit. El siguiente no sale hasta las 13:50, así que salid rápido del andén. 15 min hasta el Acueducto. 2,25 € con tarjeta, móvil o efectivo. La línea 12 también os vale.'),
+ dict(t='Vuelta: bus 11 desde el Acueducto',badge='19:10',bc='ok',p='Parada Acueducto 3 (plaza de Artillería). Llegáis a Guiomar hacia las 19:25, con margen de sobra. Plan B: el de las 19:40 (llega hacia las 19:55). El de las 20:00 ya no sirve.'),
  dict(t='Horarios del domingo',ul=['Corpus Christi: hasta 14:15 (1 €)','Casa de Machado: hasta 14:30, última entrada 14:15','Catedral: 13:30-18:30 (unos 4 €)','Alcázar: 10:00-20:00, última entrada 19:30 (unos 10 € con torre)','Centro de la Judería: cerrado por la tarde']),
  dict(t='Puesta de sol 19:43',p='Mediados de octubre: unos 18 °C de máxima, pero refresca mucho al caer el sol. Chaqueta y calzado cómodo: hay adoquines y unos 60 m de desnivel.'),
  dict(t='Reservad la comida ahora',badge='IMPORTANTE',bc='hot',p='Es puente del Pilar. La Cueva de San Esteban tiene 32 plazas: 921 460 982.')]
@@ -162,10 +165,10 @@ for a,b in zip(stops,stops[1:]):
         c1,m1=drive((a['lon'],a['lat']),BUS_STOP)
         na,nb=near(*BUS_STOP),near(b['lon'],b['lat']); pw=nx.shortest_path(G,na,nb,weight='w'); m2=sum(G[u][v]['d'] for u,v in zip(pw,pw[1:]))
         coords=[[a['lon'],a['lat']]]+c1+[[round(x,6),round(y,6)] for x,y in pw]+[[b['lon'],b['lat']]]
-        legs.append(dict(coords=coords,m=int(round((m1+m2)/10)*10),min=17,mode='bus',note='bus 11 + 2 min a pie')); print('bus out',int(m1),int(m2)); continue
+        legs.append(dict(coords=coords,m=int(round((m1+m2)/10)*10),min=17,mode='bus',note='bus 11 (15 min) + 2 min a pie')); print('bus out',int(m1),int(m2)); continue
     if b['id']=='estacion':
         c1,m1=drive((a['lon'],a['lat']),(b['lon'],b['lat']))
-        legs.append(dict(coords=[[a['lon'],a['lat']]]+c1+[[b['lon'],b['lat']]],m=int(round(m1/10)*10),min=18,mode='bus',note='bus 11')); print('bus back',int(m1)); continue
+        legs.append(dict(coords=[[a['lon'],a['lat']]]+c1+[[b['lon'],b['lat']]],m=int(round(m1/10)*10),min=15,mode='bus',note='bus 11')); print('bus back',int(m1)); continue
     na,nb=near(a['lon'],a['lat']),near(b['lon'],b['lat'])
     try:
         p=nx.shortest_path(G,na,nb,weight='w'); m=sum(G[u][v]['d'] for u,v in zip(p,p[1:]))
