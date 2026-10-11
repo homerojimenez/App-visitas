@@ -652,7 +652,11 @@ function accCircle(p){
   const n=40, r=Math.min(p.acc||20,150), pts=[]; for(let i=0;i<=n;i++){ const a=i/n*2*Math.PI; pts.push([p.lon + (r*Math.cos(a))/(111320*Math.cos(p.lat*Math.PI/180)), p.lat + (r*Math.sin(a))/110540]); }
   return {type:'FeatureCollection',features:[{type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:[pts]}}]};
 }
+let lastGeoErr=0;
 function onGeoErr(e){
+  if(pos && e && e.code===3) return;            // timeout puntual con posición ya conocida
+  if(Date.now()-lastGeoErr<60000) return;       // no repetir el aviso más de una vez por minuto
+  lastGeoErr=Date.now();
   geoDenied=true; $('#btnLocate').classList.remove('on');
   if(!IS_WEB) toast('Este visor no da GPS: abrid la versión web (Plan del día)');
   else if(e && e.code===1) toast('Ubicación denegada: actívala en Ajustes > Safari/Chrome > Ubicación');
