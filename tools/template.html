@@ -278,7 +278,7 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 .gm-k{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);flex:1;min-width:0}
 .gm-sc{display:flex;gap:6px}
 .gm-sc b{font-size:12.5px;padding:5px 10px;border-radius:var(--r-pill);background:var(--surface-2);font-variant-numeric:tabular-nums;white-space:nowrap}
-.gm-sc b.me{background:var(--accent);color:var(--accent-ink)}
+.gm-sc b.mine{background:var(--accent);color:var(--accent-ink)}
 .gm-bar{height:6px;border-radius:6px;background:var(--surface-2);overflow:hidden}
 .gm-bar i{display:block;height:100%;background:var(--accent);border-radius:6px;transition:width .25s linear}
 .gm-q{font-family:var(--f-display);font-weight:800;font-size:clamp(22px,6.4vw,30px);line-height:1.12;letter-spacing:-.02em;margin:8px 0 4px;text-wrap:balance}
@@ -335,7 +335,7 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 .g-in.code{width:110px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;text-align:center;flex:1}
 .g-score{display:flex;align-items:stretch;gap:10px;margin-top:4px}
 .g-score>div{flex:1;border-radius:var(--r-card);background:var(--surface-2);padding:12px 16px;min-width:0}
-.g-score>div.me{background:var(--fg);color:var(--bg)}
+.g-score>div.mine{background:var(--fg);color:var(--bg)}
 .g-score>div.ghost{opacity:.55}
 .g-score small{display:block;font-weight:700;font-size:12.5px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .g-score b{font-family:var(--f-display);font-size:34px;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
@@ -997,7 +997,7 @@ function paintGame(){
   if(reveal && !QT.revealAt) QT.revealAt = Date.now();
   let body='';
   const q = gm.g==='trivia'? it.q : gm.g==='vol'? it.s : it.q;
-  body += `<div class="gm-top"><button class="gm-x" id="gmClose" aria-label="Cerrar">${ICON.x}</button><span class="gm-k">${esc(GNAME[gm.g])} · ${i+1}/${gm.items.length}</span><span class="gm-sc">${ppl.map(p=>`<b class="${p===ME.id?'me':''}">${esc(nameOf(p).slice(0,10))} ${GS.scores[p]||0}</b>`).join('')}</span></div>`;
+  body += `<div class="gm-top"><button class="gm-x" id="gmClose" aria-label="Cerrar">${ICON.x}</button><span class="gm-k">${esc(GNAME[gm.g])} · ${i+1}/${gm.items.length}</span><span class="gm-sc">${ppl.map(p=>`<b class="${p===ME.id?'mine':''}">${esc(nameOf(p).slice(0,10))} ${GS.scores[p]||0}</b>`).join('')}</span></div>`;
   body += `<div class="gm-bar"><i id="gmBar" style="width:${Math.max(0,100-el/lim*100)}%"></i></div>`;
   body += `<h3 class="gm-q">${esc(q)}</h3>`;
   if(gm.g==='trivia'){
@@ -1138,7 +1138,7 @@ function gamesHTML(){
     return h+`<div class="g-hero"><h2>Juegos para dos</h2><p class="hook">Trivial, verdad o leyenda, adivinar años, retos y fotos recreando la Segovia de antes. Cada uno desde su móvil.</p>
       <label class="g-lab" for="gName">¿Cómo te llamas?</label><input class="g-in" id="gName" maxlength="14" autocomplete="given-name" placeholder="Tu nombre"><button class="btn primary arrived" id="gNameGo">Empezar</button></div>`;
   }
-  h += `<div class="g-score">${ppl.map(p=>`<div class="${p===ME.id?'me':''}"><small>${esc(p===ME.id?(ME.name||'Tú'):nameOf(p))}</small><b>${GS.scores[p]||0}</b></div>`).join(ppl.length<2?'':'<span>vs</span>')}${ppl.length<2?`<div class="ghost"><small>Tu pareja</small><b>—</b></div>`:''}</div>`;
+  h += `<div class="g-score">${ppl.map(p=>`<div class="${p===ME.id?'mine':''}"><small>${esc(p===ME.id?(ME.name||'Tú'):nameOf(p))}</small><b>${GS.scores[p]||0}</b></div>`).join(ppl.length<2?'':'<span>vs</span>')}${ppl.length<2?`<div class="ghost"><small>Tu pareja</small><b>—</b></div>`:''}</div>`;
   if(canNet()){
     if(!NET.code) h += `<div class="g-room"><div><b>Jugad en pareja</b><small>Crea una sala y pásale el código a tu pareja. Cada uno juega desde su móvil.</small></div><div class="row" style="margin:10px 0 0"><button class="btn primary" id="gCreate">Crear sala</button><input class="g-in code" id="gCode" maxlength="6" placeholder="Código" autocapitalize="characters"><button class="btn" id="gJoin">Unirme</button></div></div>`;
     else h += `<div class="g-room on"><div><b><span id="netDot" class="netdot ${NET.ok?'on':'off'}"></span>Sala ${esc(NET.code)}</b><small>${others().length?'Conectados: '+ppl.map(p=>esc(nameOf(p))).join(' y '):'Esperando a tu pareja: que abra Juegos y ponga este código'}</small></div><div class="row" style="margin:10px 0 0"><button class="btn sm" id="gShareCode">Compartir código</button><button class="btn sm ghost" id="gLeave">Salir</button></div></div>`;

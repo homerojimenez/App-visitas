@@ -1,0 +1,1251 @@
+{
+ "trivia": [
+  {
+   "id": "t01",
+   "stop": "guiomar",
+   "q": "¿Por qué la estación del AVE se llama Segovia-Guiomar?",
+   "opts": [
+    "Por una santa segoviana",
+    "Por el nombre en clave del amor secreto de Machado",
+    "Por la madre de Isabel la Católica",
+    "Por un arroyo de la sierra"
+   ],
+   "a": 1,
+   "why": "Machado llamaba Guiomar en sus versos a Pilar de Valderrama, poeta y casada. La estación abrió en 2007 con ese nombre: habéis entrado en Segovia por la puerta del salseo."
+  },
+  {
+   "id": "t02",
+   "stop": "guiomar",
+   "q": "Para llegar aquí, vuestro tren ha cruzado el Guadarrama por un túnel de unos…",
+   "opts": [
+    "8 km",
+    "15 km",
+    "45 km",
+    "28 km"
+   ],
+   "a": 3,
+   "why": "Unos 28 km bajo la sierra: el túnel ferroviario más largo de España. Por eso el viaje desde Chamartín dura menos que un capítulo de serie."
+  },
+  {
+   "id": "t03",
+   "stop": "acueducto",
+   "q": "¿Cuántos arcos tiene el acueducto según el folleto oficial?",
+   "opts": [
+    "167",
+    "67",
+    "120",
+    "216"
+   ],
+   "a": 0,
+   "why": "167 arcos. Y salseo institucional: el folleto cuenta 120 pilares y otra web oficial dice 128. Ni ellos se ponen de acuerdo."
+  },
+  {
+   "id": "t04",
+   "stop": "acueducto",
+   "q": "¿Qué mantiene unidos sus unos 20.400 bloques de granito?",
+   "opts": [
+    "Cemento romano",
+    "Plomo fundido entre las juntas",
+    "Nada: solo su peso y la geometría de los arcos",
+    "Grapas de bronce"
+   ],
+   "a": 2,
+   "why": "Ni cal ni cemento: los sillares están encajados en seco y se sostienen por su propio peso. Casi 2.000 años sin despeinarse."
+  },
+  {
+   "id": "t05",
+   "stop": "acueducto",
+   "q": "¿Qué son los agujeritos que tienen muchos bloques del acueducto?",
+   "opts": [
+    "Huellas del diablo",
+    "Impactos de bala de 1520",
+    "Desagües para la lluvia",
+    "Marcas de las pinzas con que se izaban los bloques"
+   ],
+   "a": 3,
+   "why": "La leyenda dice que son huellas del demonio. La verdad, menos satánica: ahí se enganchaban las pinzas de las grúas romanas para subir cada bloque."
+  },
+  {
+   "id": "t06",
+   "stop": "acueducto",
+   "q": "En 1072 cayeron 36 arcos. ¿Quién los rehízo para los Reyes Católicos?",
+   "opts": [
+    "Juan de Herrera",
+    "Fray Juan de Escobedo, monje de El Parral",
+    "Juan Guas",
+    "Juan Bravo"
+   ],
+   "a": 1,
+   "why": "Por encargo del prior Pedro de Mesa, el fraile los rehízo desde 1484 imitando el original. Los había tumbado un ataque de las tropas de Al-Mamún de Toledo."
+  },
+  {
+   "id": "t07",
+   "stop": "acueducto",
+   "q": "Por las mesas del Mesón de Cándido, a los pies del acueducto, pasó…",
+   "opts": [
+    "Julio César",
+    "Marilyn Monroe",
+    "Orson Welles",
+    "Cleopatra"
+   ],
+   "a": 2,
+   "why": "Welles, Adolfo Suárez o Kofi Annan. ¿Hemingway? Se repite mucho, pero sin pruebas. Allí el cochinillo se corta con el canto de un plato."
+  },
+  {
+   "id": "t08",
+   "stop": "mirador",
+   "q": "¿Qué escultura polémica se instaló en 2019 a dos pasos, en la calle San Juan?",
+   "opts": [
+    "Un diablillo haciéndose un selfi con el acueducto",
+    "Un legionario romano en patinete",
+    "Una aguadora con móvil",
+    "Un gallo gigante"
+   ],
+   "a": 0,
+   "why": "Obra de José Antonio Abella, 1,70 m. Una asociación católica juntó miles de firmas y fue a los tribunales. Ahí sigue, posando."
+  },
+  {
+   "id": "t09",
+   "stop": "mirador",
+   "q": "¿Quién fotografió el acueducto hacia 1853, con copias que acabaron en la Royal Collection británica?",
+   "opts": [
+    "Charles Clifford",
+    "Robert Capa",
+    "Louis Daguerre",
+    "Joaquín Sorolla"
+   ],
+   "a": 0,
+   "why": "El galés Charles Clifford, fotógrafo al servicio de Isabel II. El acueducto ya era influencer en tiempos de la reina Victoria."
+  },
+  {
+   "id": "t10",
+   "stop": "picos",
+   "q": "¿Cuántas puntas de diamante se suelen contar en la fachada de la Casa de los Picos?",
+   "opts": [
+    "317",
+    "617",
+    "1.017",
+    "217"
+   ],
+   "a": 1,
+   "why": "617 es la cifra que repiten las guías, aunque nadie las ha contado ante notario. Reto abierto: contad una fila y multiplicad."
+  },
+  {
+   "id": "t11",
+   "stop": "picos",
+   "q": "¿Qué hay hoy dentro de la Casa de los Picos?",
+   "opts": [
+    "Un hotel boutique",
+    "El Ayuntamiento",
+    "Un museo de armas",
+    "La Escuela de Arte y Superior de Diseño"
+   ],
+   "a": 3,
+   "why": "Estudiantes de arte entran cada día bajo las 600 puntas. El almohadillado en diamante era moda italiana, pero forrar toda la fachada era rarísimo."
+  },
+  {
+   "id": "t12",
+   "stop": "sanmartin",
+   "q": "¿Qué le pasó a Juan Bravo el 24 de abril de 1521?",
+   "opts": [
+    "Lo nombraron alcalde de Segovia",
+    "Huyó a Portugal disfrazado",
+    "Lo decapitaron tras la derrota de Villalar",
+    "Se casó con María Coronel"
+   ],
+   "a": 2,
+   "why": "Al día siguiente de perder en Villalar, junto a Padilla y Maldonado. Rondaba los 38 años."
+  },
+  {
+   "id": "t13",
+   "stop": "sanmartin",
+   "q": "En mayo de 1520 los segovianos ahorcaron a su procurador, Rodrigo de Tordesillas. ¿Por qué?",
+   "opts": [
+    "Por votar en las Cortes el impuesto que pedía Carlos I",
+    "Por robar el tesoro de la ciudad",
+    "Por ser consejero flamenco",
+    "Por espiar para Portugal"
+   ],
+   "a": 0,
+   "why": "Volver a casa con el sí al rey no salió gratis. Fue la mecha de la revuelta comunera en Segovia."
+  },
+  {
+   "id": "t14",
+   "stop": "sanmartin",
+   "q": "¿Con quién se casó Juan Bravo en segundas nupcias?",
+   "opts": [
+    "Con María Pacheco",
+    "Con una sobrina de Carlos I",
+    "Con una dama flamenca",
+    "Con María Coronel, nieta del gran rabino Abraham Seneor"
+   ],
+   "a": 3,
+   "why": "Su suegro, Íñigo López Coronel, hijo de Seneor, le dejó sus bienes. María Pacheco era la mujer de Padilla, otro de los comuneros."
+  },
+  {
+   "id": "t15",
+   "stop": "sanmartin",
+   "q": "¿Por qué esta plaza se llama de Medina del Campo?",
+   "opts": [
+    "Porque allí nació Juan Bravo",
+    "Por la villa que las tropas reales quemaron en 1520 por no darles su artillería",
+    "Por una feria de ganado",
+    "Por un regalo de Carlos I"
+   ],
+   "a": 1,
+   "why": "El 21 de agosto de 1520 las tropas de Antonio de Fonseca la incendiaron: querían sus cañones para atacar Segovia. Un incendio solidario que sigue en el callejero."
+  },
+  {
+   "id": "t16",
+   "stop": "corpus",
+   "q": "Según la tradición de 1410, ¿qué hizo la hostia al echarla en agua hirviendo?",
+   "opts": [
+    "Se hundió sin más",
+    "Quedó flotando en el aire mientras temblaban los muros",
+    "Se volvió de oro",
+    "Se partió en dos"
+   ],
+   "a": 1,
+   "why": "Es tradición, no historia: los historiadores la ven como una acusación inventada, típica de la Europa medieval. Costó a la comunidad judía su Sinagoga Mayor."
+  },
+  {
+   "id": "t17",
+   "stop": "corpus",
+   "q": "El obispo Juan de Tordesillas añadió otra acusación contra los judíos detenidos. ¿Cuál?",
+   "opts": [
+    "Robar las campanas de la catedral",
+    "Falsificar moneda",
+    "Sobornar a su cocinero para envenenarle",
+    "Esconder un tesoro en la sinagoga"
+   ],
+   "a": 2,
+   "why": "Entre los detenidos estaba Meir Alguadés, médico de Enrique III, y dos de los acusados más destacados fueron ejecutados. Una historia durísima detrás de esta puerta discreta."
+  },
+  {
+   "id": "t18",
+   "stop": "corpus",
+   "q": "¿Por qué la fiesta segoviana que recuerda el supuesto milagro se llama Catorcena?",
+   "opts": [
+    "Se celebra el día 14",
+    "Las 14 parroquias históricas se turnan para organizarla",
+    "Duraba 14 días",
+    "Hubo 14 testigos"
+   ],
+   "a": 1,
+   "why": "Se celebra el primer domingo de septiembre y cada vez la organiza una de las 14 parroquias históricas de la ciudad."
+  },
+  {
+   "id": "t19",
+   "stop": "machado",
+   "q": "¿Qué asignatura daba Machado en el instituto de Segovia?",
+   "opts": [
+    "Latín",
+    "Literatura",
+    "Francés",
+    "Filosofía"
+   ],
+   "a": 2,
+   "why": "Llegó el 25 de noviembre de 1919 como catedrático de Francés y vivió en esta pensión trece inviernos, hasta 1932."
+  },
+  {
+   "id": "t20",
+   "stop": "machado",
+   "q": "¿Dónde se conocieron Machado y Pilar de Valderrama el 2 de junio de 1928?",
+   "opts": [
+    "En el Alcázar",
+    "En el Hotel Comercio de Segovia",
+    "En un tren a Madrid",
+    "En la Real Academia"
+   ],
+   "a": 1,
+   "why": "Él, viudo, 52 años; ella, casada y con hijos, 38. Se veían a escondidas, sobre todo en Madrid, y él la convirtió en Guiomar."
+  },
+  {
+   "id": "t21",
+   "stop": "machado",
+   "q": "¿Cómo tituló Pilar de Valderrama su versión de la historia, publicada en 1981?",
+   "opts": [
+    "Cartas a Guiomar",
+    "Mi poeta secreto",
+    "Guiomar soy yo",
+    "Sí, soy Guiomar"
+   ],
+   "a": 3,
+   "why": "Salió dos años después de su muerte. Según ella, todo fue platónico. Los expertos todavía lo discuten."
+  },
+  {
+   "id": "t22",
+   "stop": "machado",
+   "q": "En 1927, viviendo aquí, eligieron a Machado para la Real Academia Española. ¿Y luego?",
+   "opts": [
+    "Nunca leyó su discurso, así que jamás ocupó el sillón",
+    "Leyó un discurso histórico",
+    "Rechazó el sillón por carta",
+    "Lo expulsaron en 1932"
+   ],
+   "a": 0,
+   "why": "Sin discurso no hay sillón. Y en 1917 Sorolla ya le había pintado un retrato: el inquilino humilde de la pensión era una celebridad."
+  },
+  {
+   "id": "t23",
+   "stop": "comida",
+   "q": "¿Cómo apodan a la torre de San Esteban?",
+   "opts": [
+    "La dama de las torres",
+    "La abuela del románico",
+    "La reina de las torres bizantinas",
+    "La torre del rayo"
+   ],
+   "a": 2,
+   "why": "Apodo precioso con trampa: es románica tardía, del siglo XIII. En el XIX se llamaba bizantino a casi todo lo antiguo y exótico."
+  },
+  {
+   "id": "t24",
+   "stop": "comida",
+   "q": "¿Cuánto mide la torre de San Esteban, la que presume de ser la más alta del románico español?",
+   "opts": [
+    "Unos 53 m",
+    "Unos 28 m",
+    "Unos 38 m",
+    "Unos 88 m"
+   ],
+   "a": 0,
+   "why": "Unos 53 m. Para comparar: el acueducto llega a 28 en el Azoguejo y la torre de la catedral ronda los 88."
+  },
+  {
+   "id": "t25",
+   "stop": "comida",
+   "q": "¿Qué lleva el ponche segoviano?",
+   "opts": [
+    "Hojaldre, nata y fresas",
+    "Almendra, miel y canela",
+    "Chocolate y merengue",
+    "Bizcocho, crema, mazapán y azúcar tostada en rombos"
+   ],
+   "a": 3,
+   "why": "Bizcocho, crema pastelera, mazapán y azúcar tostada marcada en rombos. Aguanta bien el viaje en tren, por si alguien quiere llevarse una caja."
+  },
+  {
+   "id": "t26",
+   "stop": "plazamayor",
+   "q": "¿Cuántos años tenía Isabel cuando se proclamó reina aquí, en 1474?",
+   "opts": [
+    "17",
+    "23",
+    "30",
+    "35"
+   ],
+   "a": 1,
+   "why": "Nació el 22 de abril de 1451. Su hermano Enrique IV había muerto en Madrid solo dos días antes, y ella no perdió ni uno."
+  },
+  {
+   "id": "t27",
+   "stop": "plazamayor",
+   "q": "¿Quién desfiló delante de Isabel con la espada desnuda en alto?",
+   "opts": [
+    "Gutierre de Cárdenas",
+    "Fernando el Católico",
+    "Juan Bravo",
+    "Alonso de Palencia"
+   ],
+   "a": 0,
+   "why": "Símbolo de la justicia real. Según el cronista Alonso de Palencia, a algunos les pareció un exceso en una mujer."
+  },
+  {
+   "id": "t28",
+   "stop": "plazamayor",
+   "q": "¿De quién era el lema «Tanto monta»?",
+   "opts": [
+    "De Isabel",
+    "De los dos, pactado en Segovia",
+    "De Fernando, él solito",
+    "De Carlos I"
+   ],
+   "a": 2,
+   "why": "Lema personal de Fernando, por Alejandro Magno y el nudo gordiano: tanto monta cortar como desatar. Lo de «Isabel como Fernando» es un añadido popular."
+  },
+  {
+   "id": "t29",
+   "stop": "plazamayor",
+   "q": "¿Con qué obra se inauguró el Teatro Juan Bravo de la Plaza Mayor en 1918?",
+   "opts": [
+    "Don Juan Tenorio",
+    "La verbena de la Paloma",
+    "La alcaldesa de Hontanares, una zarzuela",
+    "Bodas de sangre"
+   ],
+   "a": 2,
+   "why": "Zarzuela de autor segoviano, el 26 de octubre de 1918. Cerró en 1982 por su deterioro y reabrió en 1989."
+  },
+  {
+   "id": "t30",
+   "stop": "catedral",
+   "q": "¿Cuántos años pasaron entre la primera piedra de la catedral y su consagración?",
+   "opts": [
+    "43",
+    "143",
+    "343",
+    "243"
+   ],
+   "a": 3,
+   "why": "Primera piedra el 8 de junio de 1525, con trazas de Juan Gil de Hontañón; consagración el 16 de julio de 1768. Paciencia de catedral."
+  },
+  {
+   "id": "t31",
+   "stop": "catedral",
+   "q": "¿Por qué Segovia necesitó una catedral nueva en 1525?",
+   "opts": [
+    "Se la llevó una riada del Eresma",
+    "Un rayo la derribó",
+    "Se quedó pequeña para las bodas reales",
+    "La vieja, junto al Alcázar, quedó destrozada en la guerra de las Comunidades"
+   ],
+   "a": 3,
+   "why": "Los comuneros se hicieron fuertes en ella para atacar el Alcázar, fiel al rey. El fuego cruzado la dejó para el arrastre."
+  },
+  {
+   "id": "t32",
+   "stop": "catedral",
+   "q": "¿Qué parte de la catedral vieja se desmontó y se volvió a montar aquí piedra a piedra?",
+   "opts": [
+    "El claustro",
+    "La torre",
+    "La fachada principal",
+    "El altar mayor"
+   ],
+   "a": 0,
+   "why": "El claustro gótico de Juan Guas se trasladó entre 1524 y 1529. Un puzle monumental del siglo XVI."
+  },
+  {
+   "id": "t33",
+   "stop": "juderia",
+   "q": "¿Quiénes fueron los padrinos del bautizo de Abraham Seneor, rabino mayor de Castilla, en 1492?",
+   "opts": [
+    "El papa y el obispo de Segovia",
+    "Juan Bravo y María Coronel",
+    "Fernando e Isabel",
+    "Colón y Torquemada"
+   ],
+   "a": 2,
+   "why": "El 15 de junio de 1492, en Guadalupe, con la expulsión en marcha. Rondaba los 80 años y pasó a llamarse Fernán Pérez Coronel."
+  },
+  {
+   "id": "t34",
+   "stop": "juderia",
+   "q": "¿Qué es El Pinarillo, la ladera de pinos frente a la Puerta de San Andrés?",
+   "opts": [
+    "El antiguo cementerio judío",
+    "Un coto de caza real",
+    "Un campamento romano",
+    "Los jardines del Alcázar"
+   ],
+   "a": 0,
+   "why": "Durante siglos la comunidad judía enterró allí a sus muertos, al otro lado del valle del Clamores, mirando a la ciudad."
+  },
+  {
+   "id": "t35",
+   "stop": "juderia",
+   "q": "¿Cuántas puertas de la muralla de Segovia se conservan?",
+   "opts": [
+    "Una",
+    "Cinco",
+    "Tres",
+    "Siete"
+   ],
+   "a": 2,
+   "why": "San Andrés, Santiago y San Cebrián. Esta, documentada ya en 1120, también se llama Arco del Socorro por la Virgen de su hornacina."
+  },
+  {
+   "id": "t36",
+   "stop": "alcazar",
+   "q": "¿Con quién se casó Felipe II en Segovia en noviembre de 1570?",
+   "opts": [
+    "Isabel de Valois",
+    "Ana de Austria, su sobrina",
+    "María Tudor",
+    "María Manuela de Portugal"
+   ],
+   "a": 1,
+   "why": "Cuarta esposa e hija de su hermana María. Él, 43 años; ella, 21. Las alianzas de los Austrias eran así de enredadas."
+  },
+  {
+   "id": "t37",
+   "stop": "alcazar",
+   "q": "Según la leyenda, ¿por qué Alfonso X mandó poner un cordón franciscano en el techo?",
+   "opts": [
+    "Por penitencia: presumió de que habría aconsejado a Dios y cayó un rayo",
+    "Para colgar lámparas",
+    "Para celebrar su boda",
+    "Para medir la sala"
+   ],
+   "a": 0,
+   "why": "Bonita historia, documentación cero. Buscad el cordón en la Sala del Cordón."
+  },
+  {
+   "id": "t38",
+   "stop": "alcazar",
+   "q": "¿Cuántos escalones tiene la torre de Juan II del Alcázar?",
+   "opts": [
+    "88",
+    "152",
+    "243",
+    "617"
+   ],
+   "a": 1,
+   "why": "152 hasta la mejor vista de Segovia. Los otros números os sonarán: metros de la torre de la catedral, años de obras y picos de la casa."
+  },
+  {
+   "id": "t39",
+   "stop": "alcazar",
+   "q": "El monumento a Daoíz y Velarde, frente al Alcázar, es del mismo escultor que el Juan Bravo. ¿Quién?",
+   "opts": [
+    "Mariano Benlliure",
+    "Emiliano Barral",
+    "Aniceto Marinas",
+    "Agustín Querol"
+   ],
+   "a": 2,
+   "why": "El segoviano Aniceto Marinas. Daoíz y Velarde, héroes del 2 de mayo de 1808, se formaron en el Real Colegio de Artillería del Alcázar."
+  },
+  {
+   "id": "t40",
+   "stop": "vuelta",
+   "q": "¿A qué hora se pone hoy el sol en Segovia?",
+   "opts": [
+    "Hacia las 18:13",
+    "Hacia las 19:13",
+    "Hacia las 20:43",
+    "Hacia las 19:43"
+   ],
+   "a": 3,
+   "why": "Hacia las 19:43, justo cuando vuestro bus 11 de las 19:40 arranca. El acueducto con la última luz, de regalo de despedida."
+  }
+ ],
+ "vol": [
+  {
+   "id": "v01",
+   "stop": "acueducto",
+   "s": "El diablo levantó el acueducto en una noche a cambio del alma de una aguadora.",
+   "truth": false,
+   "why": "Leyenda popular: el gallo cantó cuando faltaba una piedra y ella se libró. Lo construyó Roma entre finales del siglo I y principios del II."
+  },
+  {
+   "id": "v02",
+   "stop": "acueducto",
+   "s": "Durante décadas pasaron coches y autobuses por debajo de los arcos.",
+   "truth": true,
+   "why": "Hasta 1992, cuando se cortó el tráfico y arrancó una restauración de casi ocho años dirigida por el arquitecto Francisco Jurado."
+  },
+  {
+   "id": "v03",
+   "stop": "acueducto",
+   "s": "Roma regaló a Segovia una loba con Rómulo y Remo por el cumpleaños del acueducto.",
+   "truth": true,
+   "why": "En 1974, por el «bimilenario». Detalle friki: si se construyó a finales del siglo I, aún no cumplía 2.000 años. La fiesta se hizo igual."
+  },
+  {
+   "id": "v04",
+   "stop": "acueducto",
+   "s": "Está documentado que Hemingway comió cochinillo en el Mesón de Cándido.",
+   "truth": false,
+   "why": "Se repite muchísimo, pero no hay prueba. Los que sí constan: Orson Welles, Adolfo Suárez o Kofi Annan."
+  },
+  {
+   "id": "v05",
+   "stop": "mirador",
+   "s": "En Segovia hay una estatua del diablo haciéndose un selfi con el acueducto.",
+   "truth": true,
+   "why": "Desde 2019, en la calle San Juan: 1,70 m, obra de José Antonio Abella. Hubo firmas y pleito para quitarla. Ahí sigue, posando."
+  },
+  {
+   "id": "v06",
+   "stop": "picos",
+   "s": "Los picos se pusieron para que la gente olvidara que era la «casa del verdugo».",
+   "truth": false,
+   "why": "Leyenda sin respaldo en fuentes serias. Hay varias teorías (ostentación, defensa, moda italiana) y ninguna está probada."
+  },
+  {
+   "id": "v07",
+   "stop": "sanmartin",
+   "s": "Los segovianos ahorcaron a su propio procurador por votar un impuesto del rey.",
+   "truth": true,
+   "why": "Mayo de 1520: Rodrigo de Tordesillas votó en las Cortes el servicio que pedía Carlos I. Fue la mecha comunera en Segovia."
+  },
+  {
+   "id": "v08",
+   "stop": "sanmartin",
+   "s": "Los restos de Juan Bravo descansan en secreto bajo una cruz de piedra en Muñoveros.",
+   "truth": false,
+   "why": "Tradición local sin pruebas sólidas: dicen que al buscarlos hacia 1921 la tumba apareció vacía. Misterio bonito, nada más."
+  },
+  {
+   "id": "v09",
+   "stop": "sanmartin",
+   "s": "La mujer de Juan Bravo era nieta del gran rabino de Castilla.",
+   "truth": true,
+   "why": "María Coronel, hija de Íñigo López Coronel, hijo de Abraham Seneor. Del rabino de la reina al rebelde contra su nieto."
+  },
+  {
+   "id": "v10",
+   "stop": "corpus",
+   "s": "En 1410 una hostia echada en agua hirviendo flotó en el aire y la sinagoga tembló.",
+   "truth": false,
+   "why": "Es la tradición, no un hecho: se considera una acusación inventada. Lo real fue la confiscación de la sinagoga y la ejecución de dos de los acusados más destacados."
+  },
+  {
+   "id": "v11",
+   "stop": "machado",
+   "s": "Machado fue elegido para la Real Academia Española, pero nunca ocupó su sillón.",
+   "truth": true,
+   "why": "Elegido en 1927 mientras vivía en esta pensión. Nunca leyó el discurso de ingreso, y sin discurso no hay sillón."
+  },
+  {
+   "id": "v12",
+   "stop": "machado",
+   "s": "Las cartas de Machado a Guiomar no se publicaron hasta después de morir ella.",
+   "truth": false,
+   "why": "En 1950 Concha Espina ya publicó cartas suyas a Pilar. Lo póstumo fue la versión de ella: «Sí, soy Guiomar», de 1981."
+  },
+  {
+   "id": "v13",
+   "stop": "comida",
+   "s": "San Esteban fue declarada Monumento Nacional un 13 de diciembre, el mismo día del año en que Isabel se proclamó reina.",
+   "truth": true,
+   "why": "La Gaceta de Madrid lo publicó el 13 de diciembre de 1896, 422 años después de la proclamación. La historia también hace guiños."
+  },
+  {
+   "id": "v14",
+   "stop": "comida",
+   "s": "La torre de San Esteban es bizantina.",
+   "truth": false,
+   "why": "La apodan «reina de las torres bizantinas», pero es románica tardía del siglo XIII. El mote es más poesía que rigor."
+  },
+  {
+   "id": "v15",
+   "stop": "plazamayor",
+   "s": "Isabel se proclamó reina sin esperar a Fernando, que estaba en Aragón.",
+   "truth": true,
+   "why": "13 de diciembre de 1474. Él llegó el 2 de enero y hubo tira y afloja hasta la Concordia de Segovia del 15 de enero de 1475."
+  },
+  {
+   "id": "v16",
+   "stop": "plazamayor",
+   "s": "«Tanto monta, monta tanto, Isabel como Fernando» fue el lema que la pareja pactó en Segovia.",
+   "truth": false,
+   "why": "«Tanto monta» era el lema personal de Fernando, por el nudo gordiano de Alejandro Magno. Lo de «Isabel como Fernando» es un añadido popular."
+  },
+  {
+   "id": "v17",
+   "stop": "catedral",
+   "s": "El claustro de la catedral viajó piedra a piedra desde la catedral vieja.",
+   "truth": true,
+   "why": "El claustro de Juan Guas se desmontó junto al Alcázar y se volvió a montar aquí entre 1524 y 1529."
+  },
+  {
+   "id": "v18",
+   "stop": "catedral",
+   "s": "La niñera del infante Pedro se tiró por la ventana del Alcázar detrás de él.",
+   "truth": false,
+   "why": "El infante existió, murió en 1366 al caer de una ventana y está enterrado en la catedral. Lo del salto de la niñera es leyenda."
+  },
+  {
+   "id": "v19",
+   "stop": "juderia",
+   "s": "Los Reyes Católicos fueron padrinos del bautizo del rabino mayor de Castilla.",
+   "truth": true,
+   "why": "Abraham Seneor se bautizó en Guadalupe el 15 de junio de 1492, con unos 80 años, y pasó a llamarse Fernán Pérez Coronel."
+  },
+  {
+   "id": "v20",
+   "stop": "juderia",
+   "s": "El valle del Clamores se llama así por los lamentos de los judíos al despedirse de sus muertos en 1492.",
+   "truth": false,
+   "why": "Tradición preciosa y muy repetida, pero no hay prueba de que el nombre venga de ahí."
+  },
+  {
+   "id": "v21",
+   "stop": "alcazar",
+   "s": "Felipe II se casó en Segovia con su sobrina.",
+   "truth": true,
+   "why": "Noviembre de 1570, con Ana de Austria, hija de su hermana María y su cuarta esposa. Él, 43 años; ella, 21."
+  },
+  {
+   "id": "v22",
+   "stop": "alcazar",
+   "s": "Walt Disney se inspiró en el Alcázar para dibujar su castillo.",
+   "truth": false,
+   "why": "No hay ningún documento que lo pruebe y Disney nunca lo ha confirmado. El de Cenicienta se asocia sobre todo a Neuschwanstein."
+  },
+  {
+   "id": "v23",
+   "stop": "alcazar",
+   "s": "Los cadetes quemaron el Alcázar en 1862 para que no trasladaran su academia.",
+   "truth": false,
+   "why": "El incendio del 6 de marzo de 1862 fue real; lo de los cadetes es un rumor sin una sola prueba. La restauración no arrancó hasta 1882."
+  },
+  {
+   "id": "v24",
+   "stop": "alcazar",
+   "s": "Daoíz y Velarde, los héroes del 2 de mayo de 1808, estudiaron en el Alcázar.",
+   "truth": true,
+   "why": "Se formaron en el Real Colegio de Artillería, instalado aquí desde 1764. Su monumento os mira desde la plaza."
+  }
+ ],
+ "year": [
+  {
+   "id": "y01",
+   "stop": "guiomar",
+   "q": "¿En qué año se inauguró la estación Segovia-Guiomar?",
+   "y": 2007,
+   "min": 1980,
+   "max": 2025,
+   "why": "En diciembre de 2007, con el nombre de la musa secreta de Machado."
+  },
+  {
+   "id": "y02",
+   "stop": "acueducto",
+   "q": "¿En qué año un ataque de las tropas de Al-Mamún de Toledo tumbó 36 arcos?",
+   "y": 1072,
+   "min": 800,
+   "max": 1500,
+   "why": "1072. Cuatro siglos después, fray Juan de Escobedo los rehízo para los Reyes Católicos."
+  },
+  {
+   "id": "y03",
+   "stop": "acueducto",
+   "q": "¿En qué año la UNESCO declaró Patrimonio Mundial la ciudad vieja y su acueducto?",
+   "y": 1985,
+   "min": 1950,
+   "max": 2015,
+   "why": "En 1985: ciudad vieja y acueducto, en el mismo lote."
+  },
+  {
+   "id": "y04",
+   "stop": "acueducto",
+   "q": "¿En qué año dejaron de pasar coches bajo los arcos?",
+   "y": 1992,
+   "min": 1950,
+   "max": 2015,
+   "why": "En 1992, cuando arrancó la gran restauración de Francisco Jurado, que duró casi ocho años."
+  },
+  {
+   "id": "y05",
+   "stop": "mirador",
+   "q": "¿Hacia qué año fotografió Charles Clifford el acueducto?",
+   "y": 1853,
+   "min": 1800,
+   "max": 1950,
+   "why": "Hacia 1853, una de las primeras fotos del monumento. Sus copias acabaron en la Royal Collection británica."
+  },
+  {
+   "id": "y06",
+   "stop": "sanmartin",
+   "q": "¿En qué año decapitaron a Juan Bravo tras la batalla de Villalar?",
+   "y": 1521,
+   "min": 1400,
+   "max": 1700,
+   "why": "El 24 de abril de 1521, al día siguiente de la derrota, junto a Padilla y Maldonado."
+  },
+  {
+   "id": "y07",
+   "stop": "corpus",
+   "q": "¿En qué año un incendio dejó casi destruido el Corpus Christi?",
+   "y": 1899,
+   "min": 1750,
+   "max": 2000,
+   "why": "En 1899. Buena parte de lo que veis es reconstrucción posterior (alguna web dice 1889, pero la buena es 1899)."
+  },
+  {
+   "id": "y08",
+   "stop": "machado",
+   "q": "¿En qué año conoció Machado a Pilar de Valderrama, su Guiomar?",
+   "y": 1928,
+   "min": 1900,
+   "max": 1950,
+   "why": "El 2 de junio de 1928, en el Hotel Comercio de Segovia. Él tenía 52 años; ella, 38."
+  },
+  {
+   "id": "y09",
+   "stop": "comida",
+   "q": "¿En qué año declararon Monumento Nacional la iglesia de San Esteban?",
+   "y": 1896,
+   "min": 1800,
+   "max": 1950,
+   "why": "La Gaceta lo publicó el 13 de diciembre de 1896: mismo día que la proclamación de Isabel, 422 años después."
+  },
+  {
+   "id": "y10",
+   "stop": "plazamayor",
+   "q": "¿En qué año se proclamó Isabel reina de Castilla en esta plaza?",
+   "y": 1474,
+   "min": 1300,
+   "max": 1600,
+   "why": "El 13 de diciembre de 1474, ante la antigua iglesia de San Miguel, sin esperar a Fernando."
+  },
+  {
+   "id": "y11",
+   "stop": "catedral",
+   "q": "¿En qué año se puso la primera piedra de la catedral?",
+   "y": 1525,
+   "min": 1400,
+   "max": 1700,
+   "why": "El 8 de junio de 1525, con trazas de Juan Gil de Hontañón. La vieja había quedado destrozada en la guerra comunera."
+  },
+  {
+   "id": "y12",
+   "stop": "catedral",
+   "q": "¿Y en qué año se consagró por fin la catedral?",
+   "y": 1768,
+   "min": 1550,
+   "max": 1900,
+   "why": "El 16 de julio de 1768: 243 años después de la primera piedra."
+  },
+  {
+   "id": "y13",
+   "stop": "juderia",
+   "q": "¿Desde qué año está documentada la Puerta de San Andrés?",
+   "y": 1120,
+   "min": 900,
+   "max": 1500,
+   "why": "Desde 1120, aunque su aspecto actual viene de obras de finales del XV o principios del XVI."
+  },
+  {
+   "id": "y14",
+   "stop": "alcazar",
+   "q": "¿En qué año se casó Felipe II en Segovia con su sobrina Ana de Austria?",
+   "y": 1570,
+   "min": 1450,
+   "max": 1700,
+   "why": "En noviembre de 1570. Era su cuarta esposa: él, 43 años; ella, 21."
+  },
+  {
+   "id": "y15",
+   "stop": "alcazar",
+   "q": "¿En qué año el fuego arrasó los tejados del Alcázar?",
+   "y": 1862,
+   "min": 1750,
+   "max": 1950,
+   "why": "El 6 de marzo de 1862. Las agujas de pizarra que veis son de la reconstrucción, que arrancó en 1882."
+  }
+ ],
+ "who": [
+  {
+   "id": "w01",
+   "q": "¿Quién de los dos es más probable que se proclamase rey o reina sin esperar a la pareja?",
+   "ref": "Isabel, 13 de diciembre de 1474, con Fernando en Aragón."
+  },
+  {
+   "id": "w02",
+   "q": "¿Quién es más probable que escribiese cartas de amor con un nombre en clave?",
+   "ref": "Machado llamaba Guiomar a Pilar de Valderrama."
+  },
+  {
+   "id": "w03",
+   "q": "¿Quién es más probable que le hiciese la pelota al camarero para que le cortase el cochinillo con un plato?",
+   "ref": "En el Mesón de Cándido el cochinillo se corta con el canto de un plato."
+  },
+  {
+   "id": "w04",
+   "q": "¿Quién es más probable que tardase 243 años en terminar un proyecto?",
+   "ref": "La catedral: primera piedra en 1525, consagración en 1768."
+  },
+  {
+   "id": "w05",
+   "q": "¿Quién es más probable que presumiese de que habría hecho mejor la Creación?",
+   "ref": "Alfonso X y la leyenda del rayo y el cordón."
+  },
+  {
+   "id": "w06",
+   "q": "¿Quién es más probable que se hiciese un selfi hasta con el diablo?",
+   "ref": "El diablillo del selfi de la calle San Juan, 2019."
+  },
+  {
+   "id": "w07",
+   "q": "¿Quién es más probable que soltase un «¡Mientes tú!» a quien le lleve la contraria?",
+   "ref": "La frase que la crónica atribuye a Juan Bravo ante el pregonero."
+  },
+  {
+   "id": "w08",
+   "q": "¿Quién es más probable que forrase la casa entera de pinchos para que se hable de su fachada?",
+   "ref": "Los 617 picos de la Casa de los Picos."
+  },
+  {
+   "id": "w09",
+   "q": "¿Quién es más probable que vendiese su alma con tal de no cargar con la compra?",
+   "ref": "La aguadora de la leyenda del acueducto."
+  },
+  {
+   "id": "w10",
+   "q": "¿Quién es más probable que jurase que su foto inspiró a Disney sin tener ni una prueba?",
+   "ref": "El mito del Alcázar y Disney."
+  },
+  {
+   "id": "w11",
+   "q": "¿Quién es más probable que desmontase un mueble pieza a pieza para montarlo en otra casa (y que sobren tornillos)?",
+   "ref": "El claustro trasladado de la catedral vieja, 1524-1529."
+  },
+  {
+   "id": "w12",
+   "q": "¿Quién es más probable que pusiese un apodo precioso pero totalmente incorrecto?",
+   "ref": "La «reina de las torres bizantinas», que es románica."
+  },
+  {
+   "id": "w13",
+   "q": "¿Quién es más probable que entrase en un club exclusivo y nunca fuese a la primera reunión?",
+   "ref": "Machado, elegido para la RAE en 1927 sin leer su discurso."
+  },
+  {
+   "id": "w14",
+   "q": "¿Quién es más probable que pidiese firmar un pacto por escrito para repartirse el mando a distancia?",
+   "ref": "La Concordia de Segovia, 15 de enero de 1475."
+  },
+  {
+   "id": "w15",
+   "q": "¿Quién es más probable que se atrincherase en su propia torre después de una discusión?",
+   "ref": "El torreón de Lozoya, de la época de las peleas entre linajes."
+  },
+  {
+   "id": "w16",
+   "q": "¿Quién es más probable que anunciase una buena noticia desfilando con un paraguas en alto como si fuera una espada?",
+   "ref": "Gutierre de Cárdenas y la espada desnuda ante Isabel."
+  }
+ ],
+ "dares": [
+  {
+   "id": "d01",
+   "stop": "guiomar",
+   "d": "Foto con el cartel de Segovia-Guiomar diciendo el nombre como poeta enamorado: «Guiooomar…». Diez segundos, que el bus 11 no espera.",
+   "pts": 10
+  },
+  {
+   "id": "d02",
+   "stop": "acueducto",
+   "d": "Beso bajo un arco del acueducto. Hay 167 para elegir: sin foto, no cuenta.",
+   "pts": 20
+  },
+  {
+   "id": "d03",
+   "stop": "acueducto",
+   "d": "Uno es la aguadora y otro el diablo: 30 segundos negociando el alma en susurros dramáticos. Gana quien haga reír primero al otro.",
+   "pts": 15
+  },
+  {
+   "id": "d04",
+   "stop": "acueducto",
+   "d": "Foto junto a la loba de Roma, los dos señalando a Rómulo y Remo con cara de «no son nuestros».",
+   "pts": 10
+  },
+  {
+   "id": "d05",
+   "stop": "mirador",
+   "d": "Selfi de pareja con el acueducto en diagonal, imitando al diablillo del selfi. Cuernos con los dedos opcionales.",
+   "pts": 15
+  },
+  {
+   "id": "d06",
+   "stop": "picos",
+   "d": "Cada uno apuesta cuántos picos tiene una fila. Contadlos: quien más falle lleva la mochila hasta Juan Bravo.",
+   "pts": 15
+  },
+  {
+   "id": "d07",
+   "stop": "sanmartin",
+   "d": "Decid cada uno dos frases sobre vosotros, una verdad y una mentira. El otro debe gritar «¡Mientes tú!» en la falsa, con voz de comunero (bajito).",
+   "pts": 20
+  },
+  {
+   "id": "d08",
+   "stop": "sanmartin",
+   "d": "Bajo el atrio porticado de San Martín, el salón de cotilleo medieval: contaos en 30 segundos el chisme más jugoso de la semana.",
+   "pts": 10
+  },
+  {
+   "id": "d09",
+   "stop": "corpus",
+   "d": "Piedra, papel o tijera al salir: quien pierda llama al otro «Majestad» hasta la Casa de Machado.",
+   "pts": 10
+  },
+  {
+   "id": "d10",
+   "stop": "machado",
+   "d": "Escribid en el móvil un poema de cuatro versos para el otro, firmado con un nombre en clave. Leedlo en voz baja.",
+   "pts": 25
+  },
+  {
+   "id": "d11",
+   "stop": "machado",
+   "d": "Elegid vuestro nombre en clave de pareja, como Guiomar. Hasta el postre, solo podéis llamaros así.",
+   "pts": 15
+  },
+  {
+   "id": "d12",
+   "stop": "comida",
+   "d": "Brindis con la frase más cursi posible dedicada al cochinillo. Si el otro no se ríe, repetís.",
+   "pts": 10
+  },
+  {
+   "id": "d13",
+   "stop": "comida",
+   "d": "Foto en contrapicado: que la torre de San Esteban salga de la cabeza de uno como una corona de 53 metros.",
+   "pts": 15
+  },
+  {
+   "id": "d14",
+   "stop": "plazamayor",
+   "d": "Proclamaos: uno anuncia «¡Castilla tiene reina!» (o rey) con voz de pregonero, a volumen de terraza, no de concierto.",
+   "pts": 20
+  },
+  {
+   "id": "d15",
+   "stop": "plazamayor",
+   "d": "Firmad vuestra propia Concordia: tres normas para el resto del día en las notas del móvil, con la firma de los dos.",
+   "pts": 15
+  },
+  {
+   "id": "d16",
+   "stop": "catedral",
+   "d": "Desde la Plaza Mayor, 15 segundos para contar pináculos de la cabecera. Quien cuente más elige la próxima foto.",
+   "pts": 10
+  },
+  {
+   "id": "d17",
+   "stop": "juderia",
+   "d": "En el mirador de la Puerta de San Andrés, un minuto en silencio, de la mano, mirando El Pinarillo.",
+   "pts": 15
+  },
+  {
+   "id": "d18",
+   "stop": "alcazar",
+   "d": "Silueta de pareja a contraluz con el Alcázar al fondo: beso o corazón con las manos.",
+   "pts": 25
+  },
+  {
+   "id": "d19",
+   "stop": "alcazar",
+   "d": "Uno hace de guía del Alcázar durante 60 segundos y tiene que colar un dato falso. El otro debe cazarlo.",
+   "pts": 20
+  },
+  {
+   "id": "d20",
+   "stop": "vuelta",
+   "d": "Bajando por la calle Real, turnaos para nombrar vuestro momento favorito del día. Sin repetir hasta llegar al Azoguejo.",
+   "pts": 15
+  }
+ ],
+ "hunt": [
+  {
+   "id": "h01",
+   "stop": "guiomar",
+   "find": "El autobús con el rótulo «11 Acueducto»",
+   "hint": "En las dársenas, justo delante del edificio de la estación."
+  },
+  {
+   "id": "h02",
+   "stop": "guiomar",
+   "find": "La sierra de Guadarrama al fondo de las vías",
+   "hint": "Desde los andenes. Acabáis de cruzarla por un túnel de unos 28 km."
+  },
+  {
+   "id": "h03",
+   "stop": "acueducto",
+   "find": "Los agujeros de las pinzas romanas en un sillar",
+   "hint": "Mirad los bloques más bajos: ahí se enganchaban las grúas para subir cada piedra."
+  },
+  {
+   "id": "h04",
+   "stop": "acueducto",
+   "find": "Las hornacinas del tramo más alto",
+   "hint": "Arriba, en el centro: una Virgen y San Sebastián. Debajo, los agujeros de las letras de bronce perdidas."
+  },
+  {
+   "id": "h05",
+   "stop": "mirador",
+   "find": "El canal por donde corría el agua",
+   "hint": "En lo alto del acueducto, casi a la altura de vuestros ojos desde las escaleras."
+  },
+  {
+   "id": "h06",
+   "stop": "mirador",
+   "find": "El punto donde el acueducto se encuentra con la muralla",
+   "hint": "Por aquí entraba el agua en la ciudad: estáis en el Postigo del Consuelo."
+  },
+  {
+   "id": "h07",
+   "stop": "picos",
+   "find": "Un pico convertido en pirámide con sombra propia",
+   "hint": "Poneos en diagonal desde la esquina y dejad que la luz haga el resto."
+  },
+  {
+   "id": "h08",
+   "stop": "picos",
+   "find": "El escudo sobre la puerta",
+   "hint": "Encima de la portada de la casa, entre las puntas de diamante."
+  },
+  {
+   "id": "h09",
+   "stop": "sanmartin",
+   "find": "El estandarte de Juan Bravo",
+   "hint": "La estatua lo alza con un brazo; con la otra mano agarra la espada."
+  },
+  {
+   "id": "h10",
+   "stop": "sanmartin",
+   "find": "El atrio porticado de San Martín",
+   "hint": "Rodea la iglesia por tres lados: el salón social de la Edad Media."
+  },
+  {
+   "id": "h11",
+   "stop": "corpus",
+   "find": "Un capitel con piñas talladas",
+   "hint": "Dentro, en lo alto de los pilares, entre los arcos de herradura."
+  },
+  {
+   "id": "h12",
+   "stop": "corpus",
+   "find": "El torno de las monjas",
+   "hint": "Las clarisas venden por él dulces caseros."
+  },
+  {
+   "id": "h13",
+   "stop": "machado",
+   "find": "La estufa de petróleo del poeta",
+   "hint": "En su habitación, junto a la cama de hierro y la mesa."
+  },
+  {
+   "id": "h14",
+   "stop": "machado",
+   "find": "El busto de Machado",
+   "hint": "En el jardín: copia del que le esculpió Emiliano Barral en 1920."
+  },
+  {
+   "id": "h15",
+   "stop": "comida",
+   "find": "El remate cerámico de la torre de San Esteban",
+   "hint": "Arriba del todo: sustituyó al chapitel de pizarra de la reconstrucción."
+  },
+  {
+   "id": "h16",
+   "stop": "comida",
+   "find": "Los pisos de ventanas de la torre",
+   "hint": "Contadlos: los vanos se van multiplicando según sube."
+  },
+  {
+   "id": "h17",
+   "stop": "plazamayor",
+   "find": "Los relieves románicos reciclados de San Miguel",
+   "hint": "En la fachada de la iglesia, aprovechados del templo ante el que se proclamó Isabel."
+  },
+  {
+   "id": "h18",
+   "stop": "plazamayor",
+   "find": "El bosque de pináculos de la catedral",
+   "hint": "Desde el templete de música, mirad hacia la cabecera, asomando sobre los tejados."
+  },
+  {
+   "id": "h19",
+   "stop": "catedral",
+   "find": "El sepulcro del infante don Pedro",
+   "hint": "Dentro, en la capilla de Santa Catalina. El niño de la leyenda de la niñera."
+  },
+  {
+   "id": "h20",
+   "stop": "catedral",
+   "find": "La lápida de María del Salto",
+   "hint": "En el claustro, el que viajó piedra a piedra desde la catedral vieja."
+  },
+  {
+   "id": "h21",
+   "stop": "juderia",
+   "find": "La Virgen del Socorro en su hornacina",
+   "hint": "En la Puerta de San Andrés: por ella la llaman también Arco del Socorro."
+  },
+  {
+   "id": "h22",
+   "stop": "juderia",
+   "find": "El Pinarillo",
+   "hint": "Desde el mirador, al otro lado del valle: la ladera de pinos del antiguo cementerio judío."
+  },
+  {
+   "id": "h23",
+   "stop": "alcazar",
+   "find": "El cordón franciscano del techo",
+   "hint": "En la Sala del Cordón: el de la leyenda de Alfonso X y el rayo."
+  },
+  {
+   "id": "h24",
+   "stop": "alcazar",
+   "find": "El monumento a Daoíz y Velarde",
+   "hint": "En la plaza, frente a la que fue su academia. Obra de Aniceto Marinas."
+  },
+  {
+   "id": "h25",
+   "stop": "vuelta",
+   "find": "El acueducto con la última luz del día",
+   "hint": "El sol se pone a las 19:43: mirad cómo cambia el color del granito."
+  },
+  {
+   "id": "h26",
+   "stop": "estacion",
+   "find": "Vuestro coche 6, asiento 66",
+   "hint": "Avant 08198 de las 20:18. El billete está en la Wallet."
+  }
+ ],
+ "poses": [
+  {
+   "id": "p01",
+   "img": "img/acueducto-1838.webp",
+   "title": "El mercado del Azoguejo, 1838",
+   "how": "En el Azoguejo, agachaos y encuadrad los arcos subiendo en diagonal. Uno posa sentado delante, como los vendedores del mercado.",
+   "camera": "rear"
+  },
+  {
+   "id": "p02",
+   "img": "img/acueducto-antiguo.webp",
+   "title": "Viajeros del siglo XIX",
+   "how": "Móvil en horizontal y la fila de arcos cruzando la foto de lado a lado. Uno, en una esquina, finge tomar apuntes como un dibujante.",
+   "camera": "rear"
+  },
+  {
+   "id": "p03",
+   "img": "img/segovia-1975.webp",
+   "title": "Plaza Mayor, 1975",
+   "how": "Catedral a la izquierda, Ayuntamiento a la derecha. Uno, de espaldas en el centro y manos en los bolsillos, como el señor del abrigo.",
+   "camera": "rear"
+  },
+  {
+   "id": "p04",
+   "img": "img/sanandres-1865.webp",
+   "title": "Paseo por San Andrés, 1865",
+   "how": "Ante el arco, chaqueta sobre los hombros como capa y bolso al brazo como cesta. Móvil apoyado con temporizador y salid charlando.",
+   "camera": "rear"
+  },
+  {
+   "id": "p05",
+   "img": "img/alcazar-despues.webp",
+   "title": "El Alcázar sin tejados, 1862",
+   "how": "Encuadrad las torres y tapad las agujas con la mano: así quedó tras el fuego. El otro, cara de cadete inocente: «yo no fui».",
+   "camera": "rear"
+  },
+  {
+   "id": "p06",
+   "img": "img/machado-sorolla.webp",
+   "title": "Machado por Sorolla, 1917",
+   "how": "Sentado de tres cuartos y recostado, un brazo en el respaldo y la otra mano colgando. Mirada seria. La pareja sujeta el móvil hacia ti.",
+   "camera": "front"
+  },
+  {
+   "id": "p07",
+   "img": "img/proclamacion-1847.webp",
+   "title": "¡Isabel, reina! (1847)",
+   "how": "Repartíos papeles. La reina: barbilla alta y mano tendida. Gutierre de Cárdenas: paraguas o palo de selfi en alto como espada.",
+   "camera": "front"
+  },
+  {
+   "id": "p08",
+   "img": "img/juanbravo.webp",
+   "title": "Juan Bravo, comunero",
+   "how": "Un brazo arriba con el «estandarte» (chaqueta o bufanda), la otra mano en la espada y una pierna adelantada. El otro dispara desde abajo.",
+   "camera": "rear"
+  }
+ ]
+}
