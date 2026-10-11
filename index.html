@@ -324,6 +324,7 @@ const store = {
   set(k,v){try{localStorage.setItem('sgv-'+k,JSON.stringify(v))}catch(e){}}
 };
 const S = TOUR.stops;
+(function(){ const today=new Date().toDateString(); if(store.get('day',null)!==today){ store.set('day',today); store.set('cur',0); store.set('done',[]); } })();
 let cur = Math.min(store.get('cur',0), S.length-1);
 let done = new Set(store.get('done',[]));
 let tab = store.get('cur',null)==null ? 'plan' : 'stop';
@@ -387,10 +388,12 @@ function addLayers(p, M){
   map.addLayer({id:'route-next',type:'line',source:'route',filter:['==',['get','st'],'next'],paint:{'line-color':'#ffffff','line-width':w(1,2.5),'line-dasharray':[1,2.5],'line-opacity':.9},layout:{'line-cap':'round','line-join':'round'}});
   map.addLayer({id:'road-lbl',type:'symbol',source:'roads',minzoom:15.5,filter:['all',['has','n'],['!',['in',['get','c'],['literal',['footway','path','steps','cycleway','track']]]]],layout:{'symbol-placement':'line','text-field':['get','n'],'text-font':['NotoReg'],'text-size':['interpolate',['linear'],['zoom'],15.5,10,18,13],'text-max-angle':30,'symbol-spacing':300},paint:{'text-color':p.label,'text-halo-color':p.halo,'text-halo-width':1.6}});
 }
+function arrivedCur(){ return cur===0 || done.has(S[cur].id) || !!(typeof nearShown!=='undefined' && nearShown[S[cur].id]); }
+function legIdx(){ return arrivedCur() ? cur : cur-1; }
 function routeFC(){
-  const f=[];
+  const f=[]; const nl=legIdx();
   TOUR.legs.forEach((lg,i)=>{
-    const st = i < cur ? 'done' : (i===cur ? 'next' : 'todo');
+    const st = i < nl ? 'done' : (i===nl ? 'next' : 'todo');
     f.push({type:'Feature',properties:{st},geometry:{type:'LineString',coordinates:lg.coords}});
   });
   return {type:'FeatureCollection',features:f};
@@ -421,10 +424,10 @@ function paintMarkers(){
 }
 function focusStop(anim=true){
   if(!map) return;
-  const s=S[cur], nx=S[cur+1];
+  const s=S[cur], nl=legIdx();
   const pad = sheetPadding();
-  if(nx && TOUR.legs[cur]){
-    const cs = TOUR.legs[cur].coords.concat([[s.lon,s.lat]]);
+  if(TOUR.legs[nl]){
+    const cs = TOUR.legs[nl].coords.concat([[s.lon,s.lat]]);
     const b = cs.reduce((b,c)=>b.extend(c), new maplibregl.LngLatBounds(cs[0],cs[0]));
     map.fitBounds(b,{padding:pad,maxZoom:17.2,duration:anim?900:0});
   } else map.easeTo({center:[s.lon,s.lat],zoom:16.6,padding:pad,duration:anim?900:0});
@@ -529,7 +532,7 @@ function wireStop(s,i){
   const on=$('#chips .on'); if(on) on.scrollIntoView({inline:'center',block:'nearest'});
   wirePlayer(s);
   const r=$('#baRange'); if(r) r.oninput=()=>$('#ba').style.setProperty('--x',r.value+'%');
-  const pn=$('#peekNext'); if(pn) pn.onclick=()=>{setSheet('peek'); focusStop(true)};
+  const pn=$('#peekNext'); if(pn) pn.onclick=()=>{ setSheet('peek'); const lg=TOUR.legs[i]; if(lg && map){ const b=lg.coords.reduce((b,c)=>b.extend(c), new maplibregl.LngLatBounds(lg.coords[0],lg.coords[0])); map.fitBounds(b,{padding:sheetPadding(),maxZoom:17.2,duration:900}); } };
   $('#arrived').onclick=()=>{ if(!done.has(s.id)){ done.add(s.id); store.set('done',[...done]); burst(); }
     if(i<S.length-1){ go(i+1,true); toast('+1 parada · '+done.size+'/'+S.length+' desbloqueadas'); } else { burst(); toast('¡Segovia completada! Buen viaje de vuelta'); } };
 }
@@ -539,16 +542,21 @@ function infoHTML(x){
 }
 function depsHTML(s){
   const n=nowMin(); const list=s.deps.list.map(d=>typeof d==='string'?{t:d}:d).map(d=>({...d,m:toMin(d.t)}));
-  const nx=list.find(d=>d.m>=n-0.5 && !d.bad);
+  const eta = (pos && s===S[cur]) ? (()=>{ const d=hav(pos.lat,pos.lon,s.lat,s.lon); return d<60?0:walkMin(d); })() : 0;
+  const nx=list.find(d=>d.m>=n+eta-0.5 && !d.bad);
   return `<div class="deps"><div class="deps-h"><span>${ICON.bus}</span><div><b>${esc(s.deps.title)}</b><small>${esc(s.deps.note||'')}</small></div></div>
-  <div class="deps-row">${list.map(d=>`<span class="dep${d===nx?' nx':''}${d.m<n-0.5?' gone':''}${d.bad?' bad':''}${d.best?' best':''}">${esc(d.t)}${d===nx&&d.m-n<=90?`<em>en ${Math.max(0,Math.round(d.m-n))} min</em>`:(d.label?`<em>${esc(d.label)}</em>`:'')}</span>`).join('')}</div></div>`;
+  <div class="deps-row">${list.map(d=>`<span class="dep${d===nx?' nx':''}${d.m<n+eta-0.5?' gone':''}${d.bad?' bad':''}${d.best?' best':''}">${esc(d.t)}${d===nx&&d.m-n<=90?`<em>en ${Math.max(0,Math.round(d.m-n))} min${d.label?' · '+esc(d.label):''}</em>`:(d.label?`<em>${esc(d.label)}</em>`:'')}</span>`).join('')}</div></div>`;
 }
 function paceInfo(){
   const n=nowMin(), s=S[cur]; if(!s.time) return null;
   const arr=toMin(TOUR.meta.arrive), end=toMin(TOUR.meta.train);
   if(n<arr-20 || n>end) return null;
   const st=toMin(s.time), nx=S[cur+1], stEnd = nx? toMin(nx.time) - (TOUR.legs[cur]?.min||0) : st+(s.stay||0);
-  if(n<st) return {k:'ok',t:'Vais '+Math.round(st-n)+' min adelantados'};
+  const dH = pos ? hav(pos.lat,pos.lon,s.lat,s.lon) : null;
+  const eta = arrivedCur() ? 0 : (dH==null ? (n<st ? (TOUR.legs[cur-1]?.min||0) : 0) : (dH<60 ? 0 : walkMin(dH)));
+  const a = n + eta;
+  if(a<st-1) return {k:'ok',t:'Vais '+Math.round(st-a)+' min adelantados'};
+  if(n<st) return a<=st+3 ? {k:'ok',t:'Justos: llegad a las '+s.time} : {k:'late',t:'Llegaréis '+Math.round(a-st)+' min tarde'+(s.skip?' · '+s.skip:'')};
   if(n<=stEnd+3) return {k:'ok',t:'Vais a tiempo · quedan '+Math.max(0,Math.round(stEnd-n))+' min aquí'};
   return {k:'late',t:'Vais '+Math.round(n-stEnd)+' min tarde'+(s.skip?' · '+s.skip:'')};
 }
@@ -583,13 +591,14 @@ function planHTML(){
   });
   h += `</ul>`;
   h += TOUR.planInfo.map(infoHTML).join('');
+  h += `<button class="btn ghost offl" id="reset">Reiniciar el recorrido desde la estación</button>`;
   h += `<p class="credits">${esc(TOUR.credits)}</p>`;
   return h;
 }
 function render(){
   const b=$('#body');
   if(tab==='stop'){ b.innerHTML=stopHTML(S[cur],cur); wireStop(S[cur],cur); }
-  else { b.innerHTML=planHTML(); wirePlayer(INTRO); b.querySelectorAll('.stamp').forEach(el=>el.onclick=()=>{ tab='stop'; syncTabs(); go(+el.dataset.i,true); }); const of=$('#offline'); if(of) of.onclick=saveOffline; $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
+  else { b.innerHTML=planHTML(); wirePlayer(INTRO); const rs=$('#reset'); if(rs) rs.onclick=()=>{ if(rs.dataset.armed){ store.set('done',[]); store.set('cur',0); location.reload(); } else { rs.dataset.armed='1'; rs.textContent='Toca otra vez para borrar el progreso'; } }; b.querySelectorAll('.stamp').forEach(el=>el.onclick=()=>{ tab='stop'; syncTabs(); go(+el.dataset.i,true); }); const of=$('#offline'); if(of) of.onclick=saveOffline; $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
   updateDist(); updatePace(); nearCheck();
   $('#progress').innerHTML=S.map((s,i)=>`<i class="${done.has(s.id)?'done':''}${i===cur&&!done.has(s.id)?' cur':''}"></i>`).join('');
 }
@@ -613,9 +622,11 @@ function tick(){
   else if(n<bus){ el.innerHTML='Bus 11 <small>'+T.returnBus+'</small>'; }
   else el.innerHTML='Tren <small>'+T.train+'</small>';
   updatePace();
+  if(tab==='plan' && Math.floor(n)!==tick._m && mode!=='peek'){ tick._m=Math.floor(n); const b=$('#body'), y=b.scrollTop; render(); b.scrollTop=y; }
   if(tab==='stop' && S[cur].deps){ const d=document.querySelector('.deps'); if(d) d.outerHTML=depsHTML(S[cur]); }
 }
-tick._c=0; setInterval(tick,15000);
+tick._c=0; tick._m=-1; setInterval(tick,15000);
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden){ tick(); updateDist(); } });
 
 /* ---------- GEO ---------- */
 const IS_WEB = (()=>{ try{ return window.top===window.self }catch(e){ return false } })();
@@ -643,13 +654,13 @@ function onPos(p){
   updateDist();
   // llegada a la parada actual
   const s=S[cur]; const d=hav(pos.lat,pos.lon,s.lat,s.lon);
-  if(d<40 && !nearShown[s.id]){ nearShown[s.id]=1; toast('¡Habéis llegado: '+s.short+'! Dale al play'); try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){} burst(); const pb=$('#playBtn'); if(pb) pb.classList.add('pulse'); }
+  if(d<40 && !nearShown[s.id]){ nearShown[s.id]=1; refreshRoute(); toast('¡Habéis llegado: '+s.short+'! Dale al play'); try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){} burst(); const pb=$('#playBtn'); if(pb) pb.classList.add('pulse'); }
   nearCheck();
 }
 function nearCheck(){
   const bn=$('#nearBanner'); if(!pos){ bn.hidden=true; return; }
   const s=S[cur]; let best=-1,bd=1e9;
-  S.forEach((t,i)=>{ if(i===cur || (t.lat===s.lat && t.lon===s.lon)) return; const dd=hav(pos.lat,pos.lon,t.lat,t.lon); if(dd<bd){bd=dd;best=i} });
+  S.forEach((t,i)=>{ if(i===cur || i===cur-1 || done.has(t.id) || (t.lat===s.lat && t.lon===s.lon)) return; const dd=hav(pos.lat,pos.lon,t.lat,t.lon); if(dd<bd){bd=dd;best=i} });
   if(best>=0 && bd<35 && hav(pos.lat,pos.lon,s.lat,s.lon)>60){ bn.hidden=false; bn.innerHTML='Estáis en <b>'+esc(S[best].short)+'</b> · Ver parada'; bn.onclick=()=>{ bn.hidden=true; go(best,true); }; }
   else bn.hidden=true;
 }
