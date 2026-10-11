@@ -239,6 +239,29 @@ h3{font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.
 .dep.gone{opacity:.4;text-decoration:line-through}
 .dep.nx{background:var(--accent);color:var(--accent-ink)}
 .dep em{font-style:normal;font-weight:700;font-size:12px;opacity:.9}
+.wx{margin-top:10px;border-radius:var(--r-card);border:1.5px solid var(--line);padding:14px}
+.wx-h{display:flex;gap:12px;align-items:center}
+.wx-h>b{font-family:var(--f-display);font-size:34px;line-height:1;letter-spacing:-.02em}
+.wx-h span{display:block;font-weight:700}
+.wx-h small{display:block;color:var(--muted);font-size:12px}
+.wx-r{display:flex;gap:6px;margin-top:12px;overflow-x:auto}
+.wx-r>div{flex:1;min-width:38px;text-align:center;border-radius:12px;padding:6px 0;background:var(--surface-2)}
+.wx-r>div.on{background:var(--accent);color:var(--accent-ink)}
+.wx-r small{display:block;font-size:11px;opacity:.7;font-weight:600}
+.wx-r b{display:block;font-size:14px}
+.wx-r em{display:block;font-style:normal;font-size:10.5px;font-weight:700;color:var(--t-dato)}
+.wx-r .on em{color:inherit}
+.pass{margin-top:10px;border-radius:var(--r-card);background:var(--surface-2);padding:14px}
+.pass-h{display:flex;justify-content:space-between;align-items:baseline}
+.pass-h b{font-family:var(--f-display);font-size:17px}
+.pass-h span{font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.pass-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:8px;margin-top:10px}
+.stamp{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border-radius:14px;border:1.5px dashed var(--line);color:var(--muted)}
+.stamp span{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;background:var(--surface)}
+.stamp span svg{width:15px;height:15px}
+.stamp small{font-size:10.5px;font-weight:700;line-height:1.1;text-align:center;overflow:hidden;text-overflow:ellipsis;max-width:100%;white-space:nowrap}
+.stamp.on{border-style:solid;border-color:var(--accent);color:var(--fg)}
+.stamp.on span{background:var(--accent);color:var(--accent-ink)}
 .offl{width:100%;justify-content:center;margin-top:10px}
 .offl.done{border-color:var(--ok);color:var(--ok)}
 .confetti{position:fixed;inset:0;pointer-events:none;z-index:20}
@@ -373,7 +396,7 @@ function routeFC(){
 function refreshRoute(){ if(map && map.getSource('route')) map.getSource('route').setData(routeFC()); }
 function initMap(M){
   const p=palette();
-  map = new maplibregl.Map({container:'map',style:styleFor(p),center:[-4.1235,40.9505],zoom:15.3,attributionControl:false,pitchWithRotate:false,dragRotate:false,maxBounds:[[-4.17,40.895],[-4.07,40.972]],minZoom:12.5,maxZoom:19});
+  map = new maplibregl.Map({container:'map',style:styleFor(p),center:[-4.1235,40.9505],zoom:15.3,attributionControl:false,pitchWithRotate:false,dragRotate:false,maxBounds:[[-4.18,40.890],[-4.06,40.985]],minZoom:12.5,maxZoom:19});
   map.touchZoomRotate.disableRotation();
   map.addControl(new maplibregl.AttributionControl({compact:true,customAttribution:'© Overture Maps Foundation · © OpenStreetMap'}));
   map.on('load',()=>{
@@ -530,6 +553,8 @@ function planHTML(){
   const left=leave-n;
   let h = `<div class="status"><div><small>Salid del Alcázar como tarde</small><b>${fmt(leave)}</b></div><div><small>${left>0?'Os quedan':'Vais tarde'}</small><b>${left>0?Math.floor(left/60)+'h '+String(Math.floor(left%60)).padStart(2,'0')+'m':'¡ya!'}</b></div><div><small>Bus 11 al AVE</small><b>${T.returnBus}</b></div><div><small>Tren a Madrid</small><b>${T.train}</b></div></div>`;
   const pc=paceInfo(); if(pc) h += `<div class="pace big ${pc.k}">${esc(pc.t)} · ahora en «${esc(S[cur].short)}»</div>`;
+  h += weatherHTML();
+  h += `<div class="pass"><div class="pass-h"><b>Pasaporte segoviano</b><span>${S.filter(x=>done.has(x.id)).length}/${S.length}</span></div><div class="pass-g">${S.map((x,i)=>`<button class="stamp${done.has(x.id)?' on':''}" data-i="${i}"><span>${KIND_ICON(x)}</span><small>${esc(x.short)}</small></button>`).join('')}</div></div>`;
   if(IS_WEB && 'caches' in window) h += `<button class="btn ghost offl" id="offline">${ICON.check}<span>Guardar todo para usar sin cobertura</span></button>`;
   if(!IS_WEB) h += `<a class="gps" href="${WEB_URL}" target="_blank" rel="noopener"><span>${ICON.nav}</span><div><b>Abrir la versión con GPS</b><small>Se abre en Safari o Chrome con vuestra ubicación en directo. Guardadla en la pantalla de inicio.</small></div></a>`;
   h += playerHTML(INTRO);
@@ -552,7 +577,7 @@ function planHTML(){
 function render(){
   const b=$('#body');
   if(tab==='stop'){ b.innerHTML=stopHTML(S[cur],cur); wireStop(S[cur],cur); }
-  else { b.innerHTML=planHTML(); wirePlayer(INTRO); const of=$('#offline'); if(of) of.onclick=saveOffline; $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
+  else { b.innerHTML=planHTML(); wirePlayer(INTRO); b.querySelectorAll('.stamp').forEach(el=>el.onclick=()=>{ tab='stop'; syncTabs(); go(+el.dataset.i,true); }); const of=$('#offline'); if(of) of.onclick=saveOffline; $('#plan').onclick=e=>{const li=e.target.closest('li[data-i]'); if(li){ tab='stop'; syncTabs(); go(+li.dataset.i,true);} }; }
   updateDist(); updatePace();
   $('#progress').innerHTML=S.map((s,i)=>`<i class="${done.has(s.id)?'done':''}${i===cur&&!done.has(s.id)?' cur':''}"></i>`).join('');
 }
@@ -631,6 +656,24 @@ function locate(){
 $('#btnLocate').onclick=locate;
 $('#btnFit').onclick=()=>{ follow=false; $('#btnLocate').classList.remove('follow'); setSheet('peek'); setTimeout(fitAll,50) };
 
+/* ---------- WEATHER (solo web) ---------- */
+let WX=null;
+const WMO={0:'Despejado',1:'Casi despejado',2:'Nubes y claros',3:'Nublado',45:'Niebla',48:'Niebla',51:'Llovizna',53:'Llovizna',55:'Llovizna',61:'Lluvia débil',63:'Lluvia',65:'Lluvia fuerte',80:'Chubascos',81:'Chubascos',82:'Chubascos fuertes',95:'Tormenta'};
+function weatherHTML(){
+  if(!WX) return '';
+  const hrs=WX.hourly; const now=new Date().getHours();
+  const idx=hrs.time.map((t,i)=>i).filter(i=>{const h=+hrs.time[i].slice(11,13); return h>=12&&h<=20});
+  const cur=hrs.time.findIndex(t=>+t.slice(11,13)===now);
+  const c=cur>=0?cur:idx[0];
+  return `<div class="wx"><div class="wx-h"><b>${Math.round(hrs.temperature_2m[c])}°</b><div><span>${esc(WMO[hrs.weathercode[c]]||'')} en Segovia</span><small>Lluvia ${hrs.precipitation_probability[c]??0}% · datos en directo de Open-Meteo</small></div></div>
+  <div class="wx-r">${idx.map(i=>`<div class="${i===c?'on':''}"><small>${hrs.time[i].slice(11,13)}h</small><b>${Math.round(hrs.temperature_2m[i])}°</b><em style="--p:${hrs.precipitation_probability[i]||0}%">${hrs.precipitation_probability[i]||0}%</em></div>`).join('')}</div></div>`;
+}
+async function loadWeather(){
+  if(!IS_WEB) return;
+  try{ const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=40.948&longitude=-4.118&hourly=temperature_2m,precipitation_probability,weathercode&timezone=Europe%2FMadrid&forecast_days=1');
+    if(!r.ok) return; WX=await r.json(); if(tab==='plan') render(); }catch(e){}
+}
+
 /* ---------- OFFLINE ---------- */
 async function saveOffline(){
   const btn=$('#offline'); const lab=btn.querySelector('span');
@@ -655,7 +698,7 @@ function burst(){
 
 /* ---------- BOOT ---------- */
 syncTabs(); render(); tick(); setSheet('half');
-if(IS_WEB) startGeo();
+if(IS_WEB){ startGeo(); loadWeather(); setInterval(loadWeather, 30*60*1000); }
 (async()=>{
   try{
     if(!window.maplibregl) throw new Error('nolib');
