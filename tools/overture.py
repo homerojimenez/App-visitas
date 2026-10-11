@@ -4,7 +4,8 @@ from shapely import wkb
 from shapely.geometry import mapping, box
 BASE="https://overturemaps-us-west-2.s3.amazonaws.com/"
 REL="release/2026-09-23.1/"
-BB=(-4.1480,40.9330,-4.0990,40.9620)  # xmin,ymin,xmax,ymax old town + margins
+import os
+BB=tuple(map(float,os.environ.get("BB","-4.1480,40.9330,-4.0990,40.9620").split(",")))
 S=requests.Session()
 class RF(io.RawIOBase):
     def __init__(s,url):
@@ -87,8 +88,8 @@ def run(theme,typ,cols,out,simplify=0.0):
     json.dump(fc,open(out,'w'),separators=(',',':'))
     print('wrote',out,len(fc['features']),flush=True)
 which=sys.argv[1]
-if which=='seg': run('transportation','segment',['class','subtype','names'],'seg_raw.json')
+if which=='seg': run('transportation','segment',['class','subtype','names'],os.environ.get('OUT','seg_raw.json'))
 if which=='bld': run('buildings','building',['height'],'bld_raw.json',0.000005)
-if which=='water': run('base','water',['class','subtype','names'],'water_raw.json')
-if which=='lu': run('base','land_use',['class','subtype','names'],'lu_raw.json')
+if which=='water': run('base','water',['class','subtype','names'],os.environ.get('OUT','water_raw.json'))
+if which=='lu': run('base','land_use',['class','subtype','names'],os.environ.get('OUT','lu_raw.json'))
 if which=='lc': run('base','land_cover',['subtype'],'lc_raw.json',0.00002)

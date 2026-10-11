@@ -7,7 +7,9 @@ def feat(f,props):
     g=f['geometry']; g={'type':g['type'],'coordinates':R(g['coordinates'])}
     return {'type':'Feature','geometry':g,'properties':props}
 out={}
-seg=json.load(open(D+'seg_raw.json'))
+import os
+pick=lambda a,b: D+a if os.path.exists(D+a) else D+b
+seg=json.load(open(pick('seg_big.json','seg_raw.json')))
 roads=[]
 for f in seg['features']:
     p=f['properties']; 
@@ -17,9 +19,9 @@ for f in seg['features']:
 out['roads']={'type':'FeatureCollection','features':roads}
 b=json.load(open(D+'bld_raw.json'))
 out['buildings']={'type':'FeatureCollection','features':[feat(f,{}) for f in b['features'] if f['geometry']['type'] in ('Polygon','MultiPolygon')]}
-w=json.load(open(D+'water_raw.json'))
+w=json.load(open(pick('water_big.json','water_raw.json')))
 out['water']={'type':'FeatureCollection','features':[feat(f,{'c':f['properties'].get('subtype') or f['properties'].get('class')}) for f in w['features']]}
-lu=json.load(open(D+'lu_raw.json'))
+lu=json.load(open(pick('lu_big.json','lu_raw.json')))
 out['landuse']={'type':'FeatureCollection','features':[feat(f,{'c':f['properties'].get('class'),'s':f['properties'].get('subtype')}) for f in lu['features'] if f['geometry']['type'] in ('Polygon','MultiPolygon')]}
 lc=json.load(open(D+'lc_raw.json'))
 out['landcover']={'type':'FeatureCollection','features':[feat(f,{'s':f['properties'].get('subtype')}) for f in lc['features'] if f['geometry']['type'] in ('Polygon','MultiPolygon')]}
@@ -49,3 +51,16 @@ for f in seg['features']:
 print('graph',G.number_of_nodes(),G.number_of_edges())
 nodes=list(G.nodes)
 import pickle; pickle.dump(G,open(D+'graph.pkl','wb'))
+GD=nx.Graph()
+drive={'primary','secondary','tertiary','residential','unclassified','living_street','service','trunk','motorway','unknown'}
+for f in seg['features']:
+    p=f['properties']
+    if p.get('subtype')!='road' or p.get('class') not in drive: continue
+    gs=f['geometry']; lines=[gs['coordinates']] if gs['type']=='LineString' else gs['coordinates']
+    k={'primary':.7,'secondary':.75,'trunk':.65,'motorway':.6,'tertiary':.85}.get(p.get('class'),1.0)
+    for L in lines:
+        pts=[(round(c[0],6),round(c[1],6)) for c in L]
+        for a,c in zip(pts,pts[1:]):
+            d=hav(a,c); GD.add_edge(a,c,w=d*k,d=d)
+print('drive graph',GD.number_of_nodes(),GD.number_of_edges())
+pickle.dump(GD,open(D+'graph_drive.pkl','wb'))
