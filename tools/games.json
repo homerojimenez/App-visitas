@@ -288,7 +288,7 @@
   },
   {
    "id": "t23",
-   "stop": "comida",
+   "stop": "machado",
    "q": "¿Cómo apodan a la torre de San Esteban?",
    "opts": [
     "La dama de las torres",
@@ -301,7 +301,7 @@
   },
   {
    "id": "t24",
-   "stop": "comida",
+   "stop": "machado",
    "q": "¿Cuánto mide la torre de San Esteban, la que presume de ser la más alta del románico español?",
    "opts": [
     "Unos 53 m",
@@ -608,14 +608,14 @@
   },
   {
    "id": "v13",
-   "stop": "comida",
+   "stop": "machado",
    "s": "San Esteban fue declarada Monumento Nacional un 13 de diciembre, el mismo día del año en que Isabel se proclamó reina.",
    "truth": true,
    "why": "La Gaceta de Madrid lo publicó el 13 de diciembre de 1896, 422 años después de la proclamación. La historia también hace guiños."
   },
   {
    "id": "v14",
-   "stop": "comida",
+   "stop": "machado",
    "s": "La torre de San Esteban es bizantina.",
    "truth": false,
    "why": "La apodan «reina de las torres bizantinas», pero es románica tardía del siglo XIII. El mote es más poesía que rigor."
@@ -766,7 +766,7 @@
   },
   {
    "id": "y09",
-   "stop": "comida",
+   "stop": "machado",
    "q": "¿En qué año declararon Monumento Nacional la iglesia de San Esteban?",
    "y": 1896,
    "min": 1800,
@@ -985,7 +985,7 @@
   },
   {
    "id": "d13",
-   "stop": "comida",
+   "stop": "machado",
    "d": "Foto en contrapicado: que la torre de San Esteban salga de la cabeza de uno como una corona de 53 metros.",
    "pts": 15
   },
@@ -1119,13 +1119,13 @@
   },
   {
    "id": "h15",
-   "stop": "comida",
+   "stop": "machado",
    "find": "El remate cerámico de la torre de San Esteban",
    "hint": "Arriba del todo: sustituyó al chapitel de pizarra de la reconstrucción."
   },
   {
    "id": "h16",
-   "stop": "comida",
+   "stop": "machado",
    "find": "Los pisos de ventanas de la torre",
    "hint": "Contadlos: los vanos se van multiplicando según sube."
   },
@@ -1188,6 +1188,18 @@
    "stop": "estacion",
    "find": "Vuestro coche 6, asiento 66",
    "hint": "Avant 08198 de las 20:18. El billete está en la Wallet."
+  },
+  {
+   "id": "h27",
+   "stop": "comida",
+   "find": "Un escaparate con cochinillo o con ponche segoviano",
+   "hint": "En la calle de los bares o en las pastelerías de la esquina de la Plaza Mayor."
+  },
+  {
+   "id": "h28",
+   "stop": "comida",
+   "find": "La torre de San Miguel asomando al fondo de la calle",
+   "hint": "Desde la calle Infanta Isabel, mirad hacia la Plaza Mayor."
   }
  ],
  "poses": [
